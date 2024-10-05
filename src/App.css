@@ -1,0 +1,12 @@
+li,
+button {
+  cursor: pointer;
+}
+
+span {
+  pointer-events: none;
+}
+
+button {
+  background: none;
+}
