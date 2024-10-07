@@ -83,9 +83,6 @@ export function PlayerAudio() {
         <div className="controls flex justify-around items-center w-1/2">
           {btns.map(({ content, click }, index) => <button key={index} className="w-7" onClick={click}>{content}</button>)}
         </div>
-        <div dir="rtl" className="info w-full">
-          {passUrl && passUrl.children[1].textContent}
-        </div>
       </div>
       <div className="px-2 pb-2 text-sm flex items-center space-x-2">
         <div className="current-time" >{upTime.ct}</div>
