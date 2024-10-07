@@ -6,7 +6,7 @@ import { Header } from './layout/index';
 import { Quran, Radio } from './pages/index';
 import './App.css';
 export default function App() {
-  const [passReciter, setPassReciter] = useState(false);
+  const [passReciterId, setpassReciterId] = useState(false);
   const [passRewayah, setPassRewayah] = useState(false);
   const [passUrl, setpassUrl] = useState(false);
   const [nextOrPrev, setNextOrPrev] = useState()
@@ -18,8 +18,8 @@ export default function App() {
         <DataContext.Provider
           value={
             {
-              passReciter,
-              setPassReciter,
+              passReciterId,
+              setpassReciterId,
               passRewayah,
               setPassRewayah,
               passUrl,

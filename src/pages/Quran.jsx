@@ -1,29 +1,25 @@
-import { useContext } from "react";
-import { Reciters, Rewayahs, Surahs } from "../components/index";
+import { useContext, useState } from "react";
+import { Reciters, Rewayahs, Surahs, TabSection } from "../components/index";
 import DataContext from "../context/DataContext";
 export function Quran() {
-  const { passReciter, passRewayah, activeComponent, setActiveComponent } = useContext(DataContext)
-  const listTabs = [
-    { target: passReciter, active: "reciters" },
-    { target: passRewayah, active: "rewayahs" },
-  ]
+  const [nameReciter, setNameReciter] = useState("Reciters")
+  const [nameRewayah, setNameRewayah] = useState("Rewayah")
+  const { activeComponent, setActiveComponent } = useContext(DataContext)
   return (
     <section className='Quran'>
-      <nav>
-        <ul className="py-4 text-sm flex items-end space-x-2 space-x-reverse">
-          {listTabs.map(({ target, active }) => (
-            target &&
-            <li
-              key={active}
-              onClick={() => setActiveComponent(active)}
-              className="py-1 px-2 hover:text-gray-500 hover:dark:text-sky-300">
-              - {target.lastChild.textContent}
-            </li>
-          ))}
+      <nav className="py-2">
+        <ul className="flex justify-around">
+          <TabSection title={nameReciter} onClick={() => {
+            setActiveComponent("reciters")
+            setNameRewayah(null)
+            }}/>
+          {activeComponent !== "reciters" && (
+            <TabSection title={nameRewayah} onClick={() => setActiveComponent("rewayahs")} />
+          )}
         </ul>
       </nav>
-      {activeComponent === "reciters" && <Reciters />}
-      {activeComponent === "rewayahs" && <Rewayahs />}
+      {activeComponent === "reciters" && <Reciters setNameReciter={setNameReciter} />}
+      {activeComponent === "rewayahs" && <Rewayahs setNameRewayah={setNameRewayah}/>}
       {activeComponent === "surahs" && <Surahs />}
     </section>
   )

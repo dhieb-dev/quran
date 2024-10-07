@@ -1,5 +1,6 @@
 export { Container } from "./Container";
 export { Nav } from "./Nav";
+export { TabSection } from "./TabSection";
 export { Logo } from "./Logo";
 export { Reciters } from "./Reciters";
 export { Rewayahs } from "./Rewayahs";

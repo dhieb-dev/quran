@@ -1,18 +1,35 @@
 import { useState, useEffect } from "react";
-export const useFetch = (url) => {
+
+export function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    try {
+    const cachedData = sessionStorage.getItem(url);
+
+    if (cachedData) {
+      setData(JSON.parse(cachedData));
+      setLoading(false);
+    } else {
       fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          setData(data)
-          setLoading(false)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
         })
-    } catch (error) {
-      console.log(error)
+        .then((fetchedData) => {
+          setData(fetchedData);
+          setLoading(false);
+          sessionStorage.setItem(url, JSON.stringify(fetchedData));
+        })
+        .catch((error) => {
+          setError(error);
+          setLoading(false);
+        });
     }
-  }, [url, loading]);
-  return { data, loading };
-};
+  }, [url]);
+
+  return { data, loading, error };
+}

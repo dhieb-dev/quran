@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
 import { modeIcon } from "../svgs/mode";
-const rootElement = document.documentElement
+const rootElement = document.documentElement;
+
 export function SwitchMode() {
-  const [switchMode, setSwitchMode] = useState(true)
+  const [switchMode, setSwitchMode] = useState(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    return savedMode === "true";
+  });
   useEffect(() => {
-    switchMode ? rootElement.classList.remove("dark") : rootElement.classList.add("dark")
-  }, [switchMode])
+    if (switchMode) {
+      rootElement.classList.add("dark");
+      localStorage.setItem("darkMode", "true");
+    } else {
+      rootElement.classList.remove("dark");
+      localStorage.setItem("darkMode", "false");
+    }
+  }, [switchMode]);
+
   return (
-    <button onClick={() => setSwitchMode(!switchMode)} className="theme" title="Mode">
-      <span className="block w-7">{switchMode ? modeIcon.moon : modeIcon.sun}</span>
+    <button onClick={() => setSwitchMode(prev => !prev)} className="theme" title="Mode">
+      <span className="block w-7">{switchMode ? modeIcon.sun : modeIcon.moon}</span>
     </button>
-  )
+  );
 }

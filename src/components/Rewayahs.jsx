@@ -3,13 +3,14 @@ import { useFetch } from "../hooks/index";
 import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
 
-export function Rewayahs() {
-  const { passReciter, setPassRewayah, setActiveComponent, currentLang } = useContext(DataContext)
-  const { data, loading } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciter.dataset.id}`)
+export function Rewayahs({setNameRewayah}) {
+  const { passReciterId, setPassRewayah, setActiveComponent, currentLang } = useContext(DataContext)
+  const { data, loading } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciterId}`)
 
   function moshafData(e) {
-    setPassRewayah(e.target);
+    setPassRewayah({surahlist: e.target.dataset.surahlist, server: e.target.dataset.server});
     setActiveComponent("surahs")
+    setNameRewayah(e.target.lastChild.textContent)
   }
 
   return (
