@@ -5,7 +5,9 @@ import { controls } from "../svgs/controls"
 export function PlayerAudio() {
   const { passUrl, setNextOrPrev } = useContext(DataContext)
   const [isPlayer, setIsPlayer] = useState(false)
+  const [name, setName] = useState("-------")
   const [upTime, setUpTime] = useState({})
+  const [showPlayer, setShowPlayer] = useState(true)
   const audioRef = useRef()
   const progressRef = useRef()
 
@@ -29,9 +31,14 @@ export function PlayerAudio() {
     return () => progress.removeEventListener('click', selectTime);
   }, []);
 
+  // Update Name Audio
+  useEffect(() => {
+    if (passUrl) setName(passUrl.children[1].textContent)
+  }, [passUrl])
+
   // Btn Next
   function next() {
-    setNextOrPrev(passUrl.nextSibling)
+    passUrl.nextSibling === null ? setNextOrPrev(passUrl.parentElement.firstElementChild) : setNextOrPrev(passUrl.nextSibling)
   };
 
   // Btn Pause Or Play
@@ -47,8 +54,9 @@ export function PlayerAudio() {
 
   // Btn Prev
   function prev() {
-    setNextOrPrev(passUrl.previousSibling)
+    passUrl.previousSibling === null ? setNextOrPrev(passUrl.parentElement.lastElementChild) : setNextOrPrev(passUrl.previousSibling)
   };
+
   // edit Time & Convert To string
   function editTime(sourceTime) {
     let time = Math.floor(sourceTime);
@@ -70,27 +78,31 @@ export function PlayerAudio() {
       duration: editTime(duration)
     });
   }
-
+  // Data Btns Player
   const btns = [
-    { content: controls.next, click: next },
-    { content: isPlayer ? controls.play : controls.pause, click: passUrl ? playPause : null },
-    { content: controls.prev, click: prev },
+    { content: controls.next, click: next, title: "Next" },
+    { content: isPlayer ? controls.pause : controls.play, click: passUrl ? playPause : null, title: isPlayer ? "Pause" : "Play" },
+    { content: controls.prev, click: prev, title: "Previous" },
   ]
   // Code Jsx
   return (
-    <div dir="ltr" className={`player-audi overflow-hidden shadow-lg fixed bottom-0 left-4 right-4 mb-4 bg-gray-200 dark:bg-black/80 rounded`} >
-      <div className="head p-2 flex" >
+    <div dir="ltr" className="fixed bottom-0 left-4 right-4 mb-4 bg-gray-200 dark:bg-neutral-900/90 rounded" >
+      <div onClick={() => setShowPlayer(!showPlayer)} className="absolute bottom-full left-2 cursor-pointer text-2xl">&#215;</div>
+      {showPlayer && <div className="head p-2 flex justify-between" >
         <div className="controls flex justify-around items-center w-1/2">
-          {btns.map(({ content, click }, index) => <button key={index} className="w-7" onClick={click}>{content}</button>)}
+          {btns.map(({ content, click, title }, index) => <button key={index} title={title} className="w-7" onClick={click}>{content}</button>)}
         </div>
-      </div>
-      <div className="px-2 pb-2 text-sm flex items-center space-x-2">
-        <div className="current-time" >{upTime.ct}</div>
-        <div ref={progressRef} className="progress p-0.5 relative h-2 w-full rounded bg-blue-300 cursor-pointer" >
-          {passUrl && <audio ref={audioRef} src={passUrl.dataset.url} autoPlay onPlay={() => setIsPlayer(true)} onPause={() => setIsPlayer(false)} onTimeUpdate={onPlaying} />}
+        <div className="info">
+          {name}
+        </div>
+      </div>}
+      <div className="px-2 text-sm flex items-center space-x-2">
+        <div className="current-time" >{upTime.ct || "00:00"}</div>
+        <div ref={progressRef} title="Progress Audio" className="progress p-0.5 relative h-2 w-full rounded bg-blue-300 cursor-pointer" >
+          <audio ref={audioRef} src={passUrl.dataset.url} autoPlay type="audio/mpeg" onPlay={() => setIsPlayer(true)} onPause={() => setIsPlayer(false)} onTimeUpdate={onPlaying} />
           <div className="block absulote left-0 h-full rounded bg-black dark:bg-white duration-100" style={{ width: upTime.progress }} ></div>
         </div>
-        <div className="duration text-right" >{upTime.duration}</div>
+        <div className="duration text-right" >{upTime.duration || "00:00"}</div>
       </div>
     </div>
   );

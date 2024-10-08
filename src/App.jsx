@@ -6,9 +6,9 @@ import { Header } from './layout/index';
 import { Quran, Radio } from './pages/index';
 import './App.css';
 export default function App() {
-  const [passReciterId, setpassReciterId] = useState(false);
+  const [passReciterId, setPassReciterId] = useState(false);
   const [passRewayah, setPassRewayah] = useState(false);
-  const [passUrl, setpassUrl] = useState(false);
+  const [passUrl, setPassUrl] = useState(false);
   const [nextOrPrev, setNextOrPrev] = useState()
   const [activeComponent, setActiveComponent] = useState("reciters")
   const [currentLang, setcurrentLang] = useState("ar");
@@ -19,11 +19,11 @@ export default function App() {
           value={
             {
               passReciterId,
-              setpassReciterId,
+              setPassReciterId,
               passRewayah,
               setPassRewayah,
               passUrl,
-              setpassUrl,
+              setPassUrl,
               nextOrPrev,
               setNextOrPrev,
               activeComponent,
@@ -33,13 +33,13 @@ export default function App() {
             }}>
           <Header />
           <Container>
-            <main dir='rtl'>
+            <main dir={`${currentLang === "eng" ? "ltr" : "rtl"}`}>
               <Routes>
                 <Route path='/' element={<Quran />} />
                 <Route path='/radio' element={<Radio />} />
                 <Route path='*' element={<NotFound />} />
               </Routes>
-              <PlayerAudio />
+              {passUrl && <PlayerAudio />}
             </main>
           </Container>
         </DataContext.Provider>

@@ -4,7 +4,7 @@ import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
 import { downlod } from "../svgs/download"
 export function Surahs() {
-  const { passRewayah, setpassUrl, nextOrPrev, currentLang } = useContext(DataContext)
+  const { passRewayah, setPassUrl, nextOrPrev, currentLang } = useContext(DataContext)
   const [surahsList, setSurahsList] = useState()
   const { data, loading } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
   useEffect(() => {
@@ -14,12 +14,12 @@ export function Surahs() {
 
   // when clicked an item from the list
   function surahData(e) {
-    setpassUrl(e.target)
+    setPassUrl(e.target)
   }
   // Event Btns Next And Prev
   useEffect(() => {
-    setpassUrl(nextOrPrev);
-  }, [nextOrPrev, setpassUrl])
+    setPassUrl(nextOrPrev);
+  }, [nextOrPrev, setPassUrl])
   return (
     <div className="suwar">
       {
