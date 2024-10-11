@@ -3,13 +3,13 @@ import { Spinner } from "../components/index"
 import { useFetch } from "../hooks/useFetch";
 import DataContext from "../context/DataContext";
 export const Radio = () => {
-  const { currentLang, setpassUrl , setActiveComponent} = useContext(DataContext)
+  const { currentLang, setPassUrl , setActiveComponent} = useContext(DataContext)
   const { data, loading } = useFetch(`https://mp3quran.net/api/v3/radios?language=${currentLang}`)
   useEffect(() => {
     setActiveComponent("reciters")
   }, [setActiveComponent])
   const handleClick = (e) => {
-    setpassUrl(e.target);
+    setPassUrl(e.target);
   }
   return (
     <section>

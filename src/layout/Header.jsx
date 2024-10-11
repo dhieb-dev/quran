@@ -2,9 +2,9 @@ import { Nav, SwitchMode, Container, Langs } from "../components/index";
 
 export function Header() {
   return (
-    <header className="relative py-3 bg-teal-50 dark:bg-gray-900">
+    <header className="relative py-3">
       <Container>
-        <div className="flex justify-between items-center">
+        <div className="relative flex justify-between items-center space-x-6">
           <Nav />
           <Langs />
           <SwitchMode />

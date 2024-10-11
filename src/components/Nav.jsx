@@ -30,7 +30,7 @@ export function Nav() {
   const navBarStyle = ({ isActive }) => `flex items-end ${isActive && 'text-sky-500 fill-blue-300'}`;
 
   return (
-    <nav className="flex justify-between items-center">
+    <nav className="flex justify-between items-center w-full">
       <Logo/>
       {madia &&
         <button ref={btnRef} className="w-12" onClick={() => setShow(!show)}>
@@ -39,7 +39,7 @@ export function Nav() {
           </svg>
         </button>}
       {(!madia || show) &&
-        <ul dir="rtl" className="flex md:space-x-4 md:space-x-reverse max-md:p-4 max-md:absolute max-md:top-full max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-4 max-md:bg-teal-50 max-md:dark:bg-gray-900 max-md:border-b-2 max-md:w-full">
+        <ul dir="rtl" className="w-full flex justify-center md:space-x-4 md:space-x-reverse max-md:p-4 max-md:absolute max-md:top-full max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-4">
           {nav.map(({ title, link, ico }) => (
             <li key={title}>
               <NavLink to={link} className={navBarStyle}>

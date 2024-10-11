@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Container, NotFound, PlayerAudio } from './components/index';
+import { Container, IsOnline, NotFound, PlayerAudio } from './components/index';
 import DataContext from "./context/DataContext";
 import { Header } from './layout/index';
 import { Quran, Radio } from './pages/index';
@@ -12,9 +12,11 @@ export default function App() {
   const [nextOrPrev, setNextOrPrev] = useState()
   const [activeComponent, setActiveComponent] = useState("reciters")
   const [currentLang, setcurrentLang] = useState("ar");
+  const [search, setSearch] = useState([]);
+  const [resultSearch, setResultSearch] = useState([]);
   return (
     <BrowserRouter>
-      <div className='App bg-neutral-50 dark:bg-neutral-950 dark:text-neutral-50 min-h-screen'>
+      <div className='App bg-neutral-50 dark:bg-neutral-900 dark:text-white min-h-screen'>
         <DataContext.Provider
           value={
             {
@@ -30,6 +32,10 @@ export default function App() {
               setActiveComponent,
               currentLang,
               setcurrentLang,
+              search,
+              setSearch,
+              resultSearch,
+              setResultSearch
             }}>
           <Header />
           <Container>
@@ -41,6 +47,7 @@ export default function App() {
               </Routes>
               {passUrl && <PlayerAudio />}
             </main>
+        <IsOnline />
           </Container>
         </DataContext.Provider>
       </div>

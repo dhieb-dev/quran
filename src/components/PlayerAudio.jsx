@@ -6,7 +6,7 @@ export function PlayerAudio() {
   const { passUrl, setNextOrPrev } = useContext(DataContext)
   const [isPlayer, setIsPlayer] = useState(false)
   const [name, setName] = useState("-------")
-  const [upTime, setUpTime] = useState({})
+  const [upTime, setUpTime] = useState({progress: 0})
   const [showPlayer, setShowPlayer] = useState(true)
   const audioRef = useRef()
   const progressRef = useRef()
@@ -67,7 +67,7 @@ export function PlayerAudio() {
 
   // Time
   function onPlaying() {
-    const duration = audioRef.current.duration;
+    const duration = audioRef.current.duration  === Infinity ? 0 : audioRef.current.duration;    
     const ct = audioRef.current.currentTime;
     if (!duration || duration <= 0) {
       return;

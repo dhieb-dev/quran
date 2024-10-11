@@ -9,4 +9,6 @@ export { Langs } from "./Langs";
 export { SwitchMode } from "./SwitchMode";
 export { PlayerAudio } from "./PlayerAudio";
 export { Spinner } from "./Spinner";
+export { InputSearch } from "./InputSearch";
 export { NotFound } from "./NotFound";
+export { IsOnline } from "./IsOnline";

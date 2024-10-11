@@ -4,14 +4,19 @@ import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
 import { downlod } from "../svgs/download"
 export function Surahs() {
-  const { passRewayah, setPassUrl, nextOrPrev, currentLang } = useContext(DataContext)
-  const [surahsList, setSurahsList] = useState()
+  const { passRewayah, setPassUrl, nextOrPrev, currentLang, setSearch, resultSearch } = useContext(DataContext)
+  const [surahs, setSurahs] = useState()
   const { data, loading } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
   useEffect(() => {
-    if (data && passRewayah) setSurahsList(passRewayah.surahlist.split(",").map(item => data?.suwar.find(surah => surah.id === +item)))
-    return () => setSurahsList(false)
-  }, [data, passRewayah])
-
+    if (data && passRewayah) {
+      const surahsFilter = passRewayah.surahlist.split(",").map(item => data?.suwar.find(surah => surah.id === +item))
+      setSurahs(surahsFilter)
+      setSearch(surahsFilter)
+    }
+  }, [data, passRewayah, setSearch])
+  useEffect(() => {
+    setSurahs(resultSearch)
+  }, [resultSearch])
   // when clicked an item from the list
   function surahData(e) {
     setPassUrl(e.target)
@@ -27,7 +32,7 @@ export function Surahs() {
           <Spinner className="spinner-surahs" /> :
           <div className="flex justify-between flex-wrap">
             {
-              surahsList?.map(surah => {
+              surahs?.map(surah => {
                 return (
                   <button
                     key={surah.id}

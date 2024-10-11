@@ -18,8 +18,8 @@ export function SwitchMode() {
   }, [switchMode]);
 
   return (
-    <button onClick={() => setSwitchMode(prev => !prev)} className="theme" title="Mode">
-      <span className="block w-7">{switchMode ? modeIcon.sun : modeIcon.moon}</span>
+    <button className="theme p-0.5 w-[64px] rounded-full border-2 border-gray-200" onClick={() => setSwitchMode(prev => !prev)} title="Mode">
+      <span className={`block w-[24px] rounded-full shadow-[inset_0px_0px_20px__yellow] ${switchMode && 'translate-x-full shadow-none'}`}>{modeIcon.sun}</span>
     </button>
   );
 }

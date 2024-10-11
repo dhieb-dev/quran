@@ -1,11 +1,23 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
 import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
 
 export function Rewayahs({ setNameRewayah }) {
-  const { passReciterId, setPassRewayah, setActiveComponent, currentLang } = useContext(DataContext)
+  const { passReciterId, setPassRewayah, setActiveComponent, currentLang, setSearch, resultSearch  } = useContext(DataContext)
   const { data, loading } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciterId}`)
+  const [rewayahs, setReawayahs] = useState()
+
+  useEffect(() => {
+    if (data) {
+      setReawayahs(data.reciters[0].moshaf)
+      setSearch(data.reciters[0].moshaf)
+    }
+  }, [data, setSearch])
+
+  useEffect(() => {
+    setReawayahs(resultSearch)
+  }, [resultSearch])
 
   function moshafData(e) {
     setPassRewayah({ surahlist: e.target.dataset.surahlist, server: e.target.dataset.server });
@@ -20,7 +32,7 @@ export function Rewayahs({ setNameRewayah }) {
           <Spinner className="spinner-riwayahs" /> :
           <div>
             {
-              data?.reciters[0].moshaf.map((moshaf, index) => (
+              rewayahs.map((moshaf, index) => (
                 <button
                   key={index}
                   data-surahlist={moshaf.surah_list}
