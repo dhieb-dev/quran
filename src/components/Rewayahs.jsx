@@ -39,8 +39,8 @@ export function Rewayahs({ setNameRewayah }) {
                   data-server={moshaf.server}
                   onClick={moshafData}
                   className="px-4 py-2 mb-2 w-full flex bg-backgroundItem bg-fixed bg-cover bg-gray-50 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                  <span className="p-1 w-6 h-6 ml-4 text-sm bg-gray-200 dark:bg-zinc-950 rounded-full grid place-content-center">{index + 1}</span>
-                  <span>{moshaf.name}</span>
+                  <span className="font-bold">{index + 1} -</span>
+                  <span className="mx-4">{moshaf.name}</span>
                 </button>
               ))}
           </div>

@@ -16,7 +16,8 @@ export default function App() {
   const [resultSearch, setResultSearch] = useState([]);
   return (
     <BrowserRouter>
-      <div className='App bg-neutral-50 dark:bg-neutral-900 dark:text-white min-h-screen'>
+      <div className='App bg-neutral-50/70 dark:bg-neutral-900/90 dark:text-white min-h-screen'>
+        <img className='fixed top-0 left-0 -z-[1] object-cover w-full h-full' src={require('./static/images/bg-main.gif')} alt="" />
         <DataContext.Provider
           value={
             {
@@ -47,7 +48,7 @@ export default function App() {
               </Routes>
               {passUrl && <PlayerAudio />}
             </main>
-        <IsOnline />
+            <IsOnline />
           </Container>
         </DataContext.Provider>
       </div>

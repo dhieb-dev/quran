@@ -7,8 +7,8 @@ export function Quran() {
   const { activeComponent, setActiveComponent } = useContext(DataContext)
   return (
     <section className='Quran'>
-      <div className="flex justify-between items-center mb-4">
-        <nav className="py-2">
+      <div className="flex justify-between items-center my-3">
+        <nav>
           <ul className="text-sm flex justify-around space-x-3 space-x-reverse">
             <TabSection title={nameReciter} onClick={() => {
               setActiveComponent("reciters")

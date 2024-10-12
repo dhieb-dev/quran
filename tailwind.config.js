@@ -3,15 +3,15 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
+  darkMode: "class",
   content: [
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
-       backgroundImage: {"backgroundItem": "url('./static/images/bg-pattern.png')"},
+      backgroundImage: { "backgroundItem": "url('./static/images/bg-pattern.png')" },
     },
-  darkMode: "class",
   },
   plugins: [],
 }

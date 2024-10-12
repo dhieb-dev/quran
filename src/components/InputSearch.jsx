@@ -21,7 +21,7 @@ export const InputSearch = () => {
     <div className="search">
       <input
         ref={inputRef}
-        className="my-1.5 border-2 border-gray-500 dark:border-gray-200 px-3 outline-none py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-900"
+        className="border-2 border-gray-500 dark:border-gray-200 px-3 outline-none py-1 rounded-full bg-zinc-100 dark:bg-zinc-900"
         onChange={handleSearch}
         type="text"
         placeholder="البحث"
