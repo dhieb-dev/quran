@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: "class",
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   content: [
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -9,6 +11,7 @@ module.exports = {
     extend: {
        backgroundImage: {"backgroundItem": "url('./static/images/bg-pattern.png')"},
     },
+  darkMode: "class",
   },
   plugins: [],
 }
