@@ -30,7 +30,7 @@ export function Nav() {
   const navBarStyle = ({ isActive }) => `flex items-end ${isActive && 'text-sky-500 fill-blue-300'}`;
 
   return (
-    <nav className="flex justify-between items-center w-full">
+    <nav className="relative flex justify-between items-center w-full">
       <Logo/>
       {madia &&
         <button ref={btnRef} className="w-10" onClick={() => setShow(!show)}>
