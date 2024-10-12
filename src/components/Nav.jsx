@@ -33,7 +33,7 @@ export function Nav() {
     <nav className="flex justify-between items-center w-full">
       <Logo/>
       {madia &&
-        <button ref={btnRef} className="w-12" onClick={() => setShow(!show)}>
+        <button ref={btnRef} className="w-10" onClick={() => setShow(!show)}>
           <svg className="pointer-events-none" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path className={`${show ? 'stroke-red-500' : 'stroke-black dark:stroke-white'}`} d="M5 8H19M5 16H19M3 12H21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
