@@ -36,7 +36,7 @@ export function Reciters({ setNameReciter }) {
               key={reciter.id}
               data-id={reciter.id}
               onClick={() => getId(reciter.id, reciter.name)}
-              className="px-4 py-2 mb-2 w-full flex md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+              className={`${false && "hidden"} px-4 py-2 mb-2 w-full flex md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded`}>
               <span className="font-bold">{index + 1} - </span>
               <span className="mx-4">{reciter.name}</span>
             </button>))
