@@ -18,7 +18,7 @@ export const InputSearch = () => {
   };
 
   return (
-    <div className="search">
+    <div className="search mr-auto ml-0">
       <input
         ref={inputRef}
         className="border-2 border-gray-500 dark:border-gray-200 px-3 outline-none py-1 rounded-full bg-zinc-100 dark:bg-zinc-900"

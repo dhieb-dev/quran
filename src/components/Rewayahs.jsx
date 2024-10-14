@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
 import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
+import Values from "../context/Values";
 
-export function Rewayahs({ setNameRewayah }) {
-  const { passReciterId, setPassRewayah, setActiveComponent, currentLang, setSearch, resultSearch  } = useContext(DataContext)
+export function Rewayahs() {
+  const { passReciterId, setPassRewayah, currentLang, setSearch, resultSearch  } = useContext(DataContext)
+  const { setNameRewayah, setActiveComponent  } = useContext(Values)
   const { data, loading } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciterId}`)
   const [rewayahs, setReawayahs] = useState()
 

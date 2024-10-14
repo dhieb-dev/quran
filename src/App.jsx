@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Container, IsOnline, NotFound, PlayerAudio } from './components/index';
+import { BrowserRouter } from 'react-router-dom';
+import { Container, IsOnline, PlayerAudio } from './components/index';
 import DataContext from "./context/DataContext";
-import { Header } from './layout/index';
-import { Quran, Radio } from './pages/index';
+import { Header, Main } from './layout/index';
 import './App.css';
 export default function App() {
   const [passReciterId, setPassReciterId] = useState(false);
   const [passRewayah, setPassRewayah] = useState(false);
   const [passUrl, setPassUrl] = useState(false);
   const [nextOrPrev, setNextOrPrev] = useState()
-  const [activeComponent, setActiveComponent] = useState("reciters")
   const [currentLang, setcurrentLang] = useState("ar");
   const [search, setSearch] = useState([]);
   const [resultSearch, setResultSearch] = useState([]);
@@ -29,8 +27,6 @@ export default function App() {
               setPassUrl,
               nextOrPrev,
               setNextOrPrev,
-              activeComponent,
-              setActiveComponent,
               currentLang,
               setcurrentLang,
               search,
@@ -40,14 +36,8 @@ export default function App() {
             }}>
           <Header />
           <Container>
-            <main dir={`${currentLang === "eng" ? "ltr" : "rtl"}`}>
-              <Routes>
-                <Route path='/' element={<Quran />} />
-                <Route path='/radio' element={<Radio />} />
-                <Route path='*' element={<NotFound />} />
-              </Routes>
-              {passUrl && <PlayerAudio />}
-            </main>
+            <Main />
+            {passUrl && <PlayerAudio />}
             <IsOnline />
           </Container>
         </DataContext.Provider>

@@ -18,8 +18,8 @@ export function SwitchMode() {
   }, [switchMode]);
 
   return (
-    <button className="theme p-0.5 w-[60px] rounded-full border-2 border-gray-400" onClick={() => setSwitchMode(prev => !prev)} title="Mode">
-      <span className={`block w-[22px] rounded-full shadow-[inset_0px_0px_20px__yellow] ${switchMode && 'translate-x-full shadow-none'}`}>{modeIcon.sun}</span>
+    <button className="theme p-[1px] rounded-full min-w-16 border-2 border-gray-400" onClick={() => setSwitchMode(prev => !prev)} title="Mode">
+      <span className={`block rounded-full h-6 w-6 shadow-[inset_0px_0px_20px__yellow] ${switchMode && 'mr-0 ml-auto shadow-none'}`}>{modeIcon.sun}</span>
     </button>
   );
 }

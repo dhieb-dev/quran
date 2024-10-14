@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react"
+import { MinMax } from "./index";
 import DataContext from "../context/DataContext"
 import { controls } from "../svgs/controls"
 
@@ -86,31 +87,30 @@ export function PlayerAudio() {
   ]
   // Code Jsx
   return (
-    <div dir="ltr" className={`${!showPlayer ? "w-10 h-10 rounded-full" : "w-auto"} fixed bottom-0 left-4 right-4 mb-4 bg-gray-100 dark:bg-neutral-800 rounded`} >
-      <div className={`${showPlayer ? "w-10 h-10" : "w-7 h-7"} absolute top-0 left-0 rounded-full grid place-items-center`}>
-        {!showPlayer && <button onClick={() => setShowPlayer(!showPlayer)} className="absolute -top-5 left-3 w-4 h-4 text-2xl bg-blue-400 cursor-pointer rounded-full"></button>}
-        {showPlayer ?
-          <button onClick={() => setShowPlayer(!showPlayer)} className="w-4 h-4 text-2xl bg-blue-400 cursor-pointer rounded-full"></button> :
-          <button onClick={playPause} className="w-10">{isPlayer ? controls.pause : controls.play}</button>
-        }
-      </div>
-      <div className={`${!showPlayer && "hidden"}`}>
-        <div className="head p-2 flex justify-between " >
+    <div dir="ltr" className={`${!showPlayer ? "w-10 bg-transparent rounded-full" : "px-2 py-1 space-y-2"} fixed bottom-0 left-4 right-4 mb-4 bg-gray-100 dark:bg-neutral-800 rounded`} >
+      <div className="flex justify-between">
+        {showPlayer && <MinMax signal={showPlayer} onClick={() => setShowPlayer(!showPlayer)} />}
+        {!showPlayer &&
+          <div className="absolute bottom-0 flex flex-col items-center">
+            <MinMax signal={showPlayer} onClick={() => setShowPlayer(!showPlayer)} />
+            <button onClick={playPause} className="w-10 mt-2">{isPlayer ? controls.pause : controls.play}</button>
+          </div>}
+        {showPlayer && <>
           <div className="controls flex justify-around items-center w-1/2">
             {btns.map(({ content, click, title }, index) => <button key={index} title={title} className="w-7" onClick={click}>{content}</button>)}
           </div>
           <div className="info">
             {name}
           </div>
+        </>}
+      </div>
+      <div className={`${showPlayer ? "flex" : "hidden"} text-sm flex items-center space-x-2`}>
+        <div className="current-time" >{upTime.ct || "00:00"}</div>
+        <div ref={progressRef} title="Progress Audio" className="progress relative h-2 w-full rounded bg-blue-300 cursor-pointer" >
+          {passUrl && <audio ref={audioRef} src={passUrl.dataset.url} autoPlay type="audio/mpeg" onPlay={() => setIsPlayer(true)} onPause={() => setIsPlayer(false)} onTimeUpdate={onPlaying} />}
+          <div className="absulote left-0 h-full rounded bg-black dark:bg-white duration-100" style={{ width: upTime.progress }} ></div>
         </div>
-        <div className="px-2 text-sm flex items-center space-x-2">
-          <div className="current-time" >{upTime.ct || "00:00"}</div>
-          <div ref={progressRef} title="Progress Audio" className="progress relative h-2 w-full rounded bg-blue-300 cursor-pointer" >
-            <audio ref={audioRef} src={passUrl.dataset.url} autoPlay type="audio/mpeg" onPlay={() => setIsPlayer(true)} onPause={() => setIsPlayer(false)} onTimeUpdate={onPlaying} />
-            <div className="absulote left-0 h-full rounded bg-black dark:bg-white duration-100" style={{ width: upTime.progress }} ></div>
-          </div>
-          <div className="duration text-right" >{upTime.duration || "00:00"}</div>
-        </div>
+        <div className="duration text-right" >{upTime.duration || "00:00"}</div>
       </div>
     </div>
   );

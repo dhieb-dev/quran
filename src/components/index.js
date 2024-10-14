@@ -1,6 +1,5 @@
 export { Container } from "./Container";
 export { Nav } from "./Nav";
-export { TabSection } from "./TabSection";
 export { Logo } from "./Logo";
 export { Reciters } from "./Reciters";
 export { Rewayahs } from "./Rewayahs";
@@ -12,3 +11,5 @@ export { Spinner } from "./Spinner";
 export { InputSearch } from "./InputSearch";
 export { NotFound } from "./NotFound";
 export { IsOnline } from "./IsOnline";
+export { MinMax } from "./MinMax";
+export { Tabs } from "./Tabs";

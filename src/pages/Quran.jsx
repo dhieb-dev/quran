@@ -1,26 +1,12 @@
-import { useContext, useState } from "react";
-import { InputSearch, Reciters, Rewayahs, Surahs, TabSection } from "../components/index";
-import DataContext from "../context/DataContext";
+import { useContext } from "react";
+import { Reciters, Rewayahs, Surahs } from "../components/index";
+import Values from "../context/Values";
 export function Quran() {
-  const [nameReciter, setNameReciter] = useState("القارئ")
-  const [nameRewayah, setNameRewayah] = useState("الرواية")
-  const { activeComponent, setActiveComponent } = useContext(DataContext)
+  const { activeComponent } = useContext(Values)
   return (
     <section className='Quran'>
-      <div className="flex justify-between items-center my-3">
-        <nav>
-          <ul className="text-sm flex justify-around space-x-3 space-x-reverse">
-            <TabSection title={nameReciter} onClick={() => {
-              setActiveComponent("reciters")
-              setNameRewayah(null)
-            }} />
-            {activeComponent !== "reciters" && <TabSection title={nameRewayah} onClick={() => setActiveComponent("rewayahs")} />}
-          </ul>
-        </nav>
-        <InputSearch />
-      </div>
-      {activeComponent === "reciters" && <Reciters setNameReciter={setNameReciter} />}
-      {activeComponent === "rewayahs" && <Rewayahs setNameRewayah={setNameRewayah} />}
+      {activeComponent === "reciters" && <Reciters />}
+      {activeComponent === "rewayahs" && <Rewayahs />}
       {activeComponent === "surahs" && <Surahs />}
     </section>
   )
