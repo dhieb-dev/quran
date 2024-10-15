@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { useFetch } from "../hooks/index";
+import { useElementInView, useFetch } from "../hooks/index";
 import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
 import Values from "../context/Values";
 
 export function Rewayahs() {
-  const { passReciterId, setPassRewayah, currentLang, setSearch, resultSearch  } = useContext(DataContext)
-  const { setNameRewayah, setActiveComponent  } = useContext(Values)
+  const { passReciterId, setPassRewayah, currentLang, setSearch, resultSearch } = useContext(DataContext)
+  const { setNameRewayah, setActiveComponent } = useContext(Values)
   const { data, loading } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciterId}`)
   const [rewayahs, setReawayahs] = useState()
 
@@ -26,7 +26,7 @@ export function Rewayahs() {
     setActiveComponent("surahs")
     setNameRewayah(e.target.lastChild.textContent)
   }
-
+  const { targetRef } = useElementInView()
   return (
     <div className="moshaf">
       {
@@ -36,11 +36,12 @@ export function Rewayahs() {
             {
               rewayahs.map((moshaf, index) => (
                 <button
+                  ref={el => targetRef.current[index] = el}
                   key={index}
                   data-surahlist={moshaf.surah_list}
                   data-server={moshaf.server}
                   onClick={moshafData}
-                  className="px-4 py-2 mb-2 w-full flex bg-backgroundItem bg-fixed bg-cover bg-gray-50 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                  className="px-4 opacity-0 scale-50 mt-10 duration-300 py-2 mb-2 w-full flex bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   <span className="font-bold">{index + 1} -</span>
                   <span className="mx-4">{moshaf.name}</span>
                 </button>

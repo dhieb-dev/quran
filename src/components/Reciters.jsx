@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { useFetch } from "../hooks/index"
+import { useElementInView, useFetch } from "../hooks/index"
 import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
 import Values from "../context/Values"
@@ -27,7 +27,7 @@ export function Reciters() {
     setActiveComponent("rewayahs")
     setNameReciter(reciterName)
   }
-
+  const {targetRef} = useElementInView()
   return (
     <div className="reciters" >
       {loading ?
@@ -35,10 +35,11 @@ export function Reciters() {
         <div className="flex justify-between flex-wrap">
           {reciters?.map((reciter, index) => (
             <button
+              ref={el => targetRef.current[index] = el}
               key={reciter.id}
               data-id={reciter.id}
               onClick={() => getId(reciter.id, reciter.name)}
-              className="px-4 py-2 mb-2 w-full flex md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+              className="px-4 opacity-0 scale-50 mt-10 duration-300 py-2 mb-2 w-full flex md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
               <span className="font-bold">{index + 1} - </span>
               <span className="mx-4">{reciter.name}</span>
             </button>))

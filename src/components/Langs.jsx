@@ -26,7 +26,7 @@ export function Langs() {
         {language.language}
       </button>
       {(showList && data) &&
-        <ul className="h-[400px] overflow-y-auto absolute top-full right-0 p-2 rounded bg-teal-50 dark:bg-gray-900" >
+        <ul className="h-[400px] overflow-y-auto absolute top-full z-10 right-0 p-2 rounded bg-teal-50 dark:bg-gray-900" >
           {data?.language.map(lang => <li key={lang.locale} onClick={() => setcurrentLang(lang.locale)} className="mb-1">{lang.language}</li>)}
         </ul>}
     </div>

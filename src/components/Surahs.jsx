@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { useFetch } from "../hooks/index"
+import { useElementInView, useFetch } from "../hooks/index"
 import { Spinner } from "./index"
 import DataContext from "../context/DataContext"
 import { downlod } from "../svgs/download"
@@ -25,6 +25,8 @@ export function Surahs() {
   useEffect(() => {
     setPassUrl(nextOrPrev);
   }, [nextOrPrev, setPassUrl])
+  const { targetRef } = useElementInView()
+
   return (
     <div className="suwar">
       {
@@ -32,15 +34,16 @@ export function Surahs() {
           <Spinner className="spinner-surahs" /> :
           <div className="flex justify-between flex-wrap">
             {
-              surahs?.map(surah => {
+              surahs?.map((surah, index) => {
                 return (
                   <button
+                    ref={el => targetRef.current[index] = el}
                     key={surah.id}
                     data-url={`${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`}
                     onClick={surahData}
-                    className="flex justify-between items-center px-4 py-2 mb-2 w-full md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-50 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                    <span className="font-bold">{surah.id}</span> 
-                    <span className="mx-'">{surah.name}</span>
+                    className="px-4 opacity-0 scale-50 mt-10 duration-300  py-2 mb-2 w-full flex justify-between md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                    <span className="font-bold">{surah.id}</span>
+                    <span>{surah.name}</span>
                     <a download={surah.name} href={`${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`}>
                       {downlod.downlod}
                     </a>

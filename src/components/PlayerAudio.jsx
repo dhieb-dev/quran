@@ -68,9 +68,11 @@ export function PlayerAudio() {
 
   // Time
   function onPlaying() {
-    const duration = audioRef.current.duration === Infinity ? 0 : audioRef.current.duration;
+    const duration = audioRef.current.duration
     const ct = audioRef.current.currentTime;
-    if (!duration || duration <= 0) {
+    console.log(ct);
+    
+    if (!duration || duration === Infinity) {
       return;
     }
     setUpTime({
