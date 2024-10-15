@@ -41,7 +41,7 @@ export function Surahs() {
                     key={surah.id}
                     data-url={`${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`}
                     onClick={surahData}
-                    className="px-4 opacity-0 scale-50 duration-300  py-2 mb-2 w-full flex justify-between md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                    className="px-4 duration-300  py-2 mb-2 w-full flex justify-between md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                     <span className="font-bold">{surah.id}</span>
                     <span>{surah.name}</span>
                     <a download={surah.name} href={`${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`}>
