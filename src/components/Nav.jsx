@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { Logo } from "./Logo"
+import { useClickOutside, useResizeObserver } from "../hooks"
 const mediaQuery = window.matchMedia("(max-width: 768px)")
 const nav = [
   { title: "القرآن الكريم", link: "/", ico: require('../static/images/quran.png') },
@@ -10,28 +11,21 @@ export function Nav() {
   const [show, setShow] = useState(false)
   const [madia, setMedia] = useState(mediaQuery.matches)
   const btnRef = useRef()
-
+  const matches = useResizeObserver(768)
+  useClickOutside(btnRef, () => {
+    if (!matches) setShow(false)
+  })
   useEffect(() => {
-    function handlerMedia() {
-      if (mediaQuery.matches) {
-        setMedia(true)
-        document.documentElement.addEventListener('click', (e) => {
-          if (e.target !== btnRef.current) setShow(false)
-        })
-      } else {
-        setMedia(false)
-      }
+    if (!matches) {
+      setMedia(true)
+    } else {
+      setMedia(false)
     }
-    handlerMedia()
-    mediaQuery.addEventListener("change", handlerMedia)
-    return () => mediaQuery.removeEventListener("change", handlerMedia)
-  }, []);
-
+  }, [matches]);
   const navBarStyle = ({ isActive }) => `flex items-end ${isActive && 'text-sky-500 fill-blue-300'}`;
-
   return (
     <nav className="flex justify-between items-center w-full">
-      <Logo/>
+      <Logo />
       {madia &&
         <button ref={btnRef} className="w-10" onClick={() => setShow(!show)}>
           <svg className="pointer-events-none" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -3,7 +3,7 @@ export const MinMax = ({ signal, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="w-7 h-7">
+      className="w-6 h-6">
       {signal ? minMax.minimize : minMax.maximize}
     </button>
   );

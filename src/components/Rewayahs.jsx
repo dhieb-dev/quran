@@ -41,7 +41,7 @@ export function Rewayahs() {
                   data-surahlist={moshaf.surah_list}
                   data-server={moshaf.server}
                   onClick={moshafData}
-                  className="px-4 duration-300 py-2 mb-2 w-full flex bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+                  className="px-4 duration-500 py-2 mb-2 w-full flex bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   <span className="font-bold">{index + 1} -</span>
                   <span className="mx-4">{moshaf.name}</span>
                 </button>
