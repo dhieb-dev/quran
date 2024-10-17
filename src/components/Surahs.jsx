@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { useElementInView, useFetch } from "../hooks/index"
-import { Spinner } from "./index"
+import { ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
-import { downlod } from "../svgs/download"
 export function Surahs() {
   const { passRewayah, setPassUrl, nextOrPrev, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const [surahs, setSurahs] = useState()
@@ -29,28 +28,19 @@ export function Surahs() {
 
   return (
     <div className="suwar">
-      {
-        loading ?
-          <Spinner className="spinner-surahs" /> :
-          <div className="flex justify-between flex-wrap">
-            {
-              surahs?.map((surah, index) => {
-                return (
-                  <button
-                    ref={el => targetRef.current[index] = el}
-                    key={surah.id}
-                    data-url={`${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`}
-                    onClick={surahData}
-                    className="px-4 duration-500  py-2 mb-2 w-full flex justify-between md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                    <span className="font-bold">{surah.id}</span>
-                    <span>{surah.name}</span>
-                    <a download={surah.name} href={`${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`}>
-                      {downlod.downlod}
-                    </a>
-                  </button>
-                )
-              })}
-          </div>
+      {loading ?
+        <Spinner className="spinner-surahs" /> :
+        <div className="flex justify-between flex-wrap">
+          {surahs?.map((surah, index) => (
+            <ItemList
+              index={index}
+              key={index}
+              ref={el => targetRef.current[index] = el}
+              item={surah}
+              dataAttributes={{ url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3` }}
+              click={surahData} />
+          ))}
+        </div>
       }
     </div>
   )

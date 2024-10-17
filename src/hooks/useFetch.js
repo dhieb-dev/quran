@@ -6,23 +6,20 @@ export function useFetch(url) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+    const getData = async (urlData) => {
+      try {
+        const res = await fetch(urlData)
+        const fetchData = await res.json()
+        if (fetchData) {
+          setData(fetchData)
+          setLoading(false)
         }
-        return response.json();
-      })
-      .then((fetchedData) => {
-        setData(fetchedData);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
-      });
-      // console.log(error);
-      
+      } catch (error) {
+        setLoading(false)
+        setError(error)
+      }
+    }
+    getData(url)
   }, [url]);
   return { data, loading, error };
 }

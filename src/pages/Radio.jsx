@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Spinner } from "../components/index"
+import { ItemList, Spinner } from "../components/index"
 import { useFetch } from "../hooks/useFetch";
 import DataContext from "../context/DataContext";
 import Values from "../context/Values";
@@ -34,18 +34,16 @@ export const Radio = () => {
           <Spinner className="spinner-radio" /> :
           <div className="flex justify-between flex-wrap">
             {radios.map((radio, index) => (
-              <button
+              <ItemList
+                index={index}
+                key={index}
                 ref={el => targetRef.current[index] = el}
-                key={radio.id}
-                data-url={radio.url}
-                onClick={handleClick}
-                className="px-4 duration-500 py-2 mb-2 w-full flex md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-                <span className="font-bold">{index + 1} - </span>
-                <span className="mx-4">{radio.name}</span>
-              </button>
+                item={radio}
+                dataAttributes={{ url: radio.url }}
+                click={handleClick} />
             ))}
           </div>}
-      </div >
+      </div>
     </section>
   )
 }

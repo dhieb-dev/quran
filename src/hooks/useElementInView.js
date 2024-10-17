@@ -6,15 +6,15 @@ export const useElementInView = () => {
   useEffect(() => {
     const option = {
       root: null,
-      marginRoot: "100px",
+      rootMargin: "100px",
       threshold: 0,
     }
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.remove("opacity-0", "scale-x-75", "rotate-[8deg]")
+          entry.target.classList.remove("in-view")
         } else {
-          entry.target.classList.add("opacity-0", "scale-x-75", "rotate-[8deg]")
+          entry.target.classList.add("in-view")
         }
       })
     }, option);

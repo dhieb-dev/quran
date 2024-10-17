@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react"
 import { useElementInView, useFetch } from "../hooks/index"
-import { Spinner } from "./index"
+import { ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
 import Values from "../context/Values"
 
 export function Reciters() {
   const { setPassReciterId, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const { setNameReciter, setActiveComponent } = useContext(Values)
-  const { data, loading } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}`)
+  const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}`)
   const [reciters, setReciters] = useState()
 
   useEffect(() => {
@@ -15,7 +15,8 @@ export function Reciters() {
       setReciters(data.reciters)
       setSearch(data.reciters)
     }
-  }, [data, setSearch])
+    console.log(error);
+  }, [data, setSearch, error])
 
   useEffect(() => {
     setReciters(resultSearch)
@@ -27,23 +28,21 @@ export function Reciters() {
     setActiveComponent("rewayahs")
     setNameReciter(reciterName)
   }
-  const {targetRef} = useElementInView()
+  const { targetRef } = useElementInView()
   return (
     <div className="reciters" >
       {loading ?
         <Spinner className="spinner-reciters" /> :
         <div className="flex justify-between flex-wrap">
           {reciters?.map((reciter, index) => (
-            <button
+            <ItemList
+              index={index}
+              key={index}
               ref={el => targetRef.current[index] = el}
-              key={reciter.id}
-              data-id={reciter.id}
-              onClick={() => getId(reciter.id, reciter.name)}
-              className="px-4 duration-500 py-2 mb-2 w-full flex md:w-[48%] lg:w-[32%] bg-backgroundItem bg-fixed bg-cover bg-gray-100 dark:bg-neutral-900 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
-              <span className="font-bold">{index + 1} - </span>
-              <span className="mx-4">{reciter.name}</span>
-            </button>))
-          }
+              item={reciter}
+              dataAttributes={reciter.id}
+              click={() => getId(reciter.id, reciter.name)} />
+          ))}
         </div>
       }
     </div >
