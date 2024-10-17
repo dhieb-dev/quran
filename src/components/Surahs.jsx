@@ -33,7 +33,7 @@ export function Surahs() {
         <div className="flex justify-between flex-wrap">
           {surahs?.map((surah, index) => (
             <ItemList
-              index={index}
+              index={surah.id}
               key={index}
               ref={el => targetRef.current[index] = el}
               item={surah}
