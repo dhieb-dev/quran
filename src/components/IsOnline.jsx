@@ -6,7 +6,10 @@ export const IsOnline = () => {
   const navigate = useNavigate()
   const online = () => {
     setIsOnline('Internet online')
-    setTimeout(() => navigate(0), 1000)
+    setTimeout(() => {
+      window.location.reload()
+      setIsOnline(false)
+    }, 1000)
   }
   const offline = () => {
     setIsOnline('Internet offline!')
@@ -21,7 +24,7 @@ export const IsOnline = () => {
   })
   return (
     <>
-      {isOnline && <div className="px-3 py-1.5 rounded-lg bg-rose-200 dark:bg-gray-700 border-2 border-gray-400 dark:border-rose-200 fixed bottom-9">{isOnline}</div>}
+      {isOnline && <div className="px-3 py-1.5 rounded-full bg-rose-200 dark:bg-gray-700 border-2 border-gray-400 dark:border-rose-200 fixed left-1/2 -translate-x-1/2 bottom-24">{isOnline}</div>}
     </>
   )
 }

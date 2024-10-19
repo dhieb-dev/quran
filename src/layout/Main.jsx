@@ -11,7 +11,7 @@ export const Main = () => {
   const [nameRewayah, setNameRewayah] = useState(null)
   const { currentLang } = useContext(DataContext)
   return (
-    <main dir={`${currentLang === "eng" ? "ltr" : "rtl"}`} className="pb-20">
+    <main dir={`${currentLang === "eng" ? "ltr" : "rtl"}`} className="relative pb-20">
       <Values.Provider 
       value={{
         activeComponent,

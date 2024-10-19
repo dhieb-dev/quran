@@ -6,7 +6,7 @@ export const UpperBar = () => {
   const { activeComponent } = useContext(Values)
   return (
     <div className="flex justify-between items-center my-3">
-      {activeComponent === "reciters" || "rewayahs" && <Tabs />}
+      {activeComponent === "reciters" || ("rewayahs" && <Tabs />)}
       <InputSearch />
     </div>
   );

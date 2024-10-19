@@ -12,9 +12,9 @@ export const useElementInView = () => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.remove("in-view")
+          entry.target.classList.remove("opacity-10")
         } else {
-          entry.target.classList.add("in-view")
+          entry.target.classList.add("opacity-10")
         }
       })
     }, option);

@@ -90,7 +90,7 @@ export function PlayerAudio() {
 
   // JSX Code
   return (
-    <div dir="ltr" className={`${!showPlayer ? "w-10 bg-transparent" : "px-2 py-1 space-y-2"} duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gray-100 dark:bg-neutral-800 rounded`} >
+    <div dir="ltr" className={`${!showPlayer ? "w-10 bg-transparent" : "px-2 py-1 space-y-2"} duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gray-100 dark:bg-slate-800 rounded`} >
       <div className="flex justify-between">
         {showPlayer ? (
           <>

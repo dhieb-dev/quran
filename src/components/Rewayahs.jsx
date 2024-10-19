@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { useElementInView, useFetch } from "../hooks/index";
-import { ItemList, Spinner } from "./index"
+import { useFetch } from "../hooks/index";
+import { Error, ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
 import Values from "../context/Values";
 
 export function Rewayahs() {
   const { passReciterId, setPassRewayah, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const { setNameRewayah, setActiveComponent } = useContext(Values)
-  const { data, loading } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciterId}`)
+  const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciterId}`)
   const [rewayahs, setReawayahs] = useState()
 
   useEffect(() => {
@@ -26,21 +26,22 @@ export function Rewayahs() {
     setActiveComponent("surahs")
     setNameRewayah(e.target.lastChild.textContent)
   }
-  const { targetRef } = useElementInView()
+
   return (
     <div className="moshaf">
       {loading ?
         <Spinner className="spinner-riwayahs" /> :
         <div>
-          {rewayahs.map((moshaf, index) => (
-            <ItemList
-              key={index}
-              index={index}
-              ref={el => targetRef.current[index] = el}
-              item={moshaf}
-              dataAttributes={{ surahlist: moshaf.surah_list, server: moshaf.server }}
-              click={moshafData} />
-          ))}
+          {error ?
+            <Error /> :
+            rewayahs.map((moshaf, index) => (
+              <ItemList
+                key={index}
+                index={index}
+                item={moshaf}
+                dataAttributes={{ surahlist: moshaf.surah_list, server: moshaf.server }}
+                click={moshafData} />
+            ))}
         </div>
       }
     </div >

@@ -33,7 +33,7 @@ export function Nav() {
           </svg>
         </button>}
       {(!madia || show) &&
-        <ul dir="rtl" className="w-full flex justify-center md:space-x-4 md:space-x-reverse max-md:bg-neutral-50 max-md:dark:bg-neutral-900 max-md:p-4 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-4">
+        <ul dir="rtl" className="w-full flex justify-center rounded md:space-x-4 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-slate-900 max-md:p-4 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-4">
           {nav.map(({ title, link, ico }) => (
             <li key={title}>
               <NavLink to={link} className={navBarStyle}>

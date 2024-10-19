@@ -14,8 +14,8 @@ export default function App() {
   const [resultSearch, setResultSearch] = useState([]);
   return (
     <BrowserRouter>
-      <div className='App bg-neutral-50/70 dark:bg-neutral-900/90 dark:text-white min-h-screen'>
-        <img className='fixed top-0 left-0 -z-[1] w-full h-full' src={require('./static/images/bg-main.jpeg')} alt="" />
+      <div
+        className='App relative dark:text-white min-h-screen before:fixed before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-tr before:from-slate-300 before:to-slate-50 dark:before:from-neutral-950 dark:before:to-slate-900'>
         <DataContext.Provider
           value={
             {

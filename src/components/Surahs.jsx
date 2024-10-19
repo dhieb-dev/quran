@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react"
-import { useElementInView, useFetch } from "../hooks/index"
-import { ItemList, Spinner } from "./index"
+import { useFetch } from "../hooks/index"
+import { Error, ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
 export function Surahs() {
   const { passRewayah, setPassUrl, nextOrPrev, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const [surahs, setSurahs] = useState()
-  const { data, loading } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
+  const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
   useEffect(() => {
     if (data && passRewayah) {
       const surahsFilter = passRewayah.surahlist.split(",").map(item => data?.suwar.find(surah => surah.id === +item))
@@ -24,22 +24,22 @@ export function Surahs() {
   useEffect(() => {
     setPassUrl(nextOrPrev);
   }, [nextOrPrev, setPassUrl])
-  const { targetRef } = useElementInView()
 
   return (
     <div className="suwar">
       {loading ?
         <Spinner className="spinner-surahs" /> :
-        <div className="flex justify-between flex-wrap">
-          {surahs?.map((surah, index) => (
-            <ItemList
-              index={surah.id -1}
-              key={index}
-              ref={el => targetRef.current[index] = el}
-              item={surah}
-              dataAttributes={{ url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3` }}
-              click={surahData} />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {error ?
+            <Error /> :
+            surahs.map((surah, index) => (
+              <ItemList
+                index={surah.id}
+                key={index}
+                item={surah}
+                dataAttributes={{ url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3` }}
+                click={surahData} />
+            ))}
         </div>
       }
     </div>
