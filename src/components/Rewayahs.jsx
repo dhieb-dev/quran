@@ -31,18 +31,18 @@ export function Rewayahs() {
     <div className="moshaf">
       {loading ?
         <Spinner className="spinner-riwayahs" /> :
-        <div>
-          {error ?
-            <Error /> :
-            rewayahs.map((moshaf, index) => (
+        error ?
+          <Error /> :
+          <div>
+            {rewayahs.map((moshaf, index) => (
               <ItemList
                 key={index}
                 index={index}
                 item={moshaf}
                 dataAttributes={{ surahlist: moshaf.surah_list, server: moshaf.server }}
-                click={moshafData} />
-            ))}
-        </div>
+                click={moshafData} />))
+            }
+          </div>
       }
     </div >
   )

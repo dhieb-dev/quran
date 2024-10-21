@@ -5,7 +5,8 @@ import { useClickOutside, useResizeObserver } from "../hooks"
 const mediaQuery = window.matchMedia("(max-width: 768px)")
 const nav = [
   { title: "القرآن الكريم", link: "/", ico: require('../static/images/quran.png') },
-  { title: "الراديو", link: "/radio", ico: require('../static/images/radio.png') },
+  { title: "الإذاعات", link: "/radio", ico: require('../static/images/radio.png') },
+  { title: "متصفح القرآن", link: "/browse_quran", ico: require('../static/images/radio.png') },
 ]
 export function Nav() {
   const [show, setShow] = useState(false)

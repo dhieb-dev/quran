@@ -8,7 +8,7 @@ export function Reciters() {
   const { setPassReciterId, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const { setNameReciter, setActiveComponent } = useContext(Values)
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}`)
-  const [reciters, setReciters] = useState()
+  const [reciters, setReciters] = useState([])
 
   useEffect(() => {
     if (data) {
@@ -31,10 +31,10 @@ export function Reciters() {
     <div className="reciters" >
       {loading ?
         <Spinner className="spinner-reciters" /> :
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {error ?
-            <Error /> :
-            reciters.map((reciter, index) => (
+        error ?
+          <Error /> :
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {reciters.map((reciter, index) => (
               <ItemList
                 index={index}
                 key={index}
@@ -42,7 +42,7 @@ export function Reciters() {
                 dataAttributes={reciter.id}
                 click={() => getId(reciter.id, reciter.name)} />
             ))}
-        </div>
+          </div>
       }
     </div >
   )

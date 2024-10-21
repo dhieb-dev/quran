@@ -29,18 +29,18 @@ export function Surahs() {
     <div className="suwar">
       {loading ?
         <Spinner className="spinner-surahs" /> :
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {error ?
-            <Error /> :
-            surahs.map((surah, index) => (
+        error ?
+          <Error /> :
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {surahs.map((surah, index) => (
               <ItemList
                 index={surah.id}
                 key={index}
                 item={surah}
                 dataAttributes={{ url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3` }}
-                click={surahData} />
-            ))}
-        </div>
+                click={surahData} />))
+            }
+          </div>
       }
     </div>
   )

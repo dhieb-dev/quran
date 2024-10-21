@@ -30,18 +30,19 @@ export const Radio = () => {
       <div className="radios" >
         {loading ?
           <Spinner className="spinner-radio" /> :
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {error ?
-              <Error /> :
-              radios.map((radio, index) => (
+          error ?
+            <Error /> :
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {radios.map((radio, index) => (
                 <ItemList
                   index={index}
                   key={index}
                   item={radio}
                   dataAttributes={{ url: radio.url }}
-                  click={handleClick} />
-              ))}
-          </div>}
+                  click={handleClick} />))
+              }
+            </div>
+        }
       </div>
     </section>
   )

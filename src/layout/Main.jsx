@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Quran, Radio } from '../pages/index';
+import { Quran, Radio, BrowseQuran } from '../pages/index';
 import { NotFound } from '../components/index';
 import { useContext, useState } from "react";
 import DataContext from "../context/DataContext";
@@ -25,6 +25,7 @@ export const Main = () => {
         <Routes>
           <Route path='/' element={<Quran />} />
           <Route path='/radio' element={<Radio />} />
+          <Route path='/browse_quran' element={<BrowseQuran/>} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Values.Provider>
