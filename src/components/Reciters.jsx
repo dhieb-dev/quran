@@ -28,12 +28,12 @@ export function Reciters() {
     setNameReciter(reciterName)
   }
   return (
-    <div className="reciters" >
+    <>
       {loading ?
-        <Spinner className="spinner-reciters" /> :
+        <Spinner /> :
         error ?
           <Error /> :
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="reciters grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {reciters.map((reciter, index) => (
               <ItemList
                 index={index}
@@ -44,6 +44,6 @@ export function Reciters() {
             ))}
           </div>
       }
-    </div >
+    </>
   )
 }

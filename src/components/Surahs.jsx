@@ -26,12 +26,12 @@ export function Surahs() {
   }, [nextOrPrev, setPassUrl])
 
   return (
-    <div className="suwar">
+    <>
       {loading ?
-        <Spinner className="spinner-surahs" /> :
+        <Spinner /> :
         error ?
           <Error /> :
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="suwar grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {surahs.map((surah, index) => (
               <ItemList
                 index={surah.id}
@@ -42,6 +42,6 @@ export function Surahs() {
             }
           </div>
       }
-    </div>
+    </>
   )
 }

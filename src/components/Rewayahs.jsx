@@ -28,9 +28,9 @@ export function Rewayahs() {
   }
 
   return (
-    <div className="moshaf">
+    <>
       {loading ?
-        <Spinner className="spinner-riwayahs" /> :
+        <Spinner/> :
         error ?
           <Error /> :
           <div>
@@ -44,6 +44,6 @@ export function Rewayahs() {
             }
           </div>
       }
-    </div >
+    </>
   )
 }
