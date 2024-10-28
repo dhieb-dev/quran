@@ -2,11 +2,9 @@ import { useContext, useEffect, useState } from "react"
 import { useFetch } from "../hooks/index"
 import { Error, ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
-import Values from "../context/Values"
 
-export function Reciters() {
-  const { setPassReciterId, currentLang, setSearch, resultSearch } = useContext(DataContext)
-  const { setNameReciter, setActiveComponent } = useContext(Values)
+export function Reciters({ setActiveComponent }) {
+  const { setPassReciter, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}`)
   const [reciters, setReciters] = useState([])
 
@@ -23,9 +21,8 @@ export function Reciters() {
 
   // When Clicked  
   function getId(reciterId, reciterName) {
-    setPassReciterId(reciterId)
+    setPassReciter({ id: reciterId, name: reciterName })
     setActiveComponent("rewayahs")
-    setNameReciter(reciterName)
   }
   return (
     <>
@@ -33,7 +30,7 @@ export function Reciters() {
         <Spinner /> :
         error ?
           <Error /> :
-          <div className="reciters grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ul className="reciters grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {reciters.map((reciter, index) => (
               <ItemList
                 index={index}
@@ -42,7 +39,7 @@ export function Reciters() {
                 dataAttributes={reciter.id}
                 click={() => getId(reciter.id, reciter.name)} />
             ))}
-          </div>
+          </ul>
       }
     </>
   )

@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Container, IsOnline, PlayerAudio } from './components/index';
+import { Container, IsOnline } from './components/index';
 import DataContext from "./context/DataContext";
 import { Header, Main } from './layout/index';
 import './App.css';
 export default function App() {
-  const [passReciterId, setPassReciterId] = useState(false);
+  const [passReciter, setPassReciter] = useState(false);
   const [passRewayah, setPassRewayah] = useState(false);
-  const [passUrl, setPassUrl] = useState(false);
+  const [passAudio, setPassAudio] = useState(false);
   const [nextOrPrev, setNextOrPrev] = useState()
+  const [activeComponent, setActiveComponent] = useState("reciters")
+
   const [currentLang, setcurrentLang] = useState("ar");
   const [search, setSearch] = useState([]);
   const [resultSearch, setResultSearch] = useState([]);
@@ -19,13 +21,15 @@ export default function App() {
         <DataContext.Provider
           value={
             {
-              passReciterId,
-              setPassReciterId,
+              passReciter,
+              setPassReciter,
               passRewayah,
               setPassRewayah,
-              passUrl,
-              setPassUrl,
+              passAudio,
+              setPassAudio,
               nextOrPrev,
+              activeComponent,
+              setActiveComponent,
               setNextOrPrev,
               currentLang,
               setcurrentLang,
@@ -37,7 +41,6 @@ export default function App() {
           <Header />
           <Container>
             <Main />
-            {passUrl && <PlayerAudio />}
             <IsOnline />
           </Container>
         </DataContext.Provider>

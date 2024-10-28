@@ -5,8 +5,8 @@ const effectLoding = [
 ]
 export const Spinner = () => {
   return (
-    <div className="flex justify-center items-center h-40 space-x-4 space-x-reverse">
-      {effectLoding.map(({ delay , message}, index) => <div key={index} className="h-4 w-4 bg-gradient-to-tr to-slate-700 from-neutral-100 dark:to-slate-200 dark:from-slate-900 rounded-full animate-spin" style={delay}>{message}</div>)}
+    <div className="flex justify-center items-center h-40">
+      {effectLoding.map(({ delay , message}, index) => <div key={index} className="h-4 w-4 mx-2 bg-gradient-to-tr to-slate-700 from-neutral-100 dark:to-slate-200 dark:from-slate-900 rounded-full animate-ping grid place-content-center" style={delay}></div>)}
     </div>
   )
 }

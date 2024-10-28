@@ -1,13 +1,13 @@
 import { useContext } from "react";
-import { Reciters, Rewayahs, Surahs } from "../components/index";
-import Values from "../context/Values";
+import { Reciters, Rewayahs, Surahs } from "../components";
+import DataContext from "../context/DataContext";
 export function Quran() {
-  const { activeComponent } = useContext(Values)
+  const {activeComponent, setActiveComponent} = useContext(DataContext)
   return (
     <section className='Quran'>
-      {activeComponent === "reciters" && <Reciters />}
-      {activeComponent === "rewayahs" && <Rewayahs />}
-      {activeComponent === "surahs" && <Surahs />}
+      {activeComponent === "reciters" && <Reciters setActiveComponent={setActiveComponent}/>}
+      {activeComponent === "rewayahs" && <Rewayahs setActiveComponent={setActiveComponent}/>}
+      {activeComponent === "surahs" && <Surahs setActiveComponent={setActiveComponent}/>}
     </section>
   )
 }

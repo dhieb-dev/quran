@@ -2,12 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
 import { Error, ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
-import Values from "../context/Values";
 
-export function Rewayahs() {
-  const { passReciterId, setPassRewayah, currentLang, setSearch, resultSearch } = useContext(DataContext)
-  const { setNameRewayah, setActiveComponent } = useContext(Values)
-  const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciterId}`)
+export function Rewayahs({setActiveComponent}) {
+  const { passReciter, setPassRewayah, currentLang, setSearch, resultSearch } = useContext(DataContext)
+  const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciter.id}`)
   const [rewayahs, setReawayahs] = useState()
 
   useEffect(() => {
@@ -20,29 +18,27 @@ export function Rewayahs() {
   useEffect(() => {
     setReawayahs(resultSearch)
   }, [resultSearch])
-
-  function moshafData(e) {
-    setPassRewayah({ surahlist: e.target.dataset.surahlist, server: e.target.dataset.server });
+  function moshafData(surahlist, server, name) {
+    setPassRewayah({ surahlist, server, name });
     setActiveComponent("surahs")
-    setNameRewayah(e.target.lastChild.textContent)
   }
 
   return (
     <>
       {loading ?
-        <Spinner/> :
+        <Spinner /> :
         error ?
           <Error /> :
-          <div>
+          <ul>
             {rewayahs.map((moshaf, index) => (
               <ItemList
                 key={index}
                 index={index}
                 item={moshaf}
                 dataAttributes={{ surahlist: moshaf.surah_list, server: moshaf.server }}
-                click={moshafData} />))
-            }
-          </div>
+                click={(e) => moshafData(e.target.dataset.surahlist, e.target.dataset.server, e.target.lastChild.textContent)} />
+            ))}
+          </ul>
       }
     </>
   )

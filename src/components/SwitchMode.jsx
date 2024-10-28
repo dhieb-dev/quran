@@ -13,7 +13,7 @@ export function SwitchMode() {
       localStorage.setItem("darkMode", "true");
     } else {
       rootElement.classList.remove("dark");
-      localStorage.setItem("darkMode", "false");
+      localStorage.removeItem("darkMode", "true");
     }
   }, [switchMode]);
 
@@ -22,4 +22,4 @@ export function SwitchMode() {
       <span className={`block rounded-full h-6 w-6 shadow-[inset_0px_0px_20px__yellow] ${switchMode && 'mr-0 ml-auto shadow-none'}`}>{modeIcon.sun}</span>
     </button>
   );
-}
+};
