@@ -9,7 +9,7 @@ export const Tabs = () => {
   }
   return (
     <nav>
-      <ul className="text-sm flex justify-around space-x-3 space-x-reverse">
+      <ul className="text-sm flex justify-around">
         {passReciter.name &&
           <li
             className="py-1.5 px-3 mx-1.5 bg-white hover:bg-neutral-400/20 dark:bg-black hover:dark:bg-neutral-200/20 rounded-full"
