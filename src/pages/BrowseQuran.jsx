@@ -4,15 +4,21 @@ import { useFetch } from "../hooks";
 import DataContext from "../context/DataContext";
 
 export const BrowseQuran = () => {
-  const { currentLang } = useContext(DataContext)
+  const { passAudio, currentLang } = useContext(DataContext)
   const [namesSuwar, setNamesSuwar] = useState([])
   const [startPage, setStartPage] = useState(1)
   const [rewayah, setRewayah] = useState("hafs")
+  const [coordination, setCoordination] = useState(false)
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
 
   useEffect(() => {
     if (data) setNamesSuwar(data.suwar);
   }, [data, namesSuwar])
+  useEffect(() => {
+    if (passAudio && coordination) {
+      setStartPage(passAudio.dataset.startpage)
+    }
+  }, [coordination, passAudio])
   function getPages(e) {
     const startPageNum = e.target.options[e.target.selectedIndex].value;
     setStartPage(startPageNum)
@@ -36,17 +42,22 @@ export const BrowseQuran = () => {
           <Error /> :
           <section className="browse-quran" >
             <div className="selects">
-              <select className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded" onChange={getPages}>
-                {namesSuwar.map((surah) => <option key={surah.id} value={surah.start_page}>{surah.name}</option>)}
-              </select>
-              <select className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded" onChange={getRewayah}>
-                {riwayat.map((rewayah, index) => <option key={index} value={rewayah.value}>{rewayah.name}</option>)}
-              </select>
+              {!coordination && <>
+                <select className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded" onChange={getPages}>
+                  {namesSuwar.map((surah) => <option key={surah.id} value={surah.start_page}>{surah.name}</option>)}
+                </select>
+                <select className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded" onChange={getRewayah}>
+                  {riwayat.map((rewayah, index) => <option key={index} value={rewayah.value}>{rewayah.name}</option>)}
+                </select>
+              </>}
+              {passAudio && <button onClick={() => setCoordination(!coordination)} className="w-5 h-5 rounded-full bg-red-400">
+                {coordination ? <p>yes</p> : <p>no</p>}
+              </button>}
             </div>
             <div className="photo-gellory my-4 min-h-[520px] w-full flex justify-center ">
               <img className="p-2 rounded w-[600px] bg-slate-50" src={`https://maknoon.com/quran/${rewayah}/${startPage}.svgz`} alt="" />
             </div>
-            <div className="flex justify-center space-x-4 space-x-reverse">
+            <div dir="rtl" className="flex justify-center space-x-4 space-x-reverse">
               <button onClick={() => setStartPage(prev => prev === 1 ? 604 : prev - 1)} className="w-6 h-6 bg-red-400 rounded-full p-[1px]"><img src="https://maknoon.com/quran/back.svg" alt="" /></button>
               <span>{startPage}</span>
               <button onClick={() => setStartPage(prev => prev === 604 ? 1 : prev + 1)} className="w-6 h-6 bg-red-400 rounded-full p-[1px]"><img src="https://maknoon.com/quran/forward.svg" alt="" /></button>

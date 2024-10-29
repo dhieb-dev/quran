@@ -4,7 +4,7 @@ import DataContext from "../context/DataContext";
 import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
-  const { passAudio, setNextOrPrev } = useContext(DataContext);
+  const { passAudio,setPassAudio } = useContext(DataContext);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioName, setAudioName] = useState("-------");
   const [upTime, setUpTime] = useState({ progress: 0 });
@@ -66,12 +66,12 @@ export function PlayerAudio() {
   // Navigation Functions
   const next = () => {
     const nextSibling = passAudio.nextSibling || passAudio.parentElement.firstElementChild;
-    setNextOrPrev(nextSibling);
+    setPassAudio(nextSibling);
   };
 
   const prev = () => {
     const prevSibling = passAudio.previousSibling || passAudio.parentElement.lastElementChild;
-    setNextOrPrev(prevSibling);
+    setPassAudio(prevSibling);
   };
 
   // Format Time

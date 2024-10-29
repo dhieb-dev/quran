@@ -1,23 +1,25 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 import { useFetch } from "../hooks/index";
 import { Error, ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
 
-export function Rewayahs({setActiveComponent}) {
+export function Rewayahs({ setActiveComponent }) {
   const { passReciter, setPassRewayah, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciter.id}`)
   const [rewayahs, setReawayahs] = useState()
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
     if (data) {
-      setReawayahs(data.reciters[0].moshaf)
-      setSearch(data.reciters[0].moshaf)
+      startTransition(() => {
+        setReawayahs(data.reciters[0].moshaf)
+        setSearch(data.reciters[0].moshaf)
+      })
     }
   }, [data, setSearch])
 
-  useEffect(() => {
-    setReawayahs(resultSearch)
-  }, [resultSearch])
+  useEffect(() => startTransition(() => setReawayahs(resultSearch)), [resultSearch])
+
   function moshafData(surahlist, server, name) {
     setPassRewayah({ surahlist, server, name });
     setActiveComponent("surahs")
@@ -40,6 +42,7 @@ export function Rewayahs({setActiveComponent}) {
             ))}
           </ul>
       }
+      {isPending && <p>جاري تحديث القائمة...</p>}
     </>
   )
 }

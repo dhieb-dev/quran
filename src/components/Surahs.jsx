@@ -1,29 +1,29 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState, useTransition } from "react"
 import { useFetch } from "../hooks/index"
 import { Error, ItemList, Spinner } from "./index"
 import DataContext from "../context/DataContext"
 export function Surahs() {
-  const { passRewayah, setPassAudio,  nextOrPrev, currentLang, setSearch, resultSearch } = useContext(DataContext)
+  const { passRewayah, setPassAudio, currentLang, setSearch, resultSearch } = useContext(DataContext)
   const [surahs, setSurahs] = useState()
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
+  const [isPending, startTransition] = useTransition()
+
   useEffect(() => {
     if (data && passRewayah) {
-      const surahsFilter = passRewayah.surahlist.split(",").map(item => data?.suwar.find(surah => surah.id === +item))
-      setSurahs(surahsFilter)
-      setSearch(surahsFilter)
+      startTransition(() => {
+        const surahsFilter = passRewayah.surahlist.split(",").map(item => data?.suwar.find(surah => surah.id === +item))
+        setSurahs(surahsFilter)
+        setSearch(surahsFilter)
+      })
     }
   }, [data, passRewayah, setSearch])
-  useEffect(() => {
-    setSurahs(resultSearch)
-  }, [resultSearch])
+  
+  useEffect(() => startTransition(() => setSurahs(resultSearch)), [resultSearch])
+
   // when clicked an item from the list
   function surahData(e) {
     setPassAudio(e.target)
   }
-  // Event Btns Next And Prev
-  useEffect(() => {
-    setPassAudio(nextOrPrev);
-  }, [nextOrPrev, setPassAudio])
 
   return (
     <>
@@ -37,11 +37,12 @@ export function Surahs() {
                 index={surah.id}
                 key={index}
                 item={surah}
-                dataAttributes={{ url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3` }}
+                dataAttributes={{ url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`, startpage: surah.start_page }}
                 click={surahData} />))
             }
           </ul>
       }
+      {isPending && <p>جاري تحديث القائمة...</p>}
     </>
   )
 }

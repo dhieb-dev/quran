@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 import { Error, ItemList, Spinner } from "../components/index"
 import { useFetch } from "../hooks/useFetch";
 import DataContext from "../context/DataContext";
@@ -6,16 +6,19 @@ export const Radio = () => {
   const { currentLang, setPassAudio, setSearch, resultSearch } = useContext(DataContext)
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/radios?language=${currentLang}`)
   const [radios, setRadios] = useState()
+  const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
     if (data) {
-      setRadios(data.radios)
-      setSearch(data.radios)
+      startTransition(() => {
+        setRadios(data.radios)
+        setSearch(data.radios)
+      })
     }
   }, [data, setSearch])
-  useEffect(() => {
-    setRadios(resultSearch)
-  }, [resultSearch])
+  
+  useEffect(() => startTransition(() => setRadios(resultSearch)), [resultSearch])
+
   const handleClick = (e) => {
     setPassAudio(e.target);
   }
@@ -38,6 +41,7 @@ export const Radio = () => {
               }
             </ul>
         }
+        {isPending && <p>جاري تحديث القائمة...</p>}
       </div>
     </section>
   )
