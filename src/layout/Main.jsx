@@ -2,10 +2,10 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { Quran, Radio, BrowseQuran } from '../pages/index';
 import { NotFound, PlayerAudio } from '../components/index';
 import { useContext } from "react";
-import DataContext from "../context/DataContext";
+import {Context} from "../context/Context";
 import { UpperBar } from "./UpperBar";
 export const Main = () => {
-  const { currentLang, passAudio } = useContext(DataContext)
+  const { currentLang, passAudio } = useContext(Context)
   const location = useLocation()
   return (
     <main dir={`${currentLang === "eng" ? "ltr" : "rtl"}`} className="relative pb-20">

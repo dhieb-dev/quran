@@ -1,47 +1,22 @@
-import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Container, IsOnline } from './components/index';
-import DataContext from "./context/DataContext";
+import ContextProvider from "./context/Context";
 import { Header, Main } from './layout/index';
 import './App.css';
-export default function App() {
-  const [passReciter, setPassReciter] = useState(false);
-  const [passRewayah, setPassRewayah] = useState(false);
-  const [passAudio, setPassAudio] = useState(false);
-  const [activeComponent, setActiveComponent] = useState("reciters")
 
-  const [currentLang, setcurrentLang] = useState("ar");
-  const [search, setSearch] = useState([]);
-  const [resultSearch, setResultSearch] = useState([]);
+export default function App() {
+
   return (
     <BrowserRouter>
-      <div
-        className='App relative dark:text-white min-h-screen before:fixed before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-tr before:from-slate-200 before:to-slate-50 dark:before:from-neutral-950 dark:before:to-slate-900'>
-        <DataContext.Provider
-          value={
-            {
-              passReciter,
-              setPassReciter,
-              passRewayah,
-              setPassRewayah,
-              passAudio,
-              setPassAudio,
-              activeComponent,
-              setActiveComponent,
-              currentLang,
-              setcurrentLang,
-              search,
-              setSearch,
-              resultSearch,
-              setResultSearch
-            }}>
+      <ContextProvider>
+        <div className='App relative dark:text-white min-h-screen before:fixed before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-tr before:from-slate-200 before:to-slate-50 dark:before:from-neutral-950 dark:before:to-slate-900'>
           <Header />
           <Container>
             <Main />
             <IsOnline />
           </Container>
-        </DataContext.Provider>
-      </div>
-    </BrowserRouter >
+        </div>
+      </ContextProvider>
+    </BrowserRouter>
   );
 }

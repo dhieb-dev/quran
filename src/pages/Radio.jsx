@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState, useTransition } from "react";
 import { Error, ItemList, Spinner } from "../components/index"
 import { useFetch } from "../hooks/useFetch";
-import DataContext from "../context/DataContext";
+import {Context} from "../context/Context";
 export const Radio = () => {
-  const { currentLang, setPassAudio, setSearch, resultSearch } = useContext(DataContext)
+  const { currentLang, setPassAudio, setSearch, resultSearch } = useContext(Context)
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/radios?language=${currentLang}`)
   const [radios, setRadios] = useState()
   const [isPending, startTransition] = useTransition()

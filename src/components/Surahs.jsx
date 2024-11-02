@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState, useTransition } from "react"
 import { useFetch } from "../hooks/index"
 import { Error, ItemList, Spinner } from "./index"
-import DataContext from "../context/DataContext"
+import { Context } from "../context/Context"
 export function Surahs() {
-  const { passRewayah, setPassAudio, currentLang, setSearch, resultSearch } = useContext(DataContext)
+  const { passRewayah, setPassAudio, currentLang, setSearch, resultSearch } = useContext(Context)
   const [surahs, setSurahs] = useState()
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
   const [isPending, startTransition] = useTransition()
@@ -17,7 +17,7 @@ export function Surahs() {
       })
     }
   }, [data, passRewayah, setSearch])
-  
+
   useEffect(() => startTransition(() => setSurahs(resultSearch)), [resultSearch])
 
   // when clicked an item from the list
@@ -34,7 +34,7 @@ export function Surahs() {
           <ul className="suwar grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {surahs.map((surah, index) => (
               <ItemList
-                index={surah.id}
+                index={surah.id - 1}
                 key={index}
                 item={surah}
                 dataAttributes={{ url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`, startpage: surah.start_page }}

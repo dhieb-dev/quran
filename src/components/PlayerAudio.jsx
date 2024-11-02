@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { MinMax } from "./index";
-import DataContext from "../context/DataContext";
+import {Context} from "../context/Context";
 import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
-  const { passAudio,setPassAudio } = useContext(DataContext);
+  const { passAudio,setPassAudio } = useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioName, setAudioName] = useState("-------");
   const [upTime, setUpTime] = useState({ progress: 0 });
@@ -18,7 +18,7 @@ export function PlayerAudio() {
       setAudioName(passAudio.children[1].textContent);
       const audio = audioRef.current;
       const handleTimeUpdate = () => {
-        if (audio && audio.duration !== Infinity) {
+        if (audio && (audio.duration !== Infinity && !isNaN(audio.duration))) {
           const ct = audio.currentTime;
           setUpTime({
             progress: `${(ct / audio.duration) * 100}%`,

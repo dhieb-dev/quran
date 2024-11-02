@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState, useTransition } from "react"
 import { useFetch } from "../hooks/index"
 import { Error, ItemList, Spinner } from "./index"
-import DataContext from "../context/DataContext"
+import {Context} from "../context/Context"
 
 export function Reciters({ setActiveComponent }) {
-  const { setPassReciter, currentLang, setSearch, resultSearch } = useContext(DataContext)
+  const { setPassReciter, currentLang, setSearch, resultSearch } = useContext(Context)
   const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}`)
   const [reciters, setReciters] = useState([])
   const [isPending, startTransition] = useTransition()

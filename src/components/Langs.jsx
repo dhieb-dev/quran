@@ -1,9 +1,9 @@
 import { useContext, useRef, useState } from "react";
 import { useClickOutside, useFetch } from "../hooks";
-import DataContext from "../context/DataContext";
+import {Context} from "../context/Context";
 import { language } from "../svgs/laguage";
 export function Langs() {
-  const { currentLang, setcurrentLang } = useContext(DataContext);
+  const { currentLang, setcurrentLang } = useContext(Context);
   const [showList, setShowList] = useState(false);
   const btnRef = useRef();
   const { data } = useFetch("https://mp3quran.net/api/v3/languages");

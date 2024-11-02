@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import DataContext from "../context/DataContext";
+import {Context} from "../context/Context";
 
 export const Tabs = () => {
-  const { passReciter, passRewayah, setPassRewayah, setActiveComponent } = useContext(DataContext)
+  const { passReciter, passRewayah, setPassRewayah, setActiveComponent } = useContext(Context)
   const hundlaClick = (active) => {
     setPassRewayah({ ...passRewayah, name: null })
     setActiveComponent(active)
