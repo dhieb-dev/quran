@@ -1,15 +1,14 @@
-import { BrowserRouter } from 'react-router-dom';
-import { Container, IsOnline } from './components/index';
+import { BrowserRouter } from "react-router-dom";
+import { Container, IsOnline } from "./components/index";
 import ContextProvider from "./context/Context";
-import { Header, Main } from './layout/index';
-import './App.css';
+import { Header, Main } from "./layout/index";
+import "./App.css";
 
 export default function App() {
-
   return (
     <BrowserRouter>
       <ContextProvider>
-        <div className='App relative dark:text-white min-h-screen before:fixed before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-tr before:from-slate-200 before:to-slate-50 dark:before:from-neutral-950 dark:before:to-slate-900'>
+        <div className="App dark:text-white min-h-screen bg-gradient-to-tr from-slate-100 to-slate-50 dark:from-neutral-950 dark:to-neutral-800">
           <Header />
           <Container>
             <Main />

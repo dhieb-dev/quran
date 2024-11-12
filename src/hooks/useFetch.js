@@ -5,24 +5,24 @@ export function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { currentLang } = useContext(Context)
+  const { currentLang } = useContext(Context);
 
   useEffect(() => {
-
+    setData(null);
     const getData = async (urlData) => {
       try {
-        const res = await fetch(urlData)
-        const fetchData = await res.json()
+        const res = await fetch(urlData);
+        const fetchData = await res.json();
         if (fetchData) {
-          setData(fetchData)
-          setLoading(false)
+          setData(fetchData);
+          setLoading(false);
         }
       } catch (error) {
-        setLoading(false)
-        setError(error)
+        setLoading(false);
+        setError(error);
       }
-    }
-    getData(url)
+    };
+    getData(url);
   }, [url, currentLang]);
   return { data, loading, error };
 }

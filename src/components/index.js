@@ -5,7 +5,6 @@ export { Reciters } from "./Reciters";
 export { Rewayahs } from "./Rewayahs";
 export { Surahs } from "./Surahs";
 export { ItemList } from "./ItemList";
-export { Langs } from "./Langs";
 export { SwitchMode } from "./SwitchMode";
 export { PlayerAudio } from "./PlayerAudio";
 export { Spinner } from "./Spinner";

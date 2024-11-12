@@ -16,7 +16,7 @@
 }
 
 .dark ::-webkit-scrollbar:hover {
-  background-color: rgb(16, 16, 100);
+  background-color: gray;
 }
 
 ::-webkit-scrollbar-thumb {

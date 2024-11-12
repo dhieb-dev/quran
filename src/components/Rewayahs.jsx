@@ -1,48 +1,44 @@
-import { useContext, useEffect, useState, useTransition } from "react";
+import { useContext, useEffect } from "react";
 import { useFetch } from "../hooks/index";
-import { Error, ItemList, Spinner } from "./index"
-import {Context} from "../context/Context"
+import { Error, ItemList, Spinner } from "./index";
+import { Context } from "../context/Context";
 
 export function Rewayahs({ setActiveComponent }) {
-  const { passReciter, setPassRewayah, currentLang, setSearch, resultSearch } = useContext(Context)
-  const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/reciters?language=${currentLang}&reciter=${passReciter.id}`)
-  const [rewayahs, setReawayahs] = useState()
-  const [isPending, startTransition] = useTransition()
+  const { passReciter, setPassRewayah, setSearch } = useContext(Context);
+  const url = `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`;
+  const { data, loading, error } = useFetch(url);
+  const rewayahs = data?.reciters[0].moshaf;
 
   useEffect(() => {
-    if (data) {
-      startTransition(() => {
-        setReawayahs(data.reciters[0].moshaf)
-        setSearch(data.reciters[0].moshaf)
-      })
-    }
-  }, [data, setSearch])
+    if (data) setSearch(data.reciters[0].moshaf);
+  }, [data, setSearch]);
 
-  useEffect(() => startTransition(() => setReawayahs(resultSearch)), [resultSearch])
-
-  function moshafData(surahlist, server, name) {
-    setPassRewayah({ surahlist, server, name });
-    setActiveComponent("surahs")
-  }
-
+  const clicked = (index) => {
+    setPassRewayah({
+      surahlist: rewayahs[index].surah_list,
+      server: rewayahs[index].server,
+      name: rewayahs[index].name,
+    });
+    setActiveComponent("surahs");
+  };
   return (
-    <>
-      {loading ?
-        <Spinner /> :
-        error ?
-          <Error /> :
-          <ul>
-            {rewayahs.map((moshaf, index) => (
-              <ItemList
-                key={index}
-                index={index}
-                item={moshaf}
-                dataAttributes={{ surahlist: moshaf.surah_list, server: moshaf.server }}
-                click={(e) => moshafData(e.target.dataset.surahlist, e.target.dataset.server, e.target.lastChild.textContent)} />
-            ))}
-          </ul>
-      }
-      {isPending && <p>جاري تحديث القائمة...</p>}
-    </>
-  )
+    <div className="rewayahs">
+      {error ? (
+        <Error />
+      ) : loading ? (
+        <Spinner />
+      ) : (
+        <ul>
+          {rewayahs.map((moshaf, index) => (
+            <ItemList
+              key={index}
+              index={index}
+              item={moshaf}
+              click={() => clicked(index)}
+            />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }

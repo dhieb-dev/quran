@@ -1,4 +1,4 @@
-import { Nav, SwitchMode, Container, Langs } from "../components/index";
+import { Nav, SwitchMode, Container } from "../components/index";
 
 export function Header() {
   return (
@@ -6,7 +6,6 @@ export function Header() {
       <Container>
         <div className="relative flex justify-between items-center space-x-6">
           <Nav />
-          <Langs />
           <SwitchMode />
         </div>
       </Container>
