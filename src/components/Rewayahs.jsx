@@ -4,7 +4,13 @@ import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Rewayahs({ setActiveComponent }) {
-  const { passReciter, setPassRewayah, setSearch } = useContext(Context);
+  const {
+    passReciter,
+    setPassRewayah,
+    setSearch,
+    findByIndex,
+    setFindByIndex,
+  } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`;
   const { data, loading, error } = useFetch(url);
   const rewayahs = data?.reciters[0].moshaf;
@@ -21,6 +27,12 @@ export function Rewayahs({ setActiveComponent }) {
     });
     setActiveComponent("surahs");
   };
+
+  useEffect(() => {
+    setFindByIndex();
+    if (!isNaN(findByIndex)) clicked(findByIndex);
+  }, [findByIndex]);
+
   return (
     <div className="rewayahs">
       {error ? (

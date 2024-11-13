@@ -1,13 +1,12 @@
 import { useState, createContext } from "react";
 export const Context = createContext(null);
-
 const ContextProvider = ({ children }) => {
   const [passReciter, setPassReciter] = useState();
   const [passRewayah, setPassRewayah] = useState();
   const [passAudio, setPassAudio] = useState();
   const [search, setSearch] = useState([]);
-  const [resultSearch, setResultSearch] = useState();
-  const [index, setIndex] = useState();
+  const [resultSearch, setResultSearch] = useState([]);
+  const [findByIndex, setFindByIndex] = useState();
   const [activeComponent, setActiveComponent] = useState("reciters");
   const contextValues = {
     passReciter,
@@ -22,8 +21,8 @@ const ContextProvider = ({ children }) => {
     setSearch,
     resultSearch,
     setResultSearch,
-    index,
-    setIndex,
+    findByIndex,
+    setFindByIndex,
   };
   return <Context.Provider value={contextValues}>{children}</Context.Provider>;
 };

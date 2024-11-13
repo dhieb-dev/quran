@@ -8,13 +8,16 @@ export const Tabs = () => {
     passRewayah,
     setPassRewayah,
     setActiveComponent,
+    setFindByIndex,
   } = useContext(Context);
   const nameReciter = () => {
+    setFindByIndex();
     setPassReciter();
     setPassRewayah();
     setActiveComponent("reciters");
   };
   const nameRewayah = () => {
+    setFindByIndex();
     setPassRewayah();
     setActiveComponent("rewayahs");
   };

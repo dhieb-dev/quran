@@ -4,7 +4,7 @@ import { Context } from "../context/Context";
 import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
-  const { passAudio, setIndex } = useContext(Context);
+  const { passAudio, setFindByIndex } = useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const [upTime, setUpTime] = useState({ progress: 0 });
   const [showPlayer, setShowPlayer] = useState(true);
@@ -62,11 +62,11 @@ export function PlayerAudio() {
 
   // Navigation Functions
   const next = () => {
-    setIndex((prev) => prev + 1);
+    setFindByIndex((prev) => prev + 1);
   };
 
   const prev = () => {
-    setIndex((prev) => prev - 1);
+    setFindByIndex((prev) => prev - 1);
   };
 
   // Format Time

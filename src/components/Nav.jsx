@@ -11,7 +11,7 @@ const nav = [
   },
   {
     title: "الإذاعات",
-    link: "/radio",
+    link: "/radios",
     ico: require("../static/images/radio.png"),
   },
   {

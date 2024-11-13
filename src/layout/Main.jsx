@@ -12,7 +12,7 @@ export const Main = () => {
       {location.pathname !== "/browse_quran" && <UpperBar />}
       <Routes>
         <Route path="/" element={<Quran />} />
-        <Route path="/radio" element={<Radio />} />
+        <Route path="/radios" element={<Radio />} />
         <Route path="/browse_quran" element={<BrowseQuran />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

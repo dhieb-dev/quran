@@ -4,7 +4,8 @@ import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Reciters({ setActiveComponent }) {
-  const { setPassReciter, setSearch } = useContext(Context);
+  const { setPassReciter, setSearch, findByIndex, setFindByIndex } =
+    useContext(Context);
   const url = `https://mp3quran.net/api/v3/reciters?language=ar`;
   const { data, loading, error } = useFetch(url);
   const reciters = data?.reciters;
@@ -17,6 +18,11 @@ export function Reciters({ setActiveComponent }) {
     setPassReciter({ id: reciters[index].id, name: reciters[index].name });
     setActiveComponent("rewayahs");
   };
+
+  useEffect(() => {
+    setFindByIndex();
+    if (!isNaN(findByIndex)) clicked(findByIndex);
+  }, [findByIndex]);
 
   return (
     <div className="reciters">

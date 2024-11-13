@@ -4,7 +4,8 @@ import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Surahs() {
-  const { passRewayah, setPassAudio, setSearch } = useContext(Context);
+  const { passRewayah, setPassAudio, setSearch, findByIndex, setFindByIndex } =
+    useContext(Context);
   const url = `https://mp3quran.net/api/v3/suwar?language=ar`;
   const { data, loading, error } = useFetch(url);
   const surahs = passRewayah.surahlist
@@ -23,7 +24,17 @@ export function Surahs() {
       )}.mp3`,
       name: surahs[index].name,
     });
+    setFindByIndex(index);
   };
+
+  useEffect(() => {
+    if (findByIndex < 0) setFindByIndex(113);
+    if (findByIndex >= 113) setFindByIndex(0);
+    if (findByIndex >= 0 && findByIndex <= 113) {
+      clicked(findByIndex);
+    }
+    return () => setFindByIndex()
+  }, [findByIndex]);
 
   return (
     <div className="suwar">
