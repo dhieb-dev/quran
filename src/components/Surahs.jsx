@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useFetch } from "../hooks/index";
+import { saveAs } from "file-saver";
 import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 import { downlod } from "../svgs/download";
@@ -26,7 +27,11 @@ export function Surahs() {
   useEffect(() => {
     if (findedItem === Object(findedItem)) clicked(findedItem);
     return () => setFindedItem();
-  }, [findedItem]);
+  });
+
+  const handleDownload = (url, name) => {
+    saveAs(url, name);
+  };
 
   return (
     <div className="suwar">
@@ -43,15 +48,20 @@ export function Surahs() {
                 index={surah.id - 1}
                 click={() => clicked(surah)}
               />
-              <a className="absolute left-4 h-full grid place-items-center"
-                download
-                href={`${passRewayah.server}${String(surah.id).padStart(
-                  3,
-                  "0"
-                )}.mp3`}
+              <button
+                className="absolute left-4 h-full grid place-items-center"
+                onClick={() =>
+                  handleDownload(
+                    `${passRewayah.server}${String(surah.id).padStart(
+                      3,
+                      "0"
+                    )}.mp3`,
+                    `${String(surah.id).padStart(3, "0")}.mp3`
+                  )
+                }
               >
                 {downlod.downlod}
-              </a>
+              </button>
             </div>
           ))}
         </ul>
