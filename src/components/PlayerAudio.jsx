@@ -4,7 +4,7 @@ import { Context } from "../context/Context";
 import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
-  const { passAudio, setFindByIndex } = useContext(Context);
+  const { passAudio, setFindedItem } = useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const [upTime, setUpTime] = useState({ progress: 0 });
   const [showPlayer, setShowPlayer] = useState(true);
@@ -62,11 +62,11 @@ export function PlayerAudio() {
 
   // Navigation Functions
   const next = () => {
-    setFindByIndex((prev) => prev + 1);
+    // setFindedItem((prev) => prev.id + 1);
   };
 
   const prev = () => {
-    setFindByIndex((prev) => prev - 1);
+    // setFindedItem((prev) => prev.id - 1);
   };
 
   // Format Time
@@ -92,7 +92,7 @@ export function PlayerAudio() {
       dir="ltr"
       className={`${
         !showPlayer ? "w-10 bg-transparent" : "px-2 py-1 space-y-2"
-      } duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gray-100 dark:bg-slate-800 rounded`}
+      } duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gray-100 dark:bg-neutral-800 rounded`}
     >
       <div className="flex justify-between">
         {showPlayer ? (

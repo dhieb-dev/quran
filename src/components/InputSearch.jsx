@@ -4,7 +4,7 @@ import { useClickOutside } from "../hooks";
 
 export const InputSearch = () => {
   const [input, setInput] = useState("");
-  const { search, resultSearch, setResultSearch, setFindByIndex } =
+  const { search, resultSearch, setResultSearch, setFindedItem } =
     useContext(Context);
 
   const inputRef = useRef();
@@ -25,7 +25,7 @@ export const InputSearch = () => {
     }
   }, [input, search, setResultSearch]);
 
-  const findByIndex = (index) => setFindByIndex(index);
+  const findedItem = (index) => setFindedItem(index);
   return (
     <div className="search relative">
       <input
@@ -45,7 +45,7 @@ export const InputSearch = () => {
               <li
                 key={index}
                 className="py-1 px-2 hover:bg-red-300 hover:dark:bg-blue-400"
-                onClick={() => findByIndex(index)}
+                onClick={() => findedItem(item)}
               >
                 {item.name}
               </li>

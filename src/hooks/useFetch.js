@@ -1,14 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import { Context } from "../context/Context";
 
 export function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { currentLang } = useContext(Context);
 
   useEffect(() => {
-    setData(null);
+    if (data) setData(null);
+    
     const getData = async (urlData) => {
       try {
         const res = await fetch(urlData);
@@ -23,6 +22,6 @@ export function useFetch(url) {
       }
     };
     getData(url);
-  }, [url, currentLang]);
+  }, [url]);
   return { data, loading, error };
 }

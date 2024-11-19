@@ -4,7 +4,7 @@ import { useFetch } from "../hooks/useFetch";
 import { Context } from "../context/Context";
 
 export const Radio = () => {
-  const { setPassAudio, setSearch, findByIndex, setFindByIndex } =
+  const { setPassAudio, setSearch, findedItem, setFindedItem } =
     useContext(Context);
   const url = `https://mp3quran.net/api/v3/radios?language=ar`;
   const { data, loading, error } = useFetch(url);
@@ -14,14 +14,14 @@ export const Radio = () => {
     if (data) setSearch(data.radios);
   }, [data, setSearch]);
 
-  const clicked = (index) => {
-    setPassAudio({ url: radios[index].url, name: radios[index].name });
+  const clicked = (radio) => {
+    setPassAudio({ url: radio.url, name: radio.name });
   };
 
   useEffect(() => {
-    setFindByIndex();
-    if (!isNaN(findByIndex)) clicked(findByIndex);
-  }, [findByIndex]);
+    if (findedItem === Object(findedItem)) clicked(findedItem);
+    return () => setFindedItem()
+  }, [findedItem]);
 
   return (
     <section>
@@ -37,7 +37,7 @@ export const Radio = () => {
                 key={index}
                 item={radio}
                 index={index}
-                click={() => clicked(index)}
+                click={() => clicked(radio)}
               />
             ))}
           </ul>

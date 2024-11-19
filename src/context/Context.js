@@ -6,7 +6,7 @@ const ContextProvider = ({ children }) => {
   const [passAudio, setPassAudio] = useState();
   const [search, setSearch] = useState([]);
   const [resultSearch, setResultSearch] = useState([]);
-  const [findByIndex, setFindByIndex] = useState();
+  const [findedItem, setFindedItem] = useState();
   const [activeComponent, setActiveComponent] = useState("reciters");
   const contextValues = {
     passReciter,
@@ -21,8 +21,8 @@ const ContextProvider = ({ children }) => {
     setSearch,
     resultSearch,
     setResultSearch,
-    findByIndex,
-    setFindByIndex,
+    findedItem,
+    setFindedItem,
   };
   return <Context.Provider value={contextValues}>{children}</Context.Provider>;
 };

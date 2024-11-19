@@ -4,13 +4,8 @@ import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Rewayahs({ setActiveComponent }) {
-  const {
-    passReciter,
-    setPassRewayah,
-    setSearch,
-    findByIndex,
-    setFindByIndex,
-  } = useContext(Context);
+  const { passReciter, setPassRewayah, setSearch, findedItem, setFindedItem } =
+    useContext(Context);
   const url = `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`;
   const { data, loading, error } = useFetch(url);
   const rewayahs = data?.reciters[0].moshaf;
@@ -19,19 +14,19 @@ export function Rewayahs({ setActiveComponent }) {
     if (data) setSearch(data.reciters[0].moshaf);
   }, [data, setSearch]);
 
-  const clicked = (index) => {
+  const clicked = (moshaf) => {
     setPassRewayah({
-      surahlist: rewayahs[index].surah_list,
-      server: rewayahs[index].server,
-      name: rewayahs[index].name,
+      surahlist: moshaf.surah_list,
+      server: moshaf.server,
+      name: moshaf.name,
     });
     setActiveComponent("surahs");
   };
 
   useEffect(() => {
-    setFindByIndex();
-    if (!isNaN(findByIndex)) clicked(findByIndex);
-  }, [findByIndex]);
+    if (findedItem === Object(findedItem)) clicked(findedItem);
+    return () => setFindedItem();
+  }, [findedItem]);
 
   return (
     <div className="rewayahs">
@@ -40,13 +35,13 @@ export function Rewayahs({ setActiveComponent }) {
       ) : loading ? (
         <Spinner />
       ) : (
-        <ul>
-          {rewayahs.map((moshaf, index) => (
+        <ul className="mt-2">
+          {rewayahs?.map((moshaf, index) => (
             <ItemList
               key={index}
               index={index}
               item={moshaf}
-              click={() => clicked(index)}
+              click={() => clicked(moshaf)}
             />
           ))}
         </ul>
