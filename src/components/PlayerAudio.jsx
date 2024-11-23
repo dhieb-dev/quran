@@ -74,7 +74,7 @@ export function PlayerAudio() {
       });
     }
   }, [nextOrPrev, saveAllAudios, setPassAudio]);
-  
+
   // Format Time
   const formatTime = (time) => {
     const minutes = String(Math.floor(time / 60)).padStart(2, "0");
@@ -88,7 +88,7 @@ export function PlayerAudio() {
       dir="ltr"
       className={`${
         !showPlayer ? "w-10 bg-transparent" : "px-2 py-1 space-y-2"
-      } duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gray-100 dark:bg-neutral-800 rounded`}
+      } duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gradient-to-br from-blue-100 to-green-200 dark:from-neutral-800 dark:to-slate-900 rounded`}
     >
       <div className="flex justify-between">
         {showPlayer ? (
@@ -99,19 +99,19 @@ export function PlayerAudio() {
             />
             <div className="controls flex justify-around items-center w-1/2">
               <button
-                className="w-7"
+                className="w-6"
                 onClick={() => setNextOrPrev((prev) => prev + 1)}
               >
                 {controls.next}
               </button>
               <button
-                className="w-7"
+                className="w-6"
                 onClick={passAudio ? togglePlayPause : null}
               >
                 {isPlaying ? controls.pause : controls.play}
               </button>
               <button
-                className="w-7"
+                className="w-6"
                 onClick={() => setNextOrPrev((prev) => prev - 1)}
               >
                 {controls.prev}

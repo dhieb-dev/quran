@@ -13,7 +13,7 @@ export function Surahs() {
   const [surahId, setSurahId] = useState();
 
   useEffect(() => {
-     setPassAudio()
+    setPassAudio();
     if (data && passRewayah)
       setSurahs(
         passRewayah.surahlist
@@ -74,7 +74,7 @@ export function Surahs() {
                 className="absolute left-4 h-full grid place-items-center"
                 onClick={() =>
                   handleDownload(
-                    `${passRewayah.server}${String(surah.id - 1).padStart(
+                    `${passRewayah.server}${String(surah.id).padStart(
                       3,
                       "0"
                     )}.mp3`,

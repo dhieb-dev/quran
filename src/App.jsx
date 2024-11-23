@@ -8,7 +8,12 @@ export default function App() {
   return (
     <BrowserRouter>
       <ContextProvider>
-        <div className="App dark:text-white min-h-screen bg-gradient-to-tr from-slate-100 to-slate-50 dark:from-neutral-950 dark:to-neutral-800">
+        <div className="App dark:text-white min-h-screen bg-slate-100/80 dark:bg-neutral-950/90">
+          <img
+            className="fixed top-0 left-0 h-full w-full -z-[1] object-cover object-left"
+            src={require("./static/images/bg-main.gif")}
+            alt="background main"
+          />
           <Header />
           <Container>
             <Main />
