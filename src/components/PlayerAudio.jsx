@@ -4,10 +4,11 @@ import { Context } from "../context/Context";
 import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
-  const { passAudio, setFindedItem } = useContext(Context);
+  const { passAudio, setPassAudio, saveAllAudios } = useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const [upTime, setUpTime] = useState({ progress: 0 });
   const [showPlayer, setShowPlayer] = useState(true);
+  const [nextOrPrev, setNextOrPrev] = useState(passAudio.id - 1);
   const audioRef = useRef();
   const progressRef = useRef();
 
@@ -61,14 +62,19 @@ export function PlayerAudio() {
   };
 
   // Navigation Functions
-  const next = () => {
-    // setFindedItem((prev) => prev.id + 1);
-  };
-
-  const prev = () => {
-    // setFindedItem((prev) => prev.id - 1);
-  };
-
+  useEffect(() => {
+    if (nextOrPrev < 0) {
+      setNextOrPrev(saveAllAudios.length - 1);
+    } else if (nextOrPrev >= saveAllAudios.length) {
+      setNextOrPrev(0);
+    } else {
+      setPassAudio({
+        url: saveAllAudios[nextOrPrev].url,
+        name: saveAllAudios[nextOrPrev].name,
+      });
+    }
+  }, [nextOrPrev, saveAllAudios, setPassAudio]);
+  
   // Format Time
   const formatTime = (time) => {
     const minutes = String(Math.floor(time / 60)).padStart(2, "0");
@@ -76,16 +82,6 @@ export function PlayerAudio() {
     return `${minutes}:${seconds}`;
   };
 
-  // Player Buttons
-  const buttons = [
-    { content: controls.next, click: next, title: "Next" },
-    {
-      content: isPlaying ? controls.pause : controls.play,
-      click: passAudio ? togglePlayPause : null,
-      title: isPlaying ? "Pause" : "Play",
-    },
-    { content: controls.prev, click: prev, title: "Previous" },
-  ];
   // JSX Code
   return (
     <div
@@ -102,16 +98,24 @@ export function PlayerAudio() {
               onClick={() => setShowPlayer(!showPlayer)}
             />
             <div className="controls flex justify-around items-center w-1/2">
-              {buttons.map(({ content, click, title }, index) => (
-                <button
-                  key={index}
-                  title={title}
-                  className="w-7"
-                  onClick={click}
-                >
-                  {content}
-                </button>
-              ))}
+              <button
+                className="w-7"
+                onClick={() => setNextOrPrev((prev) => prev + 1)}
+              >
+                {controls.next}
+              </button>
+              <button
+                className="w-7"
+                onClick={passAudio ? togglePlayPause : null}
+              >
+                {isPlaying ? controls.pause : controls.play}
+              </button>
+              <button
+                className="w-7"
+                onClick={() => setNextOrPrev((prev) => prev - 1)}
+              >
+                {controls.prev}
+              </button>
             </div>
             <div className="info">{passAudio.name || "-------"}</div>
           </>

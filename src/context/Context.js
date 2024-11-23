@@ -4,8 +4,8 @@ const ContextProvider = ({ children }) => {
   const [passReciter, setPassReciter] = useState();
   const [passRewayah, setPassRewayah] = useState();
   const [passAudio, setPassAudio] = useState();
+  const [saveAllAudios, setSaveAllAudios] = useState();
   const [search, setSearch] = useState([]);
-  const [resultSearch, setResultSearch] = useState([]);
   const [findedItem, setFindedItem] = useState();
   const [activeComponent, setActiveComponent] = useState("reciters");
   const contextValues = {
@@ -15,12 +15,12 @@ const ContextProvider = ({ children }) => {
     setPassRewayah,
     passAudio,
     setPassAudio,
+    saveAllAudios,
+    setSaveAllAudios,
     activeComponent,
     setActiveComponent,
     search,
     setSearch,
-    resultSearch,
-    setResultSearch,
     findedItem,
     setFindedItem,
   };

@@ -1,26 +1,45 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Error, ItemList, Spinner } from "../components/index";
 import { useFetch } from "../hooks/useFetch";
 import { Context } from "../context/Context";
 
 export const Radio = () => {
-  const { setPassAudio, setSearch, findedItem, setFindedItem } =
-    useContext(Context);
+  const {
+    setSaveAllAudios,
+    setPassAudio,
+    setSearch,
+    findedItem,
+  } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/radios?language=ar`;
   const { data, loading, error } = useFetch(url);
-  const radios = data?.radios;
+  const [radioId, setRadioId] = useState();
+  const [radios, setRadios] = useState();
 
   useEffect(() => {
-    if (data) setSearch(data.radios);
-  }, [data, setSearch]);
-
-  const clicked = (radio) => {
-    setPassAudio({ url: radio.url, name: radio.name });
-  };
+    if (data) setRadios(data.radios);
+  }, [data, radios]);
 
   useEffect(() => {
-    if (findedItem === Object(findedItem)) clicked(findedItem);
-    return () => setFindedItem()
+    if (radios) setSearch(radios);
+    return () => setSearch();
+  }, [radios, setSearch]);
+
+  useEffect(() => {
+    if (radios) {
+      const radio = radios?.find((radio) => radio.id === radioId);
+      setSaveAllAudios(radios);
+      if (radio) {
+        setPassAudio({
+          id: radio.id,
+          url: radio.url,
+          name: radio.name
+        });
+      }
+    }
+  }, [radioId, radios,  setPassAudio, setSaveAllAudios]);
+
+  useEffect(() => {
+    if (findedItem) setRadioId(findedItem);
   }, [findedItem]);
 
   return (
@@ -31,13 +50,13 @@ export const Radio = () => {
         ) : loading ? (
           <Spinner className="spinner-radio" />
         ) : (
-          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2">
             {radios?.map((radio, index) => (
               <ItemList
                 key={index}
                 item={radio}
                 index={index}
-                click={() => clicked(radio)}
+                click={() => setRadioId(radio.id)}
               />
             ))}
           </ul>

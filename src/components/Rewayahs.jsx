@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
 import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -8,25 +8,37 @@ export function Rewayahs({ setActiveComponent }) {
     useContext(Context);
   const url = `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`;
   const { data, loading, error } = useFetch(url);
-  const rewayahs = data?.reciters[0].moshaf;
+  const [moshafs, setMoshafs] = useState();
+  const [moshafId, setMoshafId] = useState();
 
   useEffect(() => {
-    if (data) setSearch(data.reciters[0].moshaf);
-  }, [data, setSearch]);
-
-  const clicked = (moshaf) => {
-    setPassRewayah({
-      surahlist: moshaf.surah_list,
-      server: moshaf.server,
-      name: moshaf.name,
-    });
-    setActiveComponent("surahs");
-  };
+    if (data) setMoshafs(data.reciters[0].moshaf);
+  }, [data, moshafs]);
 
   useEffect(() => {
-    if (findedItem === Object(findedItem)) clicked(findedItem);
-    return () => setFindedItem();
-  }, [findedItem]);
+    if (moshafs) setSearch(moshafs);
+    return () => setSearch();
+  }, [moshafs, setSearch]);
+
+  useEffect(() => {
+    if (moshafs) {
+      const moshaf = moshafs.find((moshaf) => moshaf.id === moshafId);
+      if (moshaf) {
+        setPassRewayah({
+          surahlist: moshaf.surah_list,
+          server: moshaf.server,
+          name: moshaf.name,
+        });
+        setActiveComponent("surahs");
+      }
+    }
+    return () => setMoshafId();
+  }, [moshafId, setPassRewayah, setActiveComponent, moshafs]);
+
+  useEffect(() => {
+    if (findedItem) setMoshafId(findedItem);
+     return () => setFindedItem()
+  }, [findedItem, setFindedItem]);
 
   return (
     <div className="rewayahs">
@@ -36,12 +48,12 @@ export function Rewayahs({ setActiveComponent }) {
         <Spinner />
       ) : (
         <ul className="mt-2">
-          {rewayahs?.map((moshaf, index) => (
+          {moshafs?.map((moshaf, index) => (
             <ItemList
               key={index}
               index={index}
               item={moshaf}
-              click={() => clicked(moshaf)}
+              click={() => setMoshafId(moshaf.id)}
             />
           ))}
         </ul>
