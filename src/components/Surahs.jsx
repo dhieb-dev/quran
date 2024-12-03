@@ -5,22 +5,28 @@ import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 import { downlod } from "../svgs/download";
 export function Surahs() {
-  const { passRewayah, setPassAudio, setSaveAllAudios, setSearch, findedItem } =
-    useContext(Context);
+  const {
+    passRewayah,
+    setPassAudio,
+    setSaveAllAudios,
+    setSearch,
+    findedItem,
+    setNextOrPrev,
+  } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/suwar?language=ar`;
   const { data, loading, error } = useFetch(url);
   const [surahs, setSurahs] = useState();
   const [surahId, setSurahId] = useState();
+  // const [surahId, setSurahId] = useState();
 
   useEffect(() => {
-    setPassAudio();
-    if (data && passRewayah)
+    if (data)
       setSurahs(
         passRewayah.surahlist
           ?.split(",")
           .map((item) => data.suwar.find((surah) => surah.id === +item))
       );
-  }, [data, passRewayah, setPassAudio]);
+  }, [data, passRewayah]);
 
   useEffect(() => {
     if (surahs) setSearch(surahs);
@@ -28,27 +34,32 @@ export function Surahs() {
   }, [surahs, setSearch]);
 
   useEffect(() => {
-    if (surahs && passRewayah) {
-      const surah = surahs?.find((surah) => surah.id === surahId);
-      const surahsInfo = surahs.map((surah) => ({
-        id: surah.id,
-        url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
-        name: surah.name,
-      }));
-      setSaveAllAudios(surahsInfo);
-      if (surah) {
-        setPassAudio({
+    if (surahs) {
+      setSaveAllAudios(
+        surahs.map((surah) => ({
           id: surah.id,
           url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
           name: surah.name,
-        });
-      }
+        }))
+      );
     }
-    return () => setSurahId();
-  }, [surahId, setPassAudio, surahs, passRewayah, setSaveAllAudios]);
+  }, [passRewayah, surahs, setSaveAllAudios]);
 
   useEffect(() => {
-    if (findedItem) setSurahId(findedItem);
+    if (surahId >= 0)
+      setPassAudio({
+        id: data.suwar[surahId].id,
+        url: `${passRewayah.server}${String(data.suwar[surahId].id).padStart(
+          3,
+          "0"
+        )}.mp3`,
+        name: data.suwar[surahId].name,
+      });
+    setNextOrPrev(surahId);
+  }, [surahId, setNextOrPrev, passRewayah, setPassAudio, data]);
+
+  useEffect(() => {
+    if (findedItem >= 0) setSurahId(findedItem - 1);
   }, [findedItem]);
 
   const handleDownload = (url, name) => {
@@ -68,7 +79,7 @@ export function Surahs() {
               <ItemList
                 item={surah}
                 index={surah.id - 1}
-                click={() => setSurahId(surah.id)}
+                click={() => setSurahId(surah.id - 1)}
               />
               <button
                 className="absolute left-4 h-full grid place-items-center"

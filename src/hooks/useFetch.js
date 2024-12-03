@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 
 export function useFetch(url) {
   const [data, setData] = useState(null);
@@ -6,8 +6,6 @@ export function useFetch(url) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (data) setData(null);
-    
     const getData = async (urlData) => {
       try {
         const res = await fetch(urlData);

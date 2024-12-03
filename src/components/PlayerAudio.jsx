@@ -4,11 +4,10 @@ import { Context } from "../context/Context";
 import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
-  const { passAudio, setPassAudio, saveAllAudios } = useContext(Context);
+  const { passAudio, setPassAudio, saveAllAudios, nextOrPrev, setNextOrPrev } = useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const [upTime, setUpTime] = useState({ progress: 0 });
   const [showPlayer, setShowPlayer] = useState(true);
-  const [nextOrPrev, setNextOrPrev] = useState(passAudio.id - 1);
   const audioRef = useRef();
   const progressRef = useRef();
 
@@ -61,19 +60,17 @@ export function PlayerAudio() {
     setIsPlaying(!isPlaying);
   };
 
-  // Navigation Functions
+  // Navigation Function
   useEffect(() => {
-    if (nextOrPrev < 0) {
-      setNextOrPrev(saveAllAudios.length - 1);
-    } else if (nextOrPrev >= saveAllAudios.length) {
-      setNextOrPrev(0);
-    } else {
+    if (nextOrPrev < 0) setNextOrPrev(saveAllAudios.length - 1);
+    else if (nextOrPrev >= saveAllAudios.length) setNextOrPrev(0);
+    else if (nextOrPrev >= 0) {
       setPassAudio({
         url: saveAllAudios[nextOrPrev].url,
         name: saveAllAudios[nextOrPrev].name,
       });
     }
-  }, [nextOrPrev, saveAllAudios, setPassAudio]);
+  }, [nextOrPrev, saveAllAudios, setPassAudio, setNextOrPrev]);
 
   // Format Time
   const formatTime = (time) => {

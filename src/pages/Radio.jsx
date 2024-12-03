@@ -9,6 +9,7 @@ export const Radio = () => {
     setPassAudio,
     setSearch,
     findedItem,
+    setNextOrPrev,
   } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/radios?language=ar`;
   const { data, loading, error } = useFetch(url);
@@ -30,16 +31,17 @@ export const Radio = () => {
       setSaveAllAudios(radios);
       if (radio) {
         setPassAudio({
-          id: radio.id,
-          url: radio.url,
-          name: radio.name
+          id: radios[radioId].id,
+          url: radios[radioId].url,
+          name: radios[radioId].name,
         });
+        setNextOrPrev(radioId);
       }
     }
-  }, [radioId, radios,  setPassAudio, setSaveAllAudios]);
+  }, [radioId, radios, setNextOrPrev, setPassAudio, setSaveAllAudios]);
 
   useEffect(() => {
-    if (findedItem) setRadioId(findedItem);
+    if (findedItem >= 0) setRadioId(findedItem - 1);
   }, [findedItem]);
 
   return (
@@ -56,7 +58,7 @@ export const Radio = () => {
                 key={index}
                 item={radio}
                 index={index}
-                click={() => setRadioId(radio.id)}
+                click={() => setRadioId(radio.id - 1)}
               />
             ))}
           </ul>

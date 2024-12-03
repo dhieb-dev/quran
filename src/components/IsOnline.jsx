@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-
 export const IsOnline = () => {
   const [isOnline, setIsOnline] = useState(false)
-  const navigate = useNavigate()
   const online = () => {
     setIsOnline('Internet online')
     setTimeout(() => {
