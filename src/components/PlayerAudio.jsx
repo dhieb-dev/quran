@@ -4,7 +4,8 @@ import { Context } from "../context/Context";
 import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
-  const { passAudio, setPassAudio, saveAllAudios, nextOrPrev, setNextOrPrev } = useContext(Context);
+  const { passAudio, setPassAudio, saveAllAudios, nextOrPrev, setNextOrPrev } =
+    useContext(Context);
   const [isPlaying, setIsPlaying] = useState(false);
   const [upTime, setUpTime] = useState({ progress: 0 });
   const [showPlayer, setShowPlayer] = useState(true);

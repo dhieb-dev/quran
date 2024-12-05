@@ -36,7 +36,7 @@ export function Rewayahs({ setActiveComponent }) {
   }, [moshafId, setPassRewayah, setActiveComponent, moshafs]);
 
   useEffect(() => {
-    if (findedItem) setMoshafId(findedItem);
+    if (findedItem) setMoshafId(findedItem.id);
      return () => setFindedItem()
   }, [findedItem, setFindedItem]);
 

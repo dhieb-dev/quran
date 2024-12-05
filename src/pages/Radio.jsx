@@ -13,8 +13,9 @@ export const Radio = () => {
   } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/radios?language=ar`;
   const { data, loading, error } = useFetch(url);
-  const [radioId, setRadioId] = useState();
+  const [Id, setId] = useState();
   const [radios, setRadios] = useState();
+  const [index, setIndex] = useState();
 
   useEffect(() => {
     if (data) setRadios(data.radios);
@@ -27,22 +28,28 @@ export const Radio = () => {
 
   useEffect(() => {
     if (radios) {
-      const radio = radios?.find((radio) => radio.id === radioId);
+      const radio = radios?.find((radio) => radio.id === Id);
       setSaveAllAudios(radios);
       if (radio) {
         setPassAudio({
-          id: radios[radioId].id,
-          url: radios[radioId].url,
-          name: radios[radioId].name,
+          id: radios[Id].id,
+          url: radios[Id].url,
+          name: radios[Id].name,
         });
-        setNextOrPrev(radioId);
       }
     }
-  }, [radioId, radios, setNextOrPrev, setPassAudio, setSaveAllAudios]);
+  }, [Id, radios, setNextOrPrev, setPassAudio, setSaveAllAudios]);
 
   useEffect(() => {
-    if (findedItem >= 0) setRadioId(findedItem - 1);
-  }, [findedItem]);
+    if (findedItem) {
+      setId(findedItem.id);
+      setNextOrPrev(findedItem.index);
+    }
+  }, [findedItem, setNextOrPrev]);
+
+  useEffect(() => {
+    if (index >= 0) setNextOrPrev(index);
+  }, [setNextOrPrev, index]);
 
   return (
     <section>
@@ -58,7 +65,10 @@ export const Radio = () => {
                 key={index}
                 item={radio}
                 index={index}
-                click={() => setRadioId(radio.id - 1)}
+                click={() => {
+                  setId(radio.id);
+                  setIndex(index);
+                }}
               />
             ))}
           </ul>
