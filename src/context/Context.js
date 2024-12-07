@@ -9,6 +9,7 @@ const ContextProvider = ({ children }) => {
   const [nextOrPrev, setNextOrPrev] = useState();
   const [findedItem, setFindedItem] = useState();
   const [activeComponent, setActiveComponent] = useState("reciters");
+
   const contextValues = {
     passReciter,
     setPassReciter,

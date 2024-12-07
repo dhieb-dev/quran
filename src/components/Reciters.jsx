@@ -31,7 +31,7 @@ export function Reciters({ setActiveComponent }) {
   }, [reciterId, setPassReciter, setActiveComponent, reciters]);
 
   useEffect(() => {
-    if (findedItem) setReciterId(findedItem.id);
+    if (findedItem) setReciterId(findedItem);
     return () => setFindedItem()
   }, [findedItem, setFindedItem]);
 

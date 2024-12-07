@@ -26,7 +26,6 @@ export function PlayerAudio() {
           });
         }
       };
-
       audio.addEventListener("timeupdate", handleTimeUpdate);
       return () => audio.removeEventListener("timeupdate", handleTimeUpdate);
     }

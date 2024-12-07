@@ -6,9 +6,11 @@ import { Context } from "../context/Context";
 export const Radio = () => {
   const {
     setSaveAllAudios,
+    saveAllAudios,
     setPassAudio,
     setSearch,
     findedItem,
+    setFindedItem,
     setNextOrPrev,
   } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/radios?language=ar`;
@@ -18,8 +20,21 @@ export const Radio = () => {
   const [index, setIndex] = useState();
 
   useEffect(() => {
-    if (data) setRadios(data.radios);
-  }, [data, radios]);
+    if (data) {
+      setRadios(data.radios);
+      if (radios) {
+        setSaveAllAudios(
+          radios.map((radio, index) => ({
+            index,
+            id: radio.id,
+            url: radio.url,
+            name: radio.name,
+          }))
+        );
+      }
+    }
+    return () => setRadios();
+  }, [data, radios, setSaveAllAudios]);
 
   useEffect(() => {
     if (radios) setSearch(radios);
@@ -29,23 +44,24 @@ export const Radio = () => {
   useEffect(() => {
     if (radios) {
       const radio = radios?.find((radio) => radio.id === Id);
-      setSaveAllAudios(radios);
       if (radio) {
         setPassAudio({
-          id: radios[Id].id,
-          url: radios[Id].url,
-          name: radios[Id].name,
+          url: radio.url,
+          name: radio.name,
         });
       }
     }
-  }, [Id, radios, setNextOrPrev, setPassAudio, setSaveAllAudios]);
+    return () => setId();
+  }, [Id, radios, setPassAudio]);
 
   useEffect(() => {
     if (findedItem) {
-      setId(findedItem.id);
-      setNextOrPrev(findedItem.index);
+      const findSurah = saveAllAudios.find((audio) => audio.id === findedItem);
+      setNextOrPrev(findSurah.index);
+      setId(findedItem);
     }
-  }, [findedItem, setNextOrPrev]);
+    return () => setFindedItem();
+  }, [saveAllAudios, setFindedItem, findedItem, setNextOrPrev, Id]);
 
   useEffect(() => {
     if (index >= 0) setNextOrPrev(index);

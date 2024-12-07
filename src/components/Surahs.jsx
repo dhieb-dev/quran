@@ -8,9 +8,11 @@ export function Surahs() {
   const {
     passRewayah,
     setPassAudio,
+    saveAllAudios,
     setSaveAllAudios,
     setSearch,
     findedItem,
+    setFindedItem,
     setNextOrPrev,
   } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/suwar?language=ar`;
@@ -21,13 +23,30 @@ export function Surahs() {
 
   // Filter Array Surahs In Data
   useEffect(() => {
-    if (data) {
-      const filterSurahs = passRewayah.surahlist
-        ?.split(",")
-        .map((item) => data.suwar.find((surah) => surah.id === +item));
-      setSurahs(filterSurahs);
+    if (data && passRewayah) {
+      const surahs = data.suwar;
+      const moshafList = passRewayah.surahlist;
+      setSurahs(
+        moshafList
+          .split(",")
+          .map((item) => surahs.find((surah) => surah.id === +item))
+      );
+      if (surahs) {
+        setSaveAllAudios(
+          surahs.map((surah, index) => ({
+            index,
+            id: surah.id,
+            url: `${passRewayah.server}${String(surah.id).padStart(
+              3,
+              "0"
+            )}.mp3`,
+            name: surah.name,
+          }))
+        );
+      }
     }
-  }, [data, passRewayah]);
+    return () => setSurahs();
+  }, [data, passRewayah, setSaveAllAudios]);
 
   // Set Array Search
   useEffect(() => {
@@ -35,34 +54,28 @@ export function Surahs() {
     return () => setSearch();
   }, [surahs, setSearch]);
 
-  // Save Object of each surah in an array
   useEffect(() => {
     if (surahs) {
-      const ArrAllSurahs = surahs.map((surah) => ({
-        url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
-        name: surah.name,
-      }));
-      setSaveAllAudios(ArrAllSurahs);
-    }
-  }, [passRewayah, surahs, setSaveAllAudios]);
-
-  useEffect(() => {
-    if (id && surahs && passRewayah) {
       const rewayah = passRewayah?.server;
       const surah = surahs.find((surah) => surah.id === id);
-      setPassAudio({
-        url: `${rewayah}${String(surah.id).padStart(3, "0")}.mp3`,
-        name: surah.name,
-      });
+      if (surah) {
+        setPassAudio({
+          url: `${rewayah}${String(surah.id).padStart(3, "0")}.mp3`,
+          name: surah.name,
+        });
+      }
     }
-  }, [passRewayah, setPassAudio, surahs, id, setNextOrPrev, index]);
+    return () => setId();
+  }, [passRewayah, setPassAudio, surahs, id]);
 
   useEffect(() => {
     if (findedItem) {
-      setId(findedItem.id);
-      setNextOrPrev(findedItem.index);
+      const findSurah = saveAllAudios.find((audio) => audio.id === findedItem);
+      setNextOrPrev(findSurah.index);
+      setId(findedItem);
     }
-  }, [findedItem, setNextOrPrev]);
+    return () => setFindedItem();
+  }, [saveAllAudios, setFindedItem, findedItem, setNextOrPrev, id]);
 
   useEffect(() => {
     if (index >= 0) setNextOrPrev(index);
