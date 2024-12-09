@@ -1,58 +1,104 @@
-import { useContext, useEffect, useState } from "react";
-import { Error, Spinner, } from "../components";
+import { useEffect, useState } from "react";
+import { Error, Spinner } from "../components";
 import { useFetch } from "../hooks";
-import { Context } from "../context/Context";
+import imageExists from "image-exists";
+
 export const BrowseQuran = () => {
-  const { currentLang } = useContext(Context)
-  const [namesSuwar, setNamesSuwar] = useState([])
-  const [startPage, setStartPage] = useState(1)
-  const [rewayah, setRewayah] = useState("hafs")
-  const { data, loading, error } = useFetch(`https://mp3quran.net/api/v3/suwar?language=${currentLang}`)
+  const [namesSuwar, setNamesSuwar] = useState([]);
+  const [startPage, setStartPage] = useState(1);
+  const [rewayah, setRewayah] = useState("hafs");
+  const [src, setSrc] = useState("");
+  const [exists, setExists] = useState(false);
+  const { data, loading, error } = useFetch(
+    `https://mp3quran.net/api/v3/suwar?language=ar`
+  );
 
   useEffect(() => {
     if (data) setNamesSuwar(data.suwar);
-  }, [data, namesSuwar])
+  }, [data, namesSuwar]);
 
-  function getPages(e) {
-    const startPageNum = e.target.options[e.target.selectedIndex].value;
-    setStartPage(startPageNum)
-  }
-  function getRewayah(e) {
-    const selectedewayah = e.target.options[e.target.selectedIndex].value;
-    setRewayah(selectedewayah)
-  }
+  useEffect(() => {
+    if (exists) setExists("");
+    let getSrc = `https://maknoon.com/quran/${rewayah}/${startPage}.svgz`;
+    imageExists(getSrc, (exists) => {
+      if (exists) {
+        setSrc(getSrc);
+        setExists(true);
+      }
+    });
+  }, [rewayah, startPage, exists]);
+
   const riwayat = [
     { name: "حفص عن عاصم", value: "hafs" },
     { name: "دوري عن أبي عمرو", value: "douri" },
     { name: "قالون عن نافع", value: "qalon" },
     { name: "شعبة عن عاصم", value: "shubah" },
     { name: "ورش عن نافع", value: "warsh" },
-  ]
+  ];
+
   return (
     <>
-      {loading ?
-        <Spinner className="spinner-browse-quran" /> :
-        error ?
-          <Error /> :
-          <section className="browse-quran" >
-            <div className="selects flex ">
-              <select className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded" onChange={getPages}>
-                {namesSuwar.map((surah) => <option key={surah.id} value={surah.start_page}>{surah.name}</option>)}
-              </select>
-              <select className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded" onChange={getRewayah}>
-                {riwayat.map((rewayah, index) => <option key={index} value={rewayah.value}>{rewayah.name}</option>)}
-              </select>
+      {loading ? (
+        <Spinner className="spinner-browse-quran" />
+      ) : error ? (
+        <Error />
+      ) : (
+        <section className="browse-quran">
+          <div className="selects flex ">
+            <select
+              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded"
+              onChange={(e) =>
+                setStartPage(e.target.options[e.target.selectedIndex].value)
+              }
+            >
+              {namesSuwar.map((surah) => (
+                <option key={surah.id} value={surah.start_page}>
+                  {surah.name}
+                </option>
+              ))}
+            </select>
+            <select
+              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded"
+              onChange={(e) =>
+                setRewayah(e.target.options[e.target.selectedIndex].value)
+              }
+            >
+              {riwayat.map((rewayah, index) => (
+                <option key={index} value={rewayah.value}>
+                  {rewayah.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="my-4 w-full flex justify-center gap-1">
+            <button
+              onClick={() => {
+                setStartPage((prev) => (prev === 1 ? 604 : prev - 1));
+              }}
+              className="my-auto w-6 h-8 bg-blue-300 rounded"
+            >
+              <img src="https://maknoon.com/quran/back.svg" alt="" />
+            </button>
+            <div className="relative md:min-w-[600px] w-[90%] p-1 bg-slate-100 rounded overflow-hidden">
+              {exists ? (
+                <img className="w-full" src={src} alt="page" />
+              ) : (
+                <div className="absolute top-0 left-0 w-full h-full bg-slate-300/70 grid place-content-center">
+                  <span className="block w-16 h-16 bg-white rounded-full animate-ping"></span>
+                </div>
+              )}
             </div>
-            <div className="photo-gellory my-4 min-h-[520px] w-full flex justify-center ">
-              <img className="p-2 rounded w-[600px] bg-slate-50" src={`https://maknoon.com/quran/${rewayah}/${startPage}.svgz`} alt="" />
-            </div>
-            <div dir="rtl" className="flex justify-center space-x-4 space-x-reverse">
-              <button onClick={() => setStartPage(prev => prev === 1 ? 604 : prev - 1)} className="w-6 h-6 bg-red-400 rounded-full p-[1px]"><img src="https://maknoon.com/quran/back.svg" alt="" /></button>
-              <span>{startPage}</span>
-              <button onClick={() => setStartPage(prev => prev === 604 ? 1 : prev + 1)} className="w-6 h-6 bg-red-400 rounded-full p-[1px]"><img src="https://maknoon.com/quran/forward.svg" alt="" /></button>
-            </div>
-          </section>
-      }
+            <button
+              onClick={() => {
+                setStartPage((prev) => (prev === 604 ? 1 : prev + 1));
+              }}
+              className="my-auto w-6 h-8 bg-blue-300 rounded"
+            >
+              <img src="https://maknoon.com/quran/forward.svg" alt="" />
+            </button>
+          </div>
+        </section>
+      )}
     </>
   );
 };

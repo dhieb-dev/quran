@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
-import { saveAs } from "file-saver";
 import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 import { downlod } from "../svgs/download";
@@ -20,6 +19,8 @@ export function Surahs() {
   const [surahs, setSurahs] = useState();
   const [index, setIndex] = useState();
   const [id, setId] = useState();
+  const [progress, setProgress] = useState(0);
+  const [download, setDownload] = useState(false);
 
   // Filter Array Surahs In Data
   useEffect(() => {
@@ -81,12 +82,59 @@ export function Surahs() {
     if (index >= 0) setNextOrPrev(index);
   }, [setNextOrPrev, index]);
 
-  const handleDownload = (url, name) => {
-    saveAs(url, name);
+  const handleDownload = async (url, name) => {
+    const res = await fetch(url);
+    if (!res?.body) return;
+    const reader = res.body.getReader();
+    const chunks = [];
+    const contentLength = res.headers.get("Content-Length");
+    const totalLength =
+      typeof contentLength === "string" && parseInt(contentLength);
+    let recievedLength = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      recievedLength = recievedLength + value.length;
+      if (typeof totalLength === "number") {
+        const step =
+          parseFloat((recievedLength / totalLength).toFixed(2)) * 100;
+        setDownload(true);
+        setProgress(step);
+      }
+      chunks.push(value);
+    }
+    const blob = new Blob(chunks);
+    const getUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = getUrl;
+    a.download = name;
+    function handleOnDownload() {
+      setTimeout(() => {
+        URL.revokeObjectURL(getUrl);
+        a.removeEventListener("click", handleOnDownload);
+      }, 150);
+    }
+    a.addEventListener("click", handleOnDownload);
+    a.click();
+    if (progress <= 100) setTimeout(() => setDownload(false), 100);
   };
 
   return (
     <div className="suwar">
+      {download && (
+        <div className="my-4 bg-slate-600 bottom-4 left-40 right-40 h-2 rounded">
+          <span
+            style={{ width: `${progress.toFixed()}%` }}
+            className="relative bg-red-500 h-2 rounded"
+          >
+            <span className="absolute bottom-full left-0 text-sm">
+              {progress.toFixed()}%
+            </span>
+          </span>
+        </div>
+      )}
       {error ? (
         <Error />
       ) : loading ? (
