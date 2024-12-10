@@ -118,21 +118,22 @@ export function Surahs() {
     }
     a.addEventListener("click", handleOnDownload);
     a.click();
-    if (progress <= 100) setTimeout(() => setDownload(false), 100);
+    if (progress <= 100) {
+      setDownload(false);
+    }
   };
 
   return (
     <div className="suwar">
       {download && (
-        <div className="my-4 bg-slate-600 bottom-4 left-40 right-40 h-2 rounded">
-          <span
-            style={{ width: `${progress.toFixed()}%` }}
-            className="relative bg-red-500 h-2 rounded"
-          >
-            <span className="absolute bottom-full left-0 text-sm">
-              {progress.toFixed()}%
-            </span>
-          </span>
+        <div className="mb-1 download w-1/2 mx-auto flex items-center gap-2">
+          <div className="bg-slate-400 dark:bg-neutral-700 bottom-4 w-full h-2 rounded">
+            <div
+              style={{ width: `${progress.toFixed(2)}%` }}
+              className="bg-red-400 dark:bg-sky-700 w-40 h-2 rounded "
+            ></div>
+          </div>
+          <div className="text-xs">{progress.toFixed(1)}%</div>
         </div>
       )}
       {error ? (
