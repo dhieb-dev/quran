@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Error, Spinner } from "../components";
+import { Spinner } from "../components";
 import { useFetch } from "../hooks";
 import imageExists from "image-exists";
 
@@ -9,7 +9,7 @@ export const BrowseQuran = () => {
   const [rewayah, setRewayah] = useState("hafs");
   const [src, setSrc] = useState("");
   const [exists, setExists] = useState(false);
-  const { data, loading, error } = useFetch(
+  const { data, loading } = useFetch(
     `https://mp3quran.net/api/v3/suwar?language=ar`
   );
 
@@ -37,16 +37,14 @@ export const BrowseQuran = () => {
   ];
 
   return (
-    <>
+    <section className="browse-quran">
       {loading ? (
-        <Spinner className="spinner-browse-quran" />
-      ) : error ? (
-        <Error />
+        <Spinner className="spinner-radio" />
       ) : (
-        <section className="browse-quran">
-          <div className="selects flex ">
+        <>
+          <div className="selects flex my-4">
             <select
-              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded"
+              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-slate-500/50  dark:border-zinc-200/50 rounded"
               onChange={(e) =>
                 setStartPage(e.target.options[e.target.selectedIndex].value)
               }
@@ -58,7 +56,7 @@ export const BrowseQuran = () => {
               ))}
             </select>
             <select
-              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-sky-200 dark:border-zinc-200 rounded"
+              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-slate-500/50  dark:border-zinc-200/50 rounded"
               onChange={(e) =>
                 setRewayah(e.target.options[e.target.selectedIndex].value)
               }
@@ -70,21 +68,21 @@ export const BrowseQuran = () => {
               ))}
             </select>
           </div>
-          <div className="my-4 w-full flex justify-center gap-1">
+          <div className="w-full flex justify-center">
             <button
               onClick={() => {
                 setStartPage((prev) => (prev === 1 ? 604 : prev - 1));
               }}
-              className="my-auto w-6 h-8 bg-blue-300 rounded"
+              className="my-auto mx-2 w-6 h-8 bg-blue-300 rounded"
             >
               <img src="https://maknoon.com/quran/back.svg" alt="" />
             </button>
-            <div className="relative md:min-w-[600px] w-[90%] p-1 bg-slate-100 rounded overflow-hidden">
+            <div className="relative min-h-[800px] w-[90%] md:w-[600px]  p-1 bg-slate-100 rounded overflow-hidden">
               {exists ? (
                 <img className="w-full" src={src} alt="page" />
               ) : (
                 <div className="absolute top-0 left-0 w-full h-full bg-slate-300/70 grid place-content-center">
-                  <span className="block w-16 h-16 bg-white rounded-full animate-ping"></span>
+                  <span className="w-16 h-16 bg-gray-600 rounded-full animate-ping"></span>
                 </div>
               )}
             </div>
@@ -92,13 +90,13 @@ export const BrowseQuran = () => {
               onClick={() => {
                 setStartPage((prev) => (prev === 604 ? 1 : prev + 1));
               }}
-              className="my-auto w-6 h-8 bg-blue-300 rounded"
+              className="my-auto mx-2 w-6 h-8 bg-blue-300 rounded"
             >
               <img src="https://maknoon.com/quran/forward.svg" alt="" />
             </button>
           </div>
-        </section>
+        </>
       )}
-    </>
+    </section>
   );
 };

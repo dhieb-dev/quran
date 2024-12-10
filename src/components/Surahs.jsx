@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
-import { Error, ItemList, Spinner } from "./index";
+import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 import { downlod } from "../svgs/download";
 export function Surahs() {
@@ -15,7 +15,7 @@ export function Surahs() {
     setNextOrPrev,
   } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/suwar?language=ar`;
-  const { data, loading, error } = useFetch(url);
+  const { data, loading } = useFetch(url);
   const [surahs, setSurahs] = useState();
   const [index, setIndex] = useState();
   const [id, setId] = useState();
@@ -124,21 +124,19 @@ export function Surahs() {
   };
 
   return (
-    <div className="suwar">
+    <section className="suwar">
       {download && (
-        <div className="mb-1 download w-1/2 mx-auto flex items-center gap-2">
+        <div className="mb-1 download w-1/2 mx-auto flex items-center">
           <div className="bg-slate-400 dark:bg-neutral-700 bottom-4 w-full h-2 rounded">
             <div
               style={{ width: `${progress.toFixed(2)}%` }}
               className="bg-red-400 dark:bg-sky-700 w-40 h-2 rounded "
             ></div>
           </div>
-          <div className="text-xs">{progress.toFixed(1)}%</div>
+          <div className="text-xs mx-2">{progress.toFixed(1)}%</div>
         </div>
       )}
-      {error ? (
-        <Error />
-      ) : loading ? (
+      {loading ? (
         <Spinner />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -170,6 +168,6 @@ export function Surahs() {
           ))}
         </ul>
       )}
-    </div>
+    </section>
   );
 }

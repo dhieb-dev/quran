@@ -13,4 +13,4 @@ export { NotFound } from "./NotFound";
 export { IsOnline } from "./IsOnline";
 export { MinMax } from "./MinMax";
 export { Tabs } from "./Tabs";
-export { Error } from "./Error";
+export { LoaderPage } from "./LoaderPage";

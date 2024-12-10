@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Error, ItemList, Spinner } from "../components/index";
+import { ItemList, Spinner } from "../components/index";
 import { useFetch } from "../hooks/useFetch";
 import { Context } from "../context/Context";
 
@@ -14,7 +14,7 @@ export const Radio = () => {
     setNextOrPrev,
   } = useContext(Context);
   const url = `https://mp3quran.net/api/v3/radios?language=ar`;
-  const { data, loading, error } = useFetch(url);
+  const { data, loading } = useFetch(url);
   const [Id, setId] = useState();
   const [radios, setRadios] = useState();
   const [index, setIndex] = useState();
@@ -68,28 +68,24 @@ export const Radio = () => {
   }, [setNextOrPrev, index]);
 
   return (
-    <section>
-      <div className="radios">
-        {error ? (
-          <Error />
-        ) : loading ? (
-          <Spinner className="spinner-radio" />
-        ) : (
-          <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-            {radios?.map((radio, index) => (
-              <ItemList
-                key={index}
-                item={radio}
-                index={index}
-                click={() => {
-                  setId(radio.id);
-                  setIndex(index);
-                }}
-              />
-            ))}
-          </ul>
-        )}
-      </div>
+    <section className="radios">
+      {loading ? (
+        <Spinner className="spinner-radio" />
+      ) : (
+        <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+          {radios?.map((radio, index) => (
+            <ItemList
+              key={index}
+              item={radio}
+              index={index}
+              click={() => {
+                setId(radio.id);
+                setIndex(index);
+              }}
+            />
+          ))}
+        </ul>
+      )}
     </section>
   );
 };

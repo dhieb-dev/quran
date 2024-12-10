@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
-import { Error, ItemList, Spinner } from "./index";
+import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Rewayahs({ setActiveComponent }) {
   const { passReciter, setPassRewayah, setSearch, findedItem, setFindedItem } =
     useContext(Context);
   const url = `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`;
-  const { data, loading, error } = useFetch(url);
+  const { data, loading } = useFetch(url);
   const [moshafs, setMoshafs] = useState();
   const [moshafId, setMoshafId] = useState();
 
@@ -37,14 +37,12 @@ export function Rewayahs({ setActiveComponent }) {
 
   useEffect(() => {
     if (findedItem) setMoshafId(findedItem);
-     return () => setFindedItem()
+    return () => setFindedItem();
   }, [findedItem, setFindedItem]);
 
   return (
-    <div className="rewayahs">
-      {error ? (
-        <Error />
-      ) : loading ? (
+    <section className="rewayahs">
+      {loading ? (
         <Spinner />
       ) : (
         <ul className="mt-2">
@@ -58,6 +56,6 @@ export function Rewayahs({ setActiveComponent }) {
           ))}
         </ul>
       )}
-    </div>
+    </section>
   );
 }

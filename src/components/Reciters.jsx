@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
-import { Error, ItemList, Spinner } from "./index";
+import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Reciters({ setActiveComponent }) {
-  const { setPassReciter, setSearch, findedItem, setFindedItem } = useContext(Context);
+  const { setPassReciter, setSearch, findedItem, setFindedItem } =
+    useContext(Context);
   const url = `https://mp3quran.net/api/v3/reciters?language=ar`;
-  const { data, loading, error } = useFetch(url);
+  const { data, loading } = useFetch(url);
   const [reciters, setReciters] = useState();
   const [reciterId, setReciterId] = useState();
 
@@ -32,14 +33,12 @@ export function Reciters({ setActiveComponent }) {
 
   useEffect(() => {
     if (findedItem) setReciterId(findedItem);
-    return () => setFindedItem()
+    return () => setFindedItem();
   }, [findedItem, setFindedItem]);
 
   return (
-    <div className="reciters">
-      {error ? (
-        <Error />
-      ) : loading ? (
+    <section className="reciters">
+      {loading ? (
         <Spinner />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
@@ -53,6 +52,6 @@ export function Reciters({ setActiveComponent }) {
           ))}
         </ul>
       )}
-    </div>
+    </section>
   );
 }
