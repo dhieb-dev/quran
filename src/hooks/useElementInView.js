@@ -13,9 +13,17 @@ export const useElementInView = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.remove("opacity-30", "scale-y-0");
+          entry.target.classList.remove(
+            "opacity-30",
+            "scale-y-0",
+            "translate-x-4"
+          );
         } else {
-          entry.target.classList.add("opacity-30", "scale-y-0");
+          entry.target.classList.add(
+            "opacity-30",
+            "scale-y-0",
+            "translate-x-4"
+          );
         }
       });
     }, option);

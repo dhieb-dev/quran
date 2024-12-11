@@ -85,7 +85,7 @@ export function PlayerAudio() {
       dir="ltr"
       className={`${
         !showPlayer ? "w-10 bg-transparent" : "px-2 py-1 space-y-2"
-      } duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gradient-to-br from-blue-100 to-green-200 dark:from-neutral-800 dark:to-slate-900 rounded`}
+      } duration-500 fixed bottom-0 left-4 right-4 mb-4 bg-gradient-to-br from-slate-50 to-blue-200 dark:from-neutral-900 dark:to-slate-900 rounded`}
     >
       <div className="flex justify-between">
         {showPlayer ? (

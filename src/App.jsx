@@ -12,14 +12,9 @@ export default function App() {
       <ContextProvider>
         <div
           onLoad={() => setTimeout(() => setLoader(false), 1000)}
-          className="App dark:text-white min-h-screen bg-slate-100/80 dark:bg-neutral-950/90"
+          className="App dark:text-white min-h-screen bg-slate-50 dark:bg-neutral-900"
         >
           {loader && <LoaderPage />}
-          <img
-            className="fixed top-0 left-0 h-full w-full -z-[1] object-cover object-left"
-            src={require("./static/images/bg-main.webp")}
-            alt="background main"
-          />
           <Header />
           <Container>
             <Main />

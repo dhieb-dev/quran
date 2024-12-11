@@ -36,7 +36,7 @@ export function Nav() {
     }
   }, [matches]);
   const navBarStyle = ({ isActive }) =>
-    `flex items-end ${isActive && "text-sky-500 fill-blue-300"}`;
+    `p-2 flex items-end border-b-2 border-transparent ${isActive && "max-md:text-red-500 md:border-red-500"}`;
   return (
     <nav className="flex justify-between items-center w-full">
       <Logo />
@@ -50,7 +50,7 @@ export function Nav() {
           >
             <path
               className={`${
-                show ? "stroke-red-500" : "stroke-black dark:stroke-white"
+                show ? "stroke-red-400" : "stroke-black dark:stroke-white"
               }`}
               d="M5 8H19M5 16H19M3 12H21"
               strokeWidth="2"
@@ -63,7 +63,7 @@ export function Nav() {
       {(!madia || show) && (
         <ul
           dir="rtl"
-          className="w-full flex justify-center rounded md:space-x-4 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-neutral-900 max-md:p-4 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-4"
+          className="w-full flex justify-center rounded md:space-x-4 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-neutral-800 max-md:border-2 max-md:border-black/50 max-md:dark:border-white/50 max-md:p-2 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-2"
         >
           {nav.map(({ title, link, ico }) => (
             <li key={title}>
