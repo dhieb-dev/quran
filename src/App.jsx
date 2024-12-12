@@ -12,7 +12,7 @@ export default function App() {
       <ContextProvider>
         <div
           onLoad={() => setTimeout(() => setLoader(false), 1000)}
-          className="App dark:text-white min-h-screen bg-slate-50 dark:bg-neutral-900"
+          className="App dark:text-white min-h-screen bg-slate-50 dark:bg-neutral-950"
         >
           {loader && <LoaderPage />}
           <Header />

@@ -36,7 +36,7 @@ export function Nav() {
     }
   }, [matches]);
   const navBarStyle = ({ isActive }) =>
-    `p-2 flex items-end border-b-2 border-transparent ${isActive && "max-md:text-red-500 md:border-red-500"}`;
+    `p-2 flex items-end border-b-2 border-transparent ${isActive && "max-md:text-blue-500 md:border-blue-400"}`;
   return (
     <nav className="flex justify-between items-center w-full">
       <Logo />
@@ -63,7 +63,7 @@ export function Nav() {
       {(!madia || show) && (
         <ul
           dir="rtl"
-          className="w-full flex justify-center rounded md:space-x-4 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-neutral-800 max-md:border-2 max-md:border-black/50 max-md:dark:border-white/50 max-md:p-2 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-2"
+          className="w-full flex justify-center rounded md:space-x-2 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-neutral-900 max-md:border-2 max-md:border-black/50 max-md:dark:border-white/50 max-md:p-2 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col max-md:space-y-2"
         >
           {nav.map(({ title, link, ico }) => (
             <li key={title}>
