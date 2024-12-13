@@ -12,7 +12,7 @@ export default function App() {
       <ContextProvider>
         <div
           onLoad={() => setTimeout(() => setLoader(false), 1000)}
-          className="App  dark:text-white min-h-screen bg-slate-50/85 dark:bg-neutral-950/95"
+          className="App  dark:text-white min-h-screen bg-slate-50/90 dark:bg-neutral-950/95"
         >
           <img
             className="fixed -z-[1] object-cover object-center w-full h-full hue-rotate-180"
