@@ -45,7 +45,7 @@ export function Rewayahs({ setActiveComponent }) {
       {loading ? (
         <Spinner />
       ) : (
-        <ul className="mt-2">
+        <ul className="mt-2 flex flex-col gap-2">
           {moshafs?.map((moshaf, index) => (
             <ItemList
               key={index}

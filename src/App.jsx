@@ -11,7 +11,7 @@ export default function App() {
     <BrowserRouter>
       <ContextProvider>
         <div
-          onLoad={() => setTimeout(() => setLoader(false), 1000)}
+          onLoad={() => setTimeout(() => setLoader(false), 1500)}
           className="App  dark:text-white min-h-screen bg-slate-50/90 dark:bg-neutral-950/95"
         >
           <img

@@ -82,7 +82,8 @@ export function Surahs() {
     if (index >= 0) setNextOrPrev(index);
   }, [setNextOrPrev, index]);
 
-  const handleDownload = async (url, name) => {
+  const handleDownload = async (url, name, btn) => {
+    if (btn) btn.classList.add("animate-pulse", "bg-red-400", "rounded-full");
     const res = await fetch(url);
     if (!res?.body) return;
     const reader = res.body.getReader();
@@ -100,6 +101,7 @@ export function Surahs() {
       if (typeof totalLength === "number") {
         const step =
           parseFloat((recievedLength / totalLength).toFixed(2)) * 100;
+        btn.classList.remove("animate-pulse", "bg-red-400", "rounded-full");
         setDownload(true);
         setProgress(step);
       }
@@ -139,7 +141,7 @@ export function Surahs() {
       {loading ? (
         <Spinner />
       ) : (
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4">
           {surahs?.map((surah, index) => (
             <div key={index} className="relative flex">
               <ItemList
@@ -150,20 +152,21 @@ export function Surahs() {
                   setId(surah.id);
                 }}
               />
-              <button
-                className="absolute left-4 h-full grid place-items-center"
-                onClick={() =>
-                  handleDownload(
-                    `${passRewayah.server}${String(surah.id).padStart(
-                      3,
-                      "0"
-                    )}.mp3`,
-                    `${String(surah.id).padStart(3, "0")}.mp3`
-                  )
-                }
-              >
-                {downlod.downlod}
-              </button>
+                <button
+                  className="absolute left-2 top-1/2 -translate-y-1/2 p-0.5 active:bg-blue-400 active:dark:bg-gray-500 rounded-full"
+                  onClick={(e) =>
+                    handleDownload(
+                      `${passRewayah.server}${String(surah.id).padStart(
+                        3,
+                        "0"
+                      )}.mp3`,
+                      `${String(surah.id).padStart(3, "0")}.mp3`,
+                      e.target
+                    )
+                  }
+                >
+                  {downlod.downlod}
+                </button>
             </div>
           ))}
         </ul>

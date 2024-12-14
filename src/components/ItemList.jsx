@@ -6,10 +6,12 @@ export const ItemList = ({ item, index, click }) => {
     <li
       ref={(el) => (targetRef.current[index] = el)}
       onClick={click}
-      className="relative z-[0] px-4 ease duration-300 py-2 mb-1 w-full flex bg-gradient-to-l from-slate-50/80 to-blue-100/90 dark:from-neutral-950 dark:to-gray-900 hover:to-slate-100 hover:dark:to-neutral-900 border-r-4 border-sky-400 hover:border-red-300 hover:dark:border-slate-100 rounded shadow-sm shadow-slate-950/50 dark:shadow-slate-400/50"
+      className="w-full relative px-4 ease duration-300 py-1.5 mb-1 bg-gradient-to-l from-slate-50/80 to-blue-100/90 dark:from-neutral-950 dark:to-gray-900 group hover:to-slate-100 hover:dark:to-neutral-900 rounded shadow-sm shadow-slate-950/50 dark:shadow-slate-400/50"
     >
-      <span className="">{index + 1} -</span>
-      <span className="mx-4">{item.name}</span>
+      <div className="w-11 h-11 rounded-md bg-blue-300 dark:bg-gray-700 grid place-content-center absolute top-1/2 -right-2 -translate-y-1/2 text-sm font-medium group-hover:bg-blue-400 group-hover:dark:bg-gray-800">
+        {index + 1}
+      </div>
+      <div className="ms-7">{item.name}</div>
     </li>
   );
 };
