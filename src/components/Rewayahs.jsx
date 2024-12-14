@@ -45,7 +45,7 @@ export function Rewayahs({ setActiveComponent }) {
       {loading ? (
         <Spinner />
       ) : (
-        <ul className="mt-3">
+        <ul className="mt-4">
           {moshafs?.map((moshaf, index) => (
             <ItemList
               key={index}
