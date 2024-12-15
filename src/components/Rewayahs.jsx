@@ -5,20 +5,18 @@ import { Context } from "../context/Context";
 
 export function Rewayahs({ setActiveComponent }) {
   const { passReciter, setPassRewayah, setSearch, findedItem, setFindedItem } =
-    useContext(Context);
-  const url = `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`;
-  const { data, loading } = useFetch(url);
-  const [moshafs, setMoshafs] = useState();
-  const [moshafId, setMoshafId] = useState();
+      useContext(Context),
+    { data, loading } = useFetch(
+      `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`
+    ),
+    [moshafs, setMoshafs] = useState(),
+    [moshafId, setMoshafId] = useState();
 
   useEffect(() => {
     if (data) setMoshafs(data.reciters[0].moshaf);
-  }, [data, moshafs]);
-
-  useEffect(() => {
     if (moshafs) setSearch(moshafs);
     return () => setSearch();
-  }, [moshafs, setSearch]);
+  }, [data, moshafs, setSearch]);
 
   useEffect(() => {
     if (moshafs) {
@@ -45,7 +43,7 @@ export function Rewayahs({ setActiveComponent }) {
       {loading ? (
         <Spinner />
       ) : (
-        <ul className="mt-2 space-y-4">
+        <ul className="mt-2 flex flex-col gap-2">
           {moshafs?.map((moshaf, index) => (
             <ItemList
               key={index}

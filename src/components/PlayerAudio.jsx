@@ -5,12 +5,12 @@ import { controls } from "../svgs/controls";
 
 export function PlayerAudio() {
   const { passAudio, setPassAudio, saveAllAudios, nextOrPrev, setNextOrPrev } =
-    useContext(Context);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [upTime, setUpTime] = useState({ progress: 0 });
-  const [showPlayer, setShowPlayer] = useState(true);
-  const audioRef = useRef();
-  const progressRef = useRef();
+      useContext(Context),
+    [isPlaying, setIsPlaying] = useState(false),
+    [upTime, setUpTime] = useState({ progress: 0 }),
+    [showPlayer, setShowPlayer] = useState(true),
+    audioRef = useRef(),
+    progressRef = useRef();
 
   // Update Name and Time Audio
   useEffect(() => {

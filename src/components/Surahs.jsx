@@ -5,36 +5,34 @@ import { Context } from "../context/Context";
 import { downlod } from "../svgs/download";
 export function Surahs() {
   const {
-    passRewayah,
-    setPassAudio,
-    saveAllAudios,
-    setSaveAllAudios,
-    setSearch,
-    findedItem,
-    setFindedItem,
-    setNextOrPrev,
-  } = useContext(Context);
-  const url = `https://mp3quran.net/api/v3/suwar?language=ar`;
-  const { data, loading } = useFetch(url);
-  const [surahs, setSurahs] = useState();
-  const [index, setIndex] = useState();
-  const [id, setId] = useState();
-  const [progress, setProgress] = useState(0);
-  const [download, setDownload] = useState(false);
+      passRewayah,
+      setPassAudio,
+      saveAllAudios,
+      setSaveAllAudios,
+      setSearch,
+      findedItem,
+      setFindedItem,
+      setNextOrPrev,
+    } = useContext(Context),
+    { data, loading } = useFetch(
+      `https://mp3quran.net/api/v3/suwar?language=ar`
+    ),
+    [surahs, setSurahs] = useState(),
+    [id, setId] = useState(),
+    [progress, setProgress] = useState(0),
+    [download, setDownload] = useState(false);
 
-  // Filter Array Surahs In Data
   useEffect(() => {
     if (data && passRewayah) {
       const surahs = data.suwar;
-      const moshafList = passRewayah.surahlist;
-      setSurahs(
-        moshafList
-          .split(",")
-          .map((item) => surahs.find((surah) => surah.id === +item))
-      );
-      if (surahs) {
+      const surahsList = passRewayah.surahlist
+        .split(",")
+        .map((item) => surahs.find((surah) => surah.id === +item));
+      setSurahs(surahsList);
+      if (surahsList) {
+        setSearch(surahsList);
         setSaveAllAudios(
-          surahs.map((surah, index) => ({
+          surahsList.map((surah, index) => ({
             index,
             id: surah.id,
             url: `${passRewayah.server}${String(surah.id).padStart(
@@ -46,14 +44,8 @@ export function Surahs() {
         );
       }
     }
-    return () => setSurahs();
-  }, [data, passRewayah, setSaveAllAudios]);
-
-  // Set Array Search
-  useEffect(() => {
-    if (surahs) setSearch(surahs);
     return () => setSearch();
-  }, [surahs, setSearch]);
+  }, [data, passRewayah, setSaveAllAudios, setSearch]);
 
   useEffect(() => {
     if (surahs) {
@@ -76,11 +68,9 @@ export function Surahs() {
       setId(findedItem);
     }
     return () => setFindedItem();
-  }, [saveAllAudios, setFindedItem, findedItem, setNextOrPrev, id]);
+  }, [saveAllAudios, setFindedItem, setNextOrPrev, findedItem, id]);
 
-  useEffect(() => {
-    if (index >= 0) setNextOrPrev(index);
-  }, [setNextOrPrev, index]);
+  const getIndex = (i) => setNextOrPrev(i);
 
   const handleDownload = async (url, name, btn) => {
     if (btn) btn.classList.add("animate-pulse", "bg-red-400", "rounded-full");
@@ -128,7 +118,7 @@ export function Surahs() {
   return (
     <section className="suwar">
       {download && (
-        <div className="mb-1 download w-1/2 mx-auto flex items-center">
+        <div className="mb-1 w-1/2 mx-auto flex items-center">
           <div className="bg-slate-400 dark:bg-neutral-700 bottom-4 w-full h-2 rounded">
             <div
               style={{ width: `${progress.toFixed(2)}%` }}
@@ -148,25 +138,25 @@ export function Surahs() {
                 item={surah}
                 index={surah.id - 1}
                 click={() => {
-                  setIndex(index);
+                  getIndex(index);
                   setId(surah.id);
                 }}
               />
-                <button
-                  className="absolute left-2 top-1/2 -translate-y-1/2 p-0.5 active:bg-blue-400 active:dark:bg-gray-500 rounded-full"
-                  onClick={(e) =>
-                    handleDownload(
-                      `${passRewayah.server}${String(surah.id).padStart(
-                        3,
-                        "0"
-                      )}.mp3`,
-                      `${String(surah.id).padStart(3, "0")}.mp3`,
-                      e.target
-                    )
-                  }
-                >
-                  {downlod.downlod}
-                </button>
+              <button
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-0.5 active:bg-blue-400 active:dark:bg-gray-500 rounded-full"
+                onClick={(e) =>
+                  handleDownload(
+                    `${passRewayah.server}${String(surah.id).padStart(
+                      3,
+                      "0"
+                    )}.mp3`,
+                    `${String(surah.id).padStart(3, "0")}.mp3`,
+                    e.target
+                  )
+                }
+              >
+                {downlod.downlod}
+              </button>
             </div>
           ))}
         </ul>

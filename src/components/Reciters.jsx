@@ -5,20 +5,20 @@ import { Context } from "../context/Context";
 
 export function Reciters({ setActiveComponent }) {
   const { setPassReciter, setSearch, findedItem, setFindedItem } =
-    useContext(Context);
-  const url = `https://mp3quran.net/api/v3/reciters?language=ar`;
-  const { data, loading } = useFetch(url);
-  const [reciters, setReciters] = useState();
-  const [reciterId, setReciterId] = useState();
+      useContext(Context),
+    { data, loading } = useFetch(
+      `https://mp3quran.net/api/v3/reciters?language=ar`
+    ),
+    [reciters, setReciters] = useState(),
+    [reciterId, setReciterId] = useState();
 
   useEffect(() => {
-    if (data) setReciters(data.reciters);
-  }, [data, reciters]);
-
-  useEffect(() => {
-    if (reciters) setSearch(reciters);
+    if (data) {
+      setReciters(data.reciters);
+      setSearch(data.reciters);
+    }
     return () => setSearch();
-  }, [reciters, setSearch]);
+  }, [data, reciters, setSearch]);
 
   useEffect(() => {
     if (reciters) {

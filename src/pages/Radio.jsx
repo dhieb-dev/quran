@@ -5,19 +5,20 @@ import { Context } from "../context/Context";
 
 export const Radio = () => {
   const {
-    setSaveAllAudios,
-    saveAllAudios,
-    setPassAudio,
-    setSearch,
-    findedItem,
-    setFindedItem,
-    setNextOrPrev,
-  } = useContext(Context);
-  const url = `https://mp3quran.net/api/v3/radios?language=ar`;
-  const { data, loading } = useFetch(url);
-  const [Id, setId] = useState();
-  const [radios, setRadios] = useState();
-  const [index, setIndex] = useState();
+      setSaveAllAudios,
+      saveAllAudios,
+      setPassAudio,
+      setSearch,
+      findedItem,
+      setFindedItem,
+      setNextOrPrev,
+    } = useContext(Context),
+    { data, loading } = useFetch(
+      `https://mp3quran.net/api/v3/radios?language=ar`
+    ),
+    [Id, setId] = useState(),
+    [radios, setRadios] = useState(),
+    [index, setIndex] = useState();
 
   useEffect(() => {
     if (data) {

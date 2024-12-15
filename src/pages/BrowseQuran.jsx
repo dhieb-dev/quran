@@ -4,14 +4,14 @@ import { useFetch } from "../hooks";
 import imageExists from "image-exists";
 
 export const BrowseQuran = () => {
-  const [namesSuwar, setNamesSuwar] = useState([]);
-  const [startPage, setStartPage] = useState(1);
-  const [rewayah, setRewayah] = useState("hafs");
-  const [src, setSrc] = useState("");
-  const [exists, setExists] = useState(false);
   const { data, loading } = useFetch(
-    `https://mp3quran.net/api/v3/suwar?language=ar`
-  );
+      `https://mp3quran.net/api/v3/suwar?language=ar`
+    ),
+    [namesSuwar, setNamesSuwar] = useState([]),
+    [startPage, setStartPage] = useState(1),
+    [rewayah, setRewayah] = useState("hafs"),
+    [src, setSrc] = useState(""),
+    [exists, setExists] = useState(false);
 
   useEffect(() => {
     if (data) setNamesSuwar(data.suwar);

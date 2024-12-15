@@ -5,7 +5,6 @@ import { useClickOutside } from "../hooks";
 export const InputSearch = () => {
   const [input, setInput] = useState("");
   const [resultSearch, setResultSearch] = useState([]);
-
   const { search, setFindedItem } = useContext(Context);
 
   const inputRef = useRef();
