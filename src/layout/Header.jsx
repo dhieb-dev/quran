@@ -16,7 +16,7 @@ export function Header() {
       className={`${
         fixed
           ? "fixed z-10 top-0 left-0 w-full bg-white/90 dark:bg-black/90"
-          : "bg-white/70 dark:bg-black/70"
+          : "bg-white/70 dark:bg-black/60"
       } py-3`}
     >
       <Container>
