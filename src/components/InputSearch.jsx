@@ -30,7 +30,7 @@ export const InputSearch = () => {
       <input
         value={input}
         ref={inputRef}
-        className="border-2 border-slate-300 focus:border-sky-200 focus:dark:border-red-200 dark:border-slate-600 px-3 outline-none py-1 rounded-full bg-zinc-100 dark:bg-neutral-900"
+        className="px-2 py-1 border-2 border-slate-300 focus:border-sky-200 focus:dark:border-red-200 dark:border-slate-600 rounded-full bg-zinc-100 dark:bg-neutral-900"
         onChange={(e) => setInput(e.target.value)}
         type="text"
         placeholder="البحث"
@@ -43,7 +43,7 @@ export const InputSearch = () => {
             resultSearch?.map((item, index) => (
               <li
                 key={index}
-                className="py-1 px-2 hover:bg-red-300 hover:dark:bg-blue-400"
+                className="py-1 px-1.5 text-base hover:bg-red-300 hover:dark:bg-blue-400"
                 onClick={() => setFindedItem(item.id)}
               >
                 {item.name}

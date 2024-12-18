@@ -73,7 +73,7 @@ export const Radio = () => {
       {loading ? (
         <Spinner className="spinner-radio" />
       ) : (
-        <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        <ul className="grid grid-cols-1 lg:grid-cols-2 gap-y-3 gap-x-4">
           {radios?.map((radio, index) => (
             <ItemList
               key={index}

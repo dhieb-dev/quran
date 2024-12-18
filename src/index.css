@@ -33,6 +33,10 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 span,
-button {
+button,
+input {
   display: block;
+}
+input {
+  outline: none;
 }

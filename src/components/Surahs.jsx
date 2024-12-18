@@ -23,6 +23,7 @@ export function Surahs() {
     [download, setDownload] = useState(false);
 
   useEffect(() => {
+    setPassAudio();
     if (data && passRewayah) {
       const surahs = data.suwar;
       const surahsList = passRewayah.surahlist
@@ -45,7 +46,7 @@ export function Surahs() {
       }
     }
     return () => setSearch();
-  }, [data, passRewayah, setSaveAllAudios, setSearch]);
+  }, [data, passRewayah, setSaveAllAudios, setSearch, setPassAudio]);
 
   useEffect(() => {
     if (surahs) {

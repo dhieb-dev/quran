@@ -36,7 +36,9 @@ export function Nav() {
     }
   }, [matches]);
   const navBarStyle = ({ isActive }) =>
-    `p-2 flex items-end border-b-2 border-transparent ${isActive && "max-md:text-blue-400 md:border-blue-300"}`;
+    `p-2 flex items-end border-b-2 border-transparent ${
+      isActive && "max-md:text-blue-400 md:border-blue-300"
+    }`;
   return (
     <nav className="flex justify-between items-center w-full">
       <Logo />
@@ -68,11 +70,7 @@ export function Nav() {
           {nav.map(({ title, link, ico }) => (
             <li key={title}>
               <NavLink to={link} className={navBarStyle}>
-                <img
-                  src={ico}
-                  alt={title}
-                  className="ml-2 w-6"
-                />
+                <img src={ico} alt={title} className="ml-2 w-6" />
                 {title}
               </NavLink>
             </li>
