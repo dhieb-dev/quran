@@ -62,13 +62,15 @@ export function PlayerAudio() {
 
   // Navigation Function
   useEffect(() => {
-    if (nextOrPrev < 0) setNextOrPrev(saveAllAudios.length - 1);
-    else if (nextOrPrev >= saveAllAudios.length) setNextOrPrev(0);
-    else if (nextOrPrev >= 0) {
-      setPassAudio({
-        url: saveAllAudios[nextOrPrev].url,
-        name: saveAllAudios[nextOrPrev].name,
-      });
+    if (saveAllAudios) {
+      if (nextOrPrev < 0) setNextOrPrev(saveAllAudios.length - 1);
+      else if (nextOrPrev >= saveAllAudios.length) setNextOrPrev(0);
+      else if (nextOrPrev >= 0) {
+        setPassAudio({
+          url: saveAllAudios[nextOrPrev].url,
+          name: saveAllAudios[nextOrPrev].name,
+        });
+      }
     }
   }, [nextOrPrev, saveAllAudios, setPassAudio, setNextOrPrev]);
 
