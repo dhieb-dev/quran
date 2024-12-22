@@ -26,24 +26,24 @@ export const InputSearch = () => {
   }, [input, search, setResultSearch]);
 
   return (
-    <div className="search relative">
+    <div className="relative text-sm">
       <input
         value={input}
         ref={inputRef}
-        className="px-2 py-1 border-2 border-slate-300 focus:border-sky-200 focus:dark:border-red-200 dark:border-slate-600 rounded-full bg-zinc-100 dark:bg-neutral-900"
+        className="px-1.5 py-0.5 w-32 md:w-40 border-2 border-slate-300 focus:border-sky-200 focus:dark:border-red-200 dark:border-slate-600 rounded-full bg-zinc-100 dark:bg-neutral-900"
         onChange={(e) => setInput(e.target.value)}
         type="text"
         placeholder="البحث"
       />
       {input && (
-        <ul className="absolute z-10 max-h-96 overflow-y-auto text-sm mt-1 top-full w-full bg-gray-100 dark:bg-black rounded-lg space-y-2">
+        <ul className="absolute z-10 max-h-96 overflow-y-auto mt-1 top-full w-full bg-gray-100 dark:bg-black rounded-lg space-y-2">
           {resultSearch?.length === 0 ? (
             <div>لا يوجد</div>
           ) : (
             resultSearch?.map((item, index) => (
               <li
                 key={index}
-                className="py-1 px-1.5 text-base hover:bg-red-200 hover:dark:bg-blue-300"
+                className="py-1 px-1.5 hover:bg-red-200 hover:dark:bg-blue-300"
                 onClick={() => setFindedItem(item.id)}
               >
                 {item.name}

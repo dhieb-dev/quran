@@ -2,22 +2,26 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "./Logo";
 import { useClickOutside, useResizeObserver } from "../hooks";
+import { navIcon } from "../svgs/nav";
 const mediaQuery = window.matchMedia("(max-width: 768px)");
 const nav = [
   {
     title: "القرآن الكريم",
     link: "/",
-    ico: require("../static/images/quran.png"),
+    ico: navIcon.quran,
+    style: "w-[20px]",
   },
   {
     title: "الإذاعات",
     link: "/radios",
-    ico: require("../static/images/radio.png"),
+    ico: navIcon.radio,
+    style: "w-[28px]",
   },
   {
     title: "متصفح القرآن",
     link: "/browse_quran",
-    ico: require("../static/images/radio.png"),
+    ico: navIcon.browseQuran,
+    style: "w-[28px]",
   },
 ];
 export function Nav() {
@@ -43,7 +47,7 @@ export function Nav() {
     <nav className="flex justify-between items-center w-full">
       <Logo />
       {madia && (
-        <button ref={btnRef} className="w-10" onClick={() => setShow(!show)}>
+        <button ref={btnRef} className="w-9" onClick={() => setShow(!show)}>
           <svg
             className="pointer-events-none"
             viewBox="0 0 24 24"
@@ -65,12 +69,12 @@ export function Nav() {
       {(!madia || show) && (
         <ul
           dir="rtl"
-          className="w-full flex justify-center rounded md:space-x-2 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-neutral-900 max-md:border-2 max-md:border-black/50 max-md:dark:border-white/50 max-md:p-2 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col "
+          className="text-sm font-bold w-full flex justify-center md:items-center rounded md:space-x-2 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-neutral-900 max-md:border-2 max-md:border-black/50 max-md:dark:border-white/50 max-md:p-2 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col "
         >
-          {nav.map(({ title, link, ico }) => (
+          {nav.map(({ title, link, ico, style }) => (
             <li key={title}>
               <NavLink to={link} className={navBarStyle}>
-                <img src={ico} alt={title} className="ml-2 w-6" />
+                <span className={`${style} me-2`}>{ico}</span>
                 {title}
               </NavLink>
             </li>

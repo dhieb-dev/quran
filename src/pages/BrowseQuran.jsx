@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Spinner } from "../components";
 import { useFetch } from "../hooks";
 import imageExists from "image-exists";
+import { arrows } from "../svgs/arrows";
 
 export const BrowseQuran = () => {
   const { data, loading } = useFetch(
@@ -68,14 +69,14 @@ export const BrowseQuran = () => {
               ))}
             </select>
           </div>
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center items-center">
             <button
               onClick={() => {
                 setStartPage((prev) => (prev === 1 ? 604 : prev - 1));
               }}
-              className="my-auto mx-2 w-6 h-8 bg-blue-300 rounded"
+              className="p-2 bg-blue-300 rounded"
             >
-              <img src="https://maknoon.com/quran/back.svg" alt="" />
+              {arrows.left}
             </button>
             <div className="relative min-h-[800px] w-[90%] md:w-[600px]  p-1 bg-slate-100 rounded overflow-hidden">
               {exists ? (
@@ -90,9 +91,9 @@ export const BrowseQuran = () => {
               onClick={() => {
                 setStartPage((prev) => (prev === 604 ? 1 : prev + 1));
               }}
-              className="my-auto mx-2 w-6 h-8 bg-blue-300 rounded"
+              className="p-2 bg-blue-300 rounded"
             >
-              <img src="https://maknoon.com/quran/forward.svg" alt="" />
+              {arrows.right}
             </button>
           </div>
         </>

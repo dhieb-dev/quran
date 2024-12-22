@@ -23,15 +23,16 @@ export function SwitchMode() {
       onClick={() => setSwitchMode((prev) => !prev)}
       title="Mode"
     >
-      <div className="relative">
+      <div className="flex items-center">
+        <span className="text-sm me-1">{switchMode ? "Light" : "Dark"}</span>
         <span
-          className={`block rounded-full h-6 w-6 ${
+          className={`relative w-6 rounded-full ${
             switchMode && "mr-0 ml-auto opacity-40"
           }`}
         >
           {modeIcon.sun}
           {switchMode && (
-            <span className="block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-45 w-7 h-1 rounded bg-red-600 "></span>
+            <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-45 w-7 h-1 rounded bg-red-600"></span>
           )}
         </span>
       </div>

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Context } from "../context/Context";
+import { arrows } from "../svgs/arrows";
 
 export const Tabs = () => {
   const {
@@ -10,35 +11,42 @@ export const Tabs = () => {
     activeComponent,
     setActiveComponent,
   } = useContext(Context);
-  const nameReciter = () => {
+  const reciter = () => {
     setPassReciter();
     setPassRewayah();
     setActiveComponent("reciters");
   };
-  const nameRewayah = () => {
+  const rewayah = () => {
     setPassRewayah();
     setActiveComponent("rewayahs");
   };
   return (
-    <nav className="max-md:order-1 max-md:mt-2">
-      <ul className="text-sm flex">
-        {!(activeComponent === "reciters") && (
-          <li
-            className="py-1.5 px-3 mx-1.5 bg-white hover:bg-neutral-400/20 dark:bg-black hover:dark:bg-neutral-200/20 rounded-full"
-            onClick={nameReciter}
-          >
-            {passReciter.name}
-          </li>
+    <section className="text-xs flex items-center space-x-2 space-x-reverse">
+      <div className="flex items-center space-x-2 space-x-reverse">
+        <button onClick={reciter} className="border-b-2 border-red-300">
+          القارئ
+        </button>
+        {activeComponent !== "reciters" && (
+          <>
+            {arrows.right}
+            <p>{passReciter.name}</p>
+          </>
         )}
-        {activeComponent === "surahs" && passRewayah.name && (
-          <li
-            className="py-1.5 px-3 mx-1.5 bg-white hover:bg-neutral-400/20 dark:bg-black hover:dark:bg-neutral-200/20 rounded-full"
-            onClick={nameRewayah}
-          >
-            {passRewayah.name}
-          </li>
-        )}
-      </ul>
-    </nav>
+      </div>
+      {arrows.right}
+      {activeComponent !== "reciters" && (
+        <div className="flex items-center space-x-2 space-x-reverse">
+          <button onClick={rewayah} className="border-b-2 border-red-300">
+            الرواية
+          </button>
+
+          {activeComponent === "surahs" && (
+            <>
+              {arrows.right} <p>{passRewayah.name}</p>
+            </>
+          )}
+        </div>
+      )}
+    </section>
   );
 };
