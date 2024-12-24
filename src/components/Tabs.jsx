@@ -29,7 +29,7 @@ export const Tabs = () => {
         {activeComponent !== "reciters" && (
           <>
             {arrows.right}
-            <p>{passReciter.name}</p>
+            <h3>{passReciter.name}</h3>
           </>
         )}
       </div>
@@ -42,7 +42,7 @@ export const Tabs = () => {
 
           {activeComponent === "surahs" && (
             <>
-              {arrows.right} <p>{passRewayah.name}</p>
+              {arrows.right} <h3>{passRewayah.name}</h3>
             </>
           )}
         </div>

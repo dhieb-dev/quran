@@ -9,19 +9,17 @@ const nav = [
     title: "القرآن الكريم",
     link: "/",
     ico: navIcon.quran,
-    style: "w-[20px]",
+    style: "grid place-content-center",
   },
   {
     title: "الإذاعات",
     link: "/radios",
     ico: navIcon.radio,
-    style: "w-[28px]",
   },
   {
     title: "متصفح القرآن",
     link: "/browse_quran",
     ico: navIcon.browseQuran,
-    style: "w-[28px]",
   },
 ];
 export function Nav() {
@@ -74,7 +72,7 @@ export function Nav() {
           {nav.map(({ title, link, ico, style }) => (
             <li key={title}>
               <NavLink to={link} className={navBarStyle}>
-                <span className={`${style} me-2`}>{ico}</span>
+                <span className={`${style} w-[28px] me-2`}>{ico}</span>
                 {title}
               </NavLink>
             </li>

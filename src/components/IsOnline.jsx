@@ -6,7 +6,7 @@ export const IsOnline = () => {
     setTimeout(() => {
       window.location.reload()
       setIsOnline(false)
-    }, 1000)
+    }, 2000)
   }
   const offline = () => {
     setIsOnline('Internet offline!')

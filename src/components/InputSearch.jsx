@@ -1,17 +1,20 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Context } from "../context/Context";
 import { useClickOutside } from "../hooks";
-
+import { searchIcon } from "../svgs/search";
 export const InputSearch = () => {
   const [input, setInput] = useState("");
+  const [btnSearch, setBtnSearch] = useState(false);
   const [resultSearch, setResultSearch] = useState([]);
   const { search, setFindedItem } = useContext(Context);
 
   const inputRef = useRef();
+  const btnRef = useRef();
   useClickOutside(inputRef, () => {
-    if (!(input === "")) {
-      setInput("");
-    }
+    if (!(input === "")) setInput("");
+  });
+  useClickOutside(btnRef, () => {
+    if (btnSearch) setBtnSearch(false);
   });
 
   useEffect(() => {
@@ -26,15 +29,31 @@ export const InputSearch = () => {
   }, [input, search, setResultSearch]);
 
   return (
-    <div className="relative text-sm">
-      <input
-        value={input}
-        ref={inputRef}
-        className="px-1.5 py-0.5 w-32 md:w-40 border-2 border-slate-300 focus:border-sky-200 focus:dark:border-red-200 dark:border-slate-600 rounded-full bg-zinc-100 dark:bg-neutral-900"
-        onChange={(e) => setInput(e.target.value)}
-        type="text"
-        placeholder="البحث"
-      />
+    <div className="absolute left-0 md:static text-sm">
+      <div
+        className={`flex border-2 rounded-full bg-zinc-100 dark:bg-neutral-900 ${
+          btnSearch ? "border-slate-500 dark:border-slate-400 " : ""
+        }`}
+      >
+        {btnSearch && (
+          <input
+            autoFocus
+            value={input}
+            ref={inputRef}
+            onChange={(e) => setInput(e.target.value)}
+            className="px-2 py-1 w-40"
+            type="text"
+            placeholder="البحث"
+          />
+        )}
+        <button
+          ref={btnRef}
+          onClick={() => setBtnSearch(true)}
+          className="w-5 h-5 m-1.5"
+        >
+          {searchIcon.search}
+        </button>
+      </div>
       {input && (
         <ul className="absolute z-10 max-h-96 overflow-y-auto mt-1 top-full w-full bg-gray-100 dark:bg-black rounded-lg space-y-2">
           {resultSearch?.length === 0 ? (

@@ -5,7 +5,7 @@ export const Spinner = () => {
       {arrSpinner.map((el) => (
         <div
           key={el}
-          className={` duration-${el} du h-10 w-full bg-gradient-to-l from-zinc-300 to-transparent dark:from-zinc-900 dark:to-transparent animate-pulse`}
+          className={` duration-${el} du h-10 w-full bg-gradient-to-l from-zinc-200 to-transparent dark:from-zinc-900 dark:to-transparent animate-pulse`}
         />
       ))}
     </div>

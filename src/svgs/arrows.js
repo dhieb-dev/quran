@@ -1,4 +1,15 @@
 export const arrows = {
+  top: (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M15 11L12 8M12 8L9 11M12 8V16M21"
+        className="stroke-black dark:stroke-white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
   right: (
     <svg
       height="12"

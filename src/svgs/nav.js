@@ -1,6 +1,6 @@
 export const navIcon = {
   quran: (
-    <svg viewBox="0 0 40 52" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 40 52" version="1.1" xmlns="http://www.w3.org/2000/svg" className="w-[20px]">
       <g id="quran" transform="translate(-16,-8)">
         <path
           d="M 19.984,9 H 55 V 55 H 17 V 11.984 A 2.984,2.984 0 0 1 19.984,9 Z"
