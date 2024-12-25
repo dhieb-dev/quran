@@ -3,11 +3,8 @@ const elementRoot = document.documentElement;
 
 export const useClickOutside = (targetRef, callBack) => {
   const handleClick = (e) => {
-    if (
-      e.target !== targetRef.current &&
-      e.target.contains(targetRef.current)
-    ) {
-      callBack();
+    if (e.target !== targetRef.current) {
+      callBack(e);
     }
   };
   useEffect(() => {

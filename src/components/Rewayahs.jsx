@@ -43,7 +43,7 @@ export function Rewayahs({ setActiveComponent }) {
       {loading ? (
         <Spinner />
       ) : (
-        <ul className="mt-2 space-y-4">
+        <ul className="mt-2 space-y-4 animate-opacity">
           {moshafs?.map((moshaf, index) => (
             <ItemList
               key={index}

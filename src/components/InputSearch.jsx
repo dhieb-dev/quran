@@ -10,11 +10,11 @@ export const InputSearch = () => {
 
   const inputRef = useRef();
   const btnRef = useRef();
-  useClickOutside(inputRef, () => {
-    if (!(input === "")) setInput("");
-  });
-  useClickOutside(btnRef, () => {
-    if (btnSearch) setBtnSearch(false);
+  useClickOutside(btnRef, (e) => {
+    if (btnSearch && e.target !== inputRef.current) {
+      setBtnSearch(false)
+      setInput("")
+    }
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const InputSearch = () => {
   }, [input, search, setResultSearch]);
 
   return (
-    <div className="absolute left-0 md:static text-sm">
+    <div className="absolute left-0 md:relative text-sm">
       <div
         className={`flex border-2 rounded-full bg-zinc-100 dark:bg-neutral-900 ${
           btnSearch ? "border-slate-500 dark:border-slate-400 " : ""
@@ -41,14 +41,14 @@ export const InputSearch = () => {
             value={input}
             ref={inputRef}
             onChange={(e) => setInput(e.target.value)}
-            className="px-2 py-1 w-40"
+            className="px-2 py-1 w-40 animate-scale"
             type="text"
             placeholder="البحث"
           />
         )}
         <button
           ref={btnRef}
-          onClick={() => setBtnSearch(true)}
+          onClick={() => setBtnSearch(!btnSearch)}
           className="w-5 h-5 m-1.5"
         >
           {searchIcon.search}

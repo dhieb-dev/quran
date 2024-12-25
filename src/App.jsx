@@ -12,7 +12,7 @@ export default function App() {
     <BrowserRouter>
       <ContextProvider>
         <div
-          onLoad={() => setTimeout(() => setLoader(false), 1500)}
+          onLoad={() => setTimeout(() => setLoader(false), 500)}
           className="App overflow-hidden dark:text-white min-h-screen bg-slate-50/70 dark:bg-neutral-950/90"
         >
           {bgMain.bg}

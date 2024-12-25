@@ -16,7 +16,7 @@ export const TopBack = () => {
       {fixed && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed right-5 bottom-20 w-12 h-12"
+          className="animate-scale fixed duration-1000 right-5 bottom-20 w-8 h-8"
         >
           {arrows.top}
         </button>

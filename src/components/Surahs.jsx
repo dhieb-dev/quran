@@ -36,7 +36,6 @@ export function Surahs() {
       setSearch(surahsList);
     }
     return () => {
-      setSurahs();
       setSearch();
     };
   }, [data, passRewayah, setSearch]);
@@ -130,7 +129,7 @@ export function Surahs() {
       {loading ? (
         <Spinner />
       ) : (
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {surahs?.map((surah, index) => (
             <div key={index} className="relative flex">
               <ItemList

@@ -43,7 +43,7 @@ export const BrowseQuran = () => {
         <Spinner className="spinner-radio" />
       ) : (
         <>
-          <div className="selects flex my-4">
+          <div className="selects flex my-4 animate-opacity">
             <select
               className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-slate-500/50  dark:border-zinc-200/50 rounded"
               onChange={(e) =>
@@ -69,12 +69,12 @@ export const BrowseQuran = () => {
               ))}
             </select>
           </div>
-          <div className="w-full flex justify-center items-center">
+          <div className="w-full flex justify-center items-center animate-opacity">
             <button
               onClick={() => {
                 setStartPage((prev) => (prev === 1 ? 604 : prev - 1));
               }}
-              className="p-2 bg-blue-300 rounded"
+              className="p-2 m-1.5 bg-gray-300 dark:bg-slate-800 rounded"
             >
               {arrows.left}
             </button>
@@ -91,7 +91,7 @@ export const BrowseQuran = () => {
               onClick={() => {
                 setStartPage((prev) => (prev === 604 ? 1 : prev + 1));
               }}
-              className="p-2 bg-blue-300 rounded"
+              className="p-2 m-1.5 bg-gray-300 dark:bg-slate-800 rounded"
             >
               {arrows.right}
             </button>
