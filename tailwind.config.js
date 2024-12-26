@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       animation: {
         scale: "scale 0.7s",
-        opacity: "opacity 1s",
+        opacity: "opacity 0.7s",
       },
       keyframes: {
         scale: {

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, startTransition } from "react";
 import { useFetch } from "../hooks/index";
 import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -11,10 +11,9 @@ export function Reciters({ setActiveComponent }) {
     ),
     [reciters, setReciters] = useState(),
     [reciterId, setReciterId] = useState();
-
   useEffect(() => {
     if (data) {
-      setReciters(data.reciters);
+      startTransition(() => setReciters(data.reciters));
       setSearch(data.reciters);
     }
     return () => setSearch();

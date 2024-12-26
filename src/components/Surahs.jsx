@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, startTransition } from "react";
 import { useFetch } from "../hooks/index";
 import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -25,14 +25,13 @@ export function Surahs() {
       const surahsList = passRewayah.surahlist
         .split(",")
         .map((item) => data.suwar.find((surah) => surah.id === +item));
-      setSurahs(
-        surahsList.map((surah, index) => ({
-          index,
-          id: surah.id,
-          url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
-          name: surah.name,
-        }))
-      );
+      const surahs = surahsList.map((surah, index) => ({
+        index,
+        id: surah.id,
+        url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
+        name: surah.name,
+      }));
+      startTransition(() => setSurahs(surahs));
       setSearch(surahsList);
     }
     return () => {

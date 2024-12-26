@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, startTransition } from "react";
 import { useFetch } from "../hooks/index";
 import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -13,8 +13,10 @@ export function Rewayahs({ setActiveComponent }) {
     [moshafId, setMoshafId] = useState();
 
   useEffect(() => {
-    if (data) setMoshafs(data.reciters[0].moshaf);
-    if (moshafs) setSearch(moshafs);
+    if (data) {
+      startTransition(() => setMoshafs(data.reciters[0].moshaf));
+      setSearch(data.reciters[0].moshaf);
+    }
     return () => setSearch();
   }, [data, moshafs, setSearch]);
 
