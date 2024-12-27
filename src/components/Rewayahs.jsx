@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, startTransition } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
 import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -9,20 +9,18 @@ export function Rewayahs({ setActiveComponent }) {
     { data, loading } = useFetch(
       `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`
     ),
-    [moshafs, setMoshafs] = useState(),
     [moshafId, setMoshafId] = useState();
 
   useEffect(() => {
-    if (data) {
-      startTransition(() => setMoshafs(data.reciters[0].moshaf));
-      setSearch(data.reciters[0].moshaf);
-    }
+    if (data) setSearch(data.reciters[0].moshaf);
     return () => setSearch();
-  }, [data, moshafs, setSearch]);
+  }, [data, setSearch]);
 
   useEffect(() => {
-    if (moshafs) {
-      const moshaf = moshafs.find((moshaf) => moshaf.id === moshafId);
+    if (data) {
+      const moshaf = data.reciters[0].moshaf.find(
+        (moshaf) => moshaf.id === moshafId
+      );
       if (moshaf) {
         setPassRewayah({
           surahlist: moshaf.surah_list,
@@ -33,7 +31,7 @@ export function Rewayahs({ setActiveComponent }) {
       }
     }
     return () => setMoshafId();
-  }, [moshafId, setPassRewayah, setActiveComponent, moshafs]);
+  }, [moshafId, setPassRewayah, setActiveComponent, data]);
 
   useEffect(() => {
     if (findedItem) setMoshafId(findedItem);
@@ -46,7 +44,7 @@ export function Rewayahs({ setActiveComponent }) {
         <Spinner />
       ) : (
         <ul className="mt-2 space-y-4 animate-opacity">
-          {moshafs?.map((moshaf, index) => (
+          {data.reciters[0].moshaf.map((moshaf, index) => (
             <ItemList
               key={index}
               index={index}

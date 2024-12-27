@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, startTransition } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFetch } from "../hooks/index";
 import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -16,22 +16,24 @@ export function Surahs() {
     { data, loading } = useFetch(
       `https://mp3quran.net/api/v3/suwar?language=ar`
     ),
-    [surahs, setSurahs] = useState(),
+    [surahs, setSurahs] = useState([]),
     [id, setId] = useState(),
     [progress, setProgress] = useState(0),
     [download, setDownload] = useState(false);
   useEffect(() => {
     if (data && passRewayah) {
-      const surahsList = passRewayah.surahlist
-        .split(",")
-        .map((item) => data.suwar.find((surah) => surah.id === +item));
-      const surahs = surahsList.map((surah, index) => ({
-        index,
-        id: surah.id,
-        url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
-        name: surah.name,
-      }));
-      startTransition(() => setSurahs(surahs));
+      const surahsList = passRewayah.surahlist.split(",");
+      const surahsFilter = surahsList.map((item) =>
+        data.suwar.find((surah) => surah.id === +item)
+      );
+      setSurahs(
+        surahsFilter.map((surah, index) => ({
+          index,
+          id: surah.id,
+          url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
+          name: surah.name,
+        }))
+      );
       setSearch(surahsList);
     }
     return () => {
@@ -125,11 +127,11 @@ export function Surahs() {
           <div className="text-xs mx-2">{progress.toFixed(1)}%</div>
         </div>
       )}
-      {loading ? (
+      {loading && !(surahs.length < 0) ? (
         <Spinner />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
-          {surahs?.map((surah, index) => (
+          {surahs.map((surah, index) => (
             <div key={index} className="relative flex">
               <ItemList
                 item={surah}
