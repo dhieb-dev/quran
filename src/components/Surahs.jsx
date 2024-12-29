@@ -26,14 +26,13 @@ export function Surahs() {
       const surahsFilter = surahsList.map((item) =>
         data.suwar.find((surah) => surah.id === +item)
       );
-      setSurahs(
-        surahsFilter.map((surah, index) => ({
-          index,
-          id: surah.id,
-          url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
-          name: surah.name,
-        }))
-      );
+      const SurahData = surahsFilter.map((surah, index) => ({
+        index,
+        id: surah.id,
+        url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
+        name: surah.name,
+      }));
+      setSurahs(SurahData);
       setSearch(surahsList);
     }
     return () => {

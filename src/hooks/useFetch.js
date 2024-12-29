@@ -5,19 +5,22 @@ export function useFetch(url) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getData = async (urlData) => {
-      try {
-        const res = await fetch(urlData);
+    if (url) {
+      const getData = async (url) => {
+        const res = await fetch(url);
         const fetchData = await res.json();
         if (fetchData) {
           setData(fetchData);
           setLoading(false);
         }
+      };
+      try {
+        getData(url);
       } catch (error) {
         setLoading(false);
+        console.log(error);
       }
-    };
-    getData(url);
+    }
   }, [url]);
   return { data, loading };
 }
