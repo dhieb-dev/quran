@@ -14,26 +14,24 @@ export function Reciters() {
   const { data, loading } = useFetch(
     `https://mp3quran.net/api/v3/reciters?language=ar`
   );
-  const [reciterId, setReciterId] = useState();
-
+  const [reciterIndex, setReciterIndex] = useState();
+  const reciters = data?.reciters;
   useEffect(() => {
-    if (data) {
-      setSearch(data.reciters);
-      if (findedItem) setReciterId(findedItem);
-      if (reciterId) {
-        const reciter = data.reciters.find(
-          (reciter) => reciter.id === reciterId
-        );
-        if (reciter) {
-          setPassReciter({ id: reciter.id, name: reciter.name });
-          setActiveComponent("rewayahs");
-        }
+    if (reciters) {
+      setSearch(reciters);
+      if (findedItem) setReciterIndex(findedItem);
+      if (reciterIndex) {
+        setPassReciter({
+          id: reciters[reciterIndex].id,
+          name: reciters[reciterIndex].name,
+        });
+        setActiveComponent("rewayahs");
       }
     }
     return () => setFindedItem();
   }, [
-    data,
-    reciterId,
+    reciters,
+    reciterIndex,
     setPassReciter,
     setActiveComponent,
     setSearch,
@@ -47,12 +45,12 @@ export function Reciters() {
         <Spinner />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
-          {data?.reciters?.map((reciter, index) => (
+          {reciters.map((reciter, index) => (
             <ItemList
               key={index}
               item={reciter}
               index={index}
-              click={() => setReciterId(reciter.id)}
+              click={() => setReciterIndex(index)}
             />
           ))}
         </ul>

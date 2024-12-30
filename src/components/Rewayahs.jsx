@@ -15,30 +15,25 @@ export function Rewayahs() {
   const { data, loading } = useFetch(
     `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`
   );
-  const [moshafId, setMoshafId] = useState();
-
+  const [moshafIndex, setMoshafIndex] = useState();
+  const moshafs = data?.reciters[0].moshaf;
   useEffect(() => {
-    if (data) {
-      setSearch(data.reciters[0].moshaf);
-      if (findedItem) setMoshafId(findedItem);
-      if (moshafId) {
-        const moshaf = data.reciters[0].moshaf.find(
-          (moshaf) => moshaf.id === moshafId
-        );
-        if (moshaf) {
-          setPassRewayah({
-            surahlist: moshaf.surah_list,
-            server: moshaf.server,
-            name: moshaf.name,
-          });
-          setActiveComponent("surahs");
-        }
+    if (moshafs) {
+      setSearch(moshafs);
+      if (findedItem) setMoshafIndex(findedItem);
+      if (moshafIndex) {
+        setPassRewayah({
+          surahlist: moshafs[moshafIndex].surah_list,
+          server: moshafs[moshafIndex].server,
+          name: moshafs[moshafIndex].name,
+        });
+        setActiveComponent("surahs");
       }
     }
     return () => setFindedItem();
   }, [
-    data,
-    moshafId,
+    moshafs,
+    moshafIndex,
     setPassRewayah,
     setActiveComponent,
     findedItem,
@@ -52,12 +47,12 @@ export function Rewayahs() {
         <Spinner />
       ) : (
         <ul className="mt-2 space-y-4 animate-opacity">
-          {data.reciters[0].moshaf.map((moshaf, index) => (
+          {moshafs.map((moshaf, index) => (
             <ItemList
               key={index}
               index={index}
               item={moshaf}
-              click={() => setMoshafId(moshaf.id)}
+              click={() => setMoshafIndex(index)}
             />
           ))}
         </ul>
