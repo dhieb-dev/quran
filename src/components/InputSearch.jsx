@@ -41,7 +41,7 @@ export const InputSearch = () => {
             value={input}
             ref={inputRef}
             onChange={(e) => setInput(e.target.value)}
-            className="px-2 py-1 w-40 animate-scale"
+            className="px-3 py-1 w-40 animate-scale"
             type="text"
             placeholder="البحث"
           />
@@ -49,7 +49,7 @@ export const InputSearch = () => {
         <button
           ref={btnRef}
           onClick={() => setBtnSearch(!btnSearch)}
-          className="w-5 h-5 m-1.5"
+          className="px-2 py-1 w-9 h-9"
         >
           {searchIcon.search}
         </button>

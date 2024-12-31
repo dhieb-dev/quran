@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 import { useFetch } from "../hooks/index";
 import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -14,35 +14,37 @@ export function Reciters() {
   const { data, loading } = useFetch(
     `https://mp3quran.net/api/v3/reciters?language=ar`
   );
+  const [reciters, setReciters] = useState([]);
   const [reciterIndex, setReciterIndex] = useState();
-  const reciters = data?.reciters;
+  const [isPending, startTransition] = useTransition();
   useEffect(() => {
-    if (reciters) {
-      setSearch(reciters);
-      if (findedItem) setReciterIndex(findedItem);
-      if (reciterIndex) {
-        setPassReciter({
-          id: reciters[reciterIndex].id,
-          name: reciters[reciterIndex].name,
-        });
-        setActiveComponent("rewayahs");
-      }
+    if (data) {
+      startTransition(() => setReciters(data.reciters));
+      setSearch(data.reciters);
     }
+  }, [data, setSearch]);
+
+  useEffect(() => {
+    if (findedItem) setReciterIndex(findedItem);
     return () => setFindedItem();
-  }, [
-    reciters,
-    reciterIndex,
-    setPassReciter,
-    setActiveComponent,
-    setSearch,
-    findedItem,
-    setFindedItem,
-  ]);
+  }, [findedItem, setFindedItem]);
+
+  useEffect(() => {
+    if (reciterIndex) {
+      setPassReciter({
+        id: reciters[reciterIndex].id,
+        name: reciters[reciterIndex].name,
+      });
+      setActiveComponent("rewayahs");
+    }
+  }, [reciters, reciterIndex, setPassReciter, setActiveComponent]);
 
   return (
     <section className="reciters">
       {loading ? (
         <Spinner />
+      ) : isPending ? (
+        <p>Please Wait...</p>
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {reciters.map((reciter, index) => (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useTransition } from "react";
 import { useFetch } from "../hooks/index";
 import { ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
@@ -20,6 +20,7 @@ export function Surahs() {
     [id, setId] = useState(),
     [progress, setProgress] = useState(0),
     [download, setDownload] = useState(false);
+  const [isPending, startTransition] = useTransition();
   useEffect(() => {
     if (data && passRewayah) {
       const surahsList = passRewayah.surahlist.split(",");
@@ -32,7 +33,7 @@ export function Surahs() {
         url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
         name: surah.name,
       }));
-      setSurahs(SurahData);
+      startTransition(() => setSurahs(SurahData));
       setSearch(surahsList);
     }
     return () => {
@@ -128,6 +129,8 @@ export function Surahs() {
       )}
       {loading && !(surahs.length < 0) ? (
         <Spinner />
+      ) : isPending ? (
+        <p>Please Wait...</p>
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {surahs.map((surah, index) => (
