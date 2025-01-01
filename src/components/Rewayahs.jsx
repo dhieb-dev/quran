@@ -43,10 +43,8 @@ export function Rewayahs() {
 
   return (
     <section className="rewayahs">
-      {loading ? (
+      {loading || isPending ? (
         <Spinner />
-      ) : isPending ? (
-        <p>Please Wait...</p>
       ) : (
         <ul className="mt-2 space-y-4 animate-opacity">
           {moshafs.map((moshaf, index) => (

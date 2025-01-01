@@ -41,10 +41,8 @@ export function Reciters() {
 
   return (
     <section className="reciters">
-      {loading ? (
+      {loading || isPending ? (
         <Spinner />
-      ) : isPending ? (
-        <p>Please Wait...</p>
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {reciters.map((reciter, index) => (

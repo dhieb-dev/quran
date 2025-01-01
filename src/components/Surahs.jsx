@@ -127,10 +127,8 @@ export function Surahs() {
           <div className="text-xs mx-2">{progress.toFixed(1)}%</div>
         </div>
       )}
-      {loading && !(surahs.length < 0) ? (
+      {loading || isPending ? (
         <Spinner />
-      ) : isPending ? (
-        <p>Please Wait...</p>
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {surahs.map((surah, index) => (
