@@ -15,35 +15,36 @@ export function Rewayahs() {
   const { data, loading } = useFetch(
     `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`
   );
-  const [moshafIndex, setMoshafIndex] = useState();
+  const [id, setId] = useState();
   const [moshafs, setMoshaf] = useState([]);
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
-    if (data) {
-      startTransition(() => setMoshaf(data?.reciters[0].moshaf));
-      setSearch(data?.reciters[0].moshaf);
-    }
-  }, [data, setSearch]);
+    if (data) startTransition(() => setMoshaf(data?.reciters[0].moshaf));
+  }, [data]);
 
   useEffect(() => {
-    if (findedItem) setMoshafIndex(findedItem);
+    if (moshafs) setSearch(moshafs);
+    return () => setSearch();
+  }, [setSearch, moshafs]);
+
+  useEffect(() => {
+    if (findedItem) setId(findedItem);
     return () => setFindedItem();
   }, [findedItem, setFindedItem]);
 
   useEffect(() => {
-    if (moshafIndex) {
-      setPassRewayah({
-        surahlist: moshafs[moshafIndex].surah_list,
-        server: moshafs[moshafIndex].server,
-        name: moshafs[moshafIndex].name,
-      });
-      setActiveComponent("surahs");
+    if (moshafs) {
+      const moshaf = moshafs.find((moshaf) => moshaf.id === id);
+      if (moshaf) {
+        setPassRewayah(moshaf);
+        setActiveComponent("surahs");
+      }
     }
-  }, [moshafs, moshafIndex, setPassRewayah, setActiveComponent]);
+  }, [moshafs, id, setPassRewayah, setActiveComponent]);
 
   return (
     <section className="rewayahs">
-      {loading || isPending ? (
+      {(loading || isPending) ? (
         <Spinner />
       ) : (
         <ul className="mt-2 space-y-4 animate-opacity">
@@ -52,7 +53,7 @@ export function Rewayahs() {
               key={index}
               index={index}
               item={moshaf}
-              click={() => setMoshafIndex(index)}
+              click={() => setId(moshaf.id)}
             />
           ))}
         </ul>

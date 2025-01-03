@@ -23,23 +23,23 @@ export function Surahs() {
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
     if (data && passRewayah) {
-      const surahsList = passRewayah.surahlist.split(",");
-      const surahsFilter = surahsList.map((item) =>
-        data.suwar.find((surah) => surah.id === +item)
-      );
-      const SurahData = surahsFilter.map((surah, index) => ({
-        index,
-        id: surah.id,
-        url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
-        name: surah.name,
-      }));
-      startTransition(() => setSurahs(SurahData));
-      setSearch(surahsList);
+      const surahsList = passRewayah.surah_list
+        .split(",")
+        .map((item) => data.suwar.find((surah) => surah.id === +item))
+        .map((surah, index) => ({
+          index,
+          id: surah.id,
+          url: `${passRewayah.server}${String(surah.id).padStart(3, "0")}.mp3`,
+          name: surah.name,
+        }));
+      startTransition(() => setSurahs(surahsList));
     }
-    return () => {
-      setSearch();
-    };
-  }, [data, passRewayah, setSearch]);
+  }, [data, passRewayah]);
+
+  useEffect(() => {
+    if (surahs) setSearch(surahs);
+    return () => setSearch();
+  }, [setSearch, surahs]);
 
   useEffect(() => {
     if (id) {

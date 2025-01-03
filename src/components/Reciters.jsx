@@ -15,33 +15,35 @@ export function Reciters() {
     `https://mp3quran.net/api/v3/reciters?language=ar`
   );
   const [reciters, setReciters] = useState([]);
-  const [reciterIndex, setReciterIndex] = useState();
+  const [id, setId] = useState();
   const [isPending, startTransition] = useTransition();
   useEffect(() => {
-    if (data) {
-      startTransition(() => setReciters(data.reciters));
-      setSearch(data.reciters);
-    }
-  }, [data, setSearch]);
+    if (data) startTransition(() => setReciters(data.reciters));
+  }, [data]);
 
   useEffect(() => {
-    if (findedItem) setReciterIndex(findedItem);
+    if (reciters) setSearch(reciters);
+    return () => setSearch();
+  }, [setSearch, reciters]);
+
+  useEffect(() => {
+    if (findedItem) setId(findedItem);
     return () => setFindedItem();
   }, [findedItem, setFindedItem]);
 
   useEffect(() => {
-    if (reciterIndex) {
-      setPassReciter({
-        id: reciters[reciterIndex].id,
-        name: reciters[reciterIndex].name,
-      });
-      setActiveComponent("rewayahs");
+    if (reciters) {
+      const reciter = reciters.find((reciter) => reciter.id === id);
+      if (reciter) {
+        setPassReciter(reciter);
+        setActiveComponent("rewayahs");
+      }
     }
-  }, [reciters, reciterIndex, setPassReciter, setActiveComponent]);
+  }, [reciters, id, setPassReciter, setActiveComponent]);
 
   return (
     <section className="reciters">
-      {loading || isPending ? (
+      {(loading || isPending) ? (
         <Spinner />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
@@ -50,7 +52,7 @@ export function Reciters() {
               key={index}
               item={reciter}
               index={index}
-              click={() => setReciterIndex(index)}
+              click={() => setId(reciter.id)}
             />
           ))}
         </ul>

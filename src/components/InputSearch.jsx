@@ -63,7 +63,7 @@ export const InputSearch = () => {
               <li
                 key={index}
                 className="py-1 px-1.5 hover:bg-red-200 hover:dark:bg-blue-300"
-                onClick={() => setFindedItem(index)}
+                onClick={() => setFindedItem(item.id)}
               >
                 {item.name}
               </li>
