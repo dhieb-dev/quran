@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "./Logo";
-import { useClickOutside, useResizeObserver } from "../hooks";
+import { useClickOutside } from "../hooks";
 import { navIcon } from "../svgs/nav";
-const mediaQuery = window.matchMedia("(max-width: 768px)");
 const nav = [
   {
     title: "القرآن الكريم",
@@ -24,50 +23,39 @@ const nav = [
 ];
 export function Nav() {
   const [show, setShow] = useState(false);
-  const [madia, setMedia] = useState(mediaQuery.matches);
   const btnRef = useRef();
-  const matches = useResizeObserver(768);
   useClickOutside(btnRef, () => {
-    if (!matches) setShow(false);
+     setShow(false);
   });
-  useEffect(() => {
-    if (!matches) {
-      setMedia(true);
-    } else {
-      setMedia(false);
-    }
-  }, [matches]);
   const navBarStyle = ({ isActive }) =>
-    `p-2 flex items-end border-b-2 border-transparent ${
-      isActive && "max-md:text-blue-400 md:border-blue-300"
+    `p-2 flex items-end w-40 ${
+      isActive && "text-blue-400"
     }`;
   return (
     <nav className="flex justify-between items-center w-full">
       <Logo />
-      {madia && (
-        <button ref={btnRef} className="w-9" onClick={() => setShow(!show)}>
-          <svg
-            className="pointer-events-none"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              className={`${
-                show ? "stroke-red-400" : "stroke-black dark:stroke-white"
-              }`}
-              d="M5 8H19M5 16H19M3 12H21"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      )}
-      {(!madia || show) && (
+      <button ref={btnRef} className="w-9" onClick={() => setShow(!show)}>
+        <svg
+          className="pointer-events-none"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            className={`${
+              show ? "stroke-red-400" : "stroke-black dark:stroke-white"
+            }`}
+            d="M5 8H19M5 16H19M3 12H21"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+      {show && (
         <ul
           dir="rtl"
-          className="text-sm font-bold w-full flex justify-center md:items-center rounded md:space-x-2 md:space-x-reverse max-md:bg-slate-50 max-md:dark:bg-neutral-900 max-md:border-2 max-md:border-black/50 max-md:dark:border-white/50 max-md:p-2 max-md:absolute max-md:top-full max-md:mt-5 max-md:left-0 max-md:z-10 max-md:flex-col "
+          className="fixed top-24 right-40 left-40 py-10 px-4 z-10 grid place-content-center bg-gradient-to-tr from-slate-300/80 to-white dark:from-slate-900/80 dark:to-black rounded-lg border-2 border-gray-400 dark:border-gray-400/40 text-sm font-bold"
         >
           {nav.map(({ title, link, ico, style }) => (
             <li key={title}>
