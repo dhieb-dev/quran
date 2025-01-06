@@ -25,12 +25,10 @@ export function Nav() {
   const [show, setShow] = useState(false);
   const btnRef = useRef();
   useClickOutside(btnRef, () => {
-     setShow(false);
+    setShow(false);
   });
   const navBarStyle = ({ isActive }) =>
-    `p-2 flex items-end w-40 ${
-      isActive && "text-blue-400"
-    }`;
+    `p-2 flex items-end w-40 ${isActive && "text-blue-400"}`;
   return (
     <nav className="flex justify-between items-center w-full">
       <Logo />

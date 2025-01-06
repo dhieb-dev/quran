@@ -117,14 +117,14 @@ export function Surahs() {
   return (
     <section className="suwar">
       {download && (
-        <div className="mb-1 w-1/2 mx-auto flex items-center">
+        <div className="fixed z-10 top-7 left-[20%] min-w-[30%] flex items-center">
           <div className="bg-slate-400 dark:bg-neutral-700 bottom-4 w-full h-2 rounded">
             <div
               style={{ width: `${progress.toFixed(2)}%` }}
               className="bg-red-400 dark:bg-sky-700 w-40 h-2 rounded "
             ></div>
           </div>
-          <div className="text-xs mx-2">{progress.toFixed(1)}%</div>
+          <div className="text-xs mx-2">{progress.toFixed(0)}%</div>
         </div>
       )}
       {loading || isPending ? (

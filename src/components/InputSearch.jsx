@@ -31,9 +31,7 @@ export const InputSearch = () => {
   return (
     <div className="absolute left-0 md:relative text-sm">
       <div
-        className={`flex border-2 rounded-full bg-zinc-100 dark:bg-neutral-900 ${
-          btnSearch ? "border-slate-500 dark:border-slate-400 " : ""
-        }`}
+        className="flex rounded-full bg-zinc-100 dark:bg-neutral-700"
       >
         {btnSearch && (
           <input
@@ -41,7 +39,7 @@ export const InputSearch = () => {
             value={input}
             ref={inputRef}
             onChange={(e) => setInput(e.target.value)}
-            className="px-3 py-1 w-40 animate-scale"
+            className="px-2 w-40 animate-scale"
             type="text"
             placeholder="البحث"
           />
@@ -49,7 +47,7 @@ export const InputSearch = () => {
         <button
           ref={btnRef}
           onClick={() => setBtnSearch(!btnSearch)}
-          className="px-2 py-1 w-9 h-9"
+          className="px-1.5 py-0.5 w-8 h-8"
         >
           {searchIcon.search}
         </button>

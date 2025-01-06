@@ -8,7 +8,7 @@ export const Main = () => {
   const { passAudio } = useContext(Context);
   const location = useLocation();
   return (
-    <main dir="rtl" className="relative pb-20">
+    <main dir="rtl" className="relative py-20">
       {location.pathname !== "/browse_quran" && <UpperBar />}
       <Routes>
         <Route path="/" element={<Quran />} />
