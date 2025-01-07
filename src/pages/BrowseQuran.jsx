@@ -80,7 +80,7 @@ export const BrowseQuran = () => {
             </button>
             <div className="relative min-h-[800px] w-[90%] md:w-[600px]  p-1 bg-slate-100 rounded overflow-hidden">
               {exists ? (
-                <img className="w-full" src={src} alt="page" />
+                <img loading="lazy" className="w-full" src={src} alt="page" />
               ) : (
                 <div className="absolute top-0 left-0 w-full h-full bg-slate-300/70 grid place-content-center">
                   <span className="w-16 h-16 bg-gray-600 rounded-full animate-ping"></span>

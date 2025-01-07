@@ -1,4 +1,3 @@
-li,
 button {
   cursor: pointer;
 }
@@ -9,4 +8,11 @@ span {
 
 button {
   background: none;
+}
+
+.App {
+  background-color: #fff;
+}
+.dark .App {
+  background-color: #000;
 }
