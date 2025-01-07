@@ -24,6 +24,12 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-dark-mode")
+    require("tailwindcss-dark-mode")(),
+    require("postcss-preset-env")({
+      stage: 1,
+      features: {
+        "custom-properties": true,
+      },
+    }),
   ],
 };
