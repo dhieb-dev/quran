@@ -14,7 +14,7 @@
     @apply block;
   }
   input {
-    @apply outline-none bg-inherit;
+    @apply outline-none bg-none;
   }
 }
 
