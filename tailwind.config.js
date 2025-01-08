@@ -7,9 +7,12 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      colors: {
+        primary: "var(--color-primary)",
+      },
       animation: {
         scale: "scale 0.7s",
-        opacity: "opacity 0.7s",
+        opacity: "opacity 1s",
       },
       keyframes: {
         scale: {

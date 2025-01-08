@@ -1,18 +1,66 @@
-button {
-  cursor: pointer;
+.App svg rect {
+  fill: #ffffff;
+}
+.dark .App svg rect {
+  fill: #000000;
+}
+#a stop:first-child {
+  stop-color: #005092;
+}
+#a stop:last-child {
+  stop-color: #007cc4;
+}
+.dark #a stop {
+  stop-color: #111;
 }
 
-span {
-  pointer-events: none;
+#b stop:nth-child(1) {
+  stop-color: #868686;
+}
+#b stop:nth-child(2) {
+  stop-color: #ababab;
+}
+#b stop:nth-child(3) {
+  stop-color: #c4c4c4;
+}
+#b stop:nth-child(4) {
+  stop-color: #d7d7d7;
+}
+#b stop:nth-child(5) {
+  stop-color: #e5e5e5;
+}
+#b stop:nth-child(6) {
+  stop-color: #f1f1f1;
+}
+#b stop:nth-child(7) {
+  stop-color: #f9f9f9;
 }
 
-button {
-  background: none;
+#b stop:nth-child(8) {
+  stop-color: #fff;
 }
 
-.App {
-  background-color: #fff;
+.dark #b stop:nth-child(1) {
+  stop-color: #080718;
 }
-.dark .App {
-  background-color: #000;
+.dark #b stop:nth-child(2) {
+  stop-color: #0a0a19;
+}
+.dark #b stop:nth-child(3) {
+  stop-color: #0b0b1a;
+}
+.dark #b stop:nth-child(4) {
+  stop-color: #0c0c1b;
+}
+.dark #b stop:nth-child(5) {
+  stop-color: #0d0d1b;
+}
+.dark #b stop:nth-child(6) {
+  stop-color: #0d0d1c;
+}
+.dark #b stop:nth-child(7) {
+  stop-color: #0e0e1c;
+}
+.dark #b stop:nth-child(8) {
+  stop-color: #0e0e1c;
 }
