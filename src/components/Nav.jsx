@@ -41,7 +41,7 @@ export function Nav() {
         >
           <path
             className={`${
-              show ? "stroke-red-400" : "stroke-black dark:stroke-white"
+              show ? "stroke-red-400" : "stroke-secondary"
             }`}
             d="M5 8H19M5 16H19M3 12H21"
             strokeWidth="2"
