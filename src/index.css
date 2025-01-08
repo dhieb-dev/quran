@@ -2,22 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  li,
-  button {
-    @apply cursor-pointer;
-  }
-  button {
-    @apply bg-none;
-  }
-  span {
-    @apply block;
-  }
-  input {
-    @apply outline-none bg-none;
-  }
-}
-
 @layer base {
   :root {
     --color-main: #fff;
