@@ -16,7 +16,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ContextProvider>
-        <div className="App overflow-hidden bg-primary dark:text-white min-h-screen">
+        <div className="App overflow-hidden bg-main dark:text-white min-h-screen">
           <div className="fixed top-0 left-0 w-full h-full opacity-80">{bgMain.bg}</div>
           {loader && <LoaderPage />}
           <Header />

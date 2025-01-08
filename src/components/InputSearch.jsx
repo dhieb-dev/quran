@@ -31,7 +31,7 @@ export const InputSearch = () => {
   return (
     <div className="absolute left-0 md:relative text-sm">
       <div
-        className="flex rounded-full bg-zinc-100 dark:bg-neutral-700"
+        className="flex rounded-full bg-main"
       >
         {btnSearch && (
           <input
@@ -53,14 +53,14 @@ export const InputSearch = () => {
         </button>
       </div>
       {input && (
-        <ul className="absolute z-10 max-h-96 overflow-y-auto mt-1 top-full w-full bg-gray-100 dark:bg-black rounded-lg space-y-2">
+        <ul className="absolute z-10 max-h-96 overflow-y-auto mt-1 top-full w-full bg-main rounded-lg space-y-2">
           {resultSearch?.length === 0 ? (
             <div>لا يوجد</div>
           ) : (
             resultSearch?.map((item, index) => (
               <li
                 key={index}
-                className="py-1 px-1.5 hover:bg-red-200 hover:dark:bg-blue-300"
+                className="py-1 px-1.5 hover:bg-fourth"
                 onClick={() => setFindedItem(item.id)}
               >
                 {item.name}

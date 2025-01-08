@@ -8,7 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        main: "var(--color-main)",
         primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        third: "var(--color-third)",
+        fourth: "var(--color-fourth)",
       },
       animation: {
         scale: "scale 0.7s",
