@@ -7,7 +7,7 @@ export const downlod = {
       y="0px"
       viewBox="0 0 256 256"
       enableBackground="new 0 0 256 256"
-      width="25"
+      width="20"
     >
       <g>
         <g>

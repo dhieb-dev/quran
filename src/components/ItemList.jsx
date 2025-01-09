@@ -2,7 +2,7 @@ import { downlod } from "../svgs/download";
 
 export const ItemList = ({ item, index, click, download }) => {
   return (
-    <li className="w-full relative flex items-center bg-primary hover:bg-main group border-b-2 border-third hover:border-fourth">
+    <li className="w-full relative flex items-center bg-primary hover:bg-main group border-b-2 border-third hover:border-fourth rounded-t">
      <div 
         onClick={click}
         className="flex-1 flex items-center px-4 duration-300"

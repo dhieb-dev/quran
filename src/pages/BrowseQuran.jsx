@@ -45,7 +45,7 @@ export const BrowseQuran = () => {
         <>
           <div className="selects flex my-4 animate-opacity">
             <select
-              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-slate-500/50  dark:border-zinc-200/50 rounded"
+              className="py-1 px-4 mx-2 cursor-pointer outline-none bg-third rounded-full"
               onChange={(e) =>
                 setStartPage(e.target.options[e.target.selectedIndex].value)
               }
@@ -57,7 +57,7 @@ export const BrowseQuran = () => {
               ))}
             </select>
             <select
-              className="py-1 px-2 mx-2 cursor-pointer outline-none bg-slate-100 dark:bg-slate-800 border-2 border-slate-500/50  dark:border-zinc-200/50 rounded"
+              className="py-1 px-4 mx-2 cursor-pointer outline-none bg-third rounded-full"
               onChange={(e) =>
                 setRewayah(e.target.options[e.target.selectedIndex].value)
               }
@@ -74,7 +74,7 @@ export const BrowseQuran = () => {
               onClick={() => {
                 setStartPage((prev) => (prev === 1 ? 604 : prev - 1));
               }}
-              className="p-2 m-1.5 bg-gray-300 dark:bg-slate-800 rounded"
+              className="p-2 m-1.5 bg-fourth rounded"
             >
               {arrows.left}
             </button>
@@ -82,8 +82,8 @@ export const BrowseQuran = () => {
               {exists ? (
                 <img loading="lazy" className="w-full" src={src} alt="page" />
               ) : (
-                <div className="absolute top-0 left-0 w-full h-full bg-slate-300/70 grid place-content-center">
-                  <span className="w-16 h-16 bg-gray-600 rounded-full animate-ping"></span>
+                <div className="absolute top-0 left-0 w-full h-full bg-primary grid place-content-center">
+                  <span className="w-16 h-16 bg-secondary rounded-full animate-ping"></span>
                 </div>
               )}
             </div>
@@ -91,7 +91,7 @@ export const BrowseQuran = () => {
               onClick={() => {
                 setStartPage((prev) => (prev === 604 ? 1 : prev + 1));
               }}
-              className="p-2 m-1.5 bg-gray-300 dark:bg-slate-800 rounded"
+              className="p-2 m-1.5 bg-fourth rounded"
             >
               {arrows.right}
             </button>
