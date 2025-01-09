@@ -3,7 +3,7 @@ import { downlod } from "../svgs/download";
 export const ItemList = ({ item, index, click, download }) => {
   return (
     <li className="w-full relative flex items-center bg-primary hover:bg-main group border-b-2 border-third hover:border-fourth">
-      <button
+     div 
         onClick={click}
         className="flex-1 flex items-center px-4 duration-300"
       >
@@ -11,7 +11,7 @@ export const ItemList = ({ item, index, click, download }) => {
           <span className="-rotate-45">{index + 1}</span>
         </span>
         <p>{item.name}</p>
-      </button>
+      </div>
       {download && (
         <button className="px-2" onClick={download}>
           {downlod.downlod}

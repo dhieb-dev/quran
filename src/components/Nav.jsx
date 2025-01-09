@@ -53,7 +53,7 @@ export function Nav() {
       {show && (
         <ul
           dir="rtl"
-          className="fixed top-24 right-40 left-40 py-10 px-4 z-10 grid place-content-center bg-gradient-to-tr from-slate-300/80 to-white dark:from-slate-900/80 dark:to-black rounded-lg border-2 border-gray-400 dark:border-gray-400/40 text-sm font-bold"
+          className="fixed top-24 right-40 left-40 py-10 px-4 z-10 grid place-content-center bg-gradient-to-tr from-third to-primary rounded-lg border-2 border-fourth text-sm font-bold"
         >
           {nav.map(({ title, link, ico, style }) => (
             <li key={title}>
