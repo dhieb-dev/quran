@@ -32,7 +32,11 @@ export function Nav() {
   return (
     <nav className="flex justify-between items-center w-full">
       <Logo />
-      <button ref={btnRef} className="w-9" onClick={() => setShow(!show)}>
+      <button
+        ref={btnRef}
+        className="w-9 animate-scale will-change-[scale]"
+        onClick={() => setShow(!show)}
+      >
         <svg
           className="pointer-events-none"
           viewBox="0 0 24 24"
@@ -40,9 +44,7 @@ export function Nav() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            className={`${
-              show ? "stroke-red-400" : "stroke-secondary"
-            }`}
+            className={`${show ? "stroke-red-400" : "stroke-secondary"}`}
             d="M5 8H19M5 16H19M3 12H21"
             strokeWidth="2"
             strokeLinecap="round"

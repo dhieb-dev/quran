@@ -19,7 +19,7 @@ export function SwitchMode() {
 
   return (
     <button
-      className="theme"
+      className="theme animate-scale will-change-[scale]"
       onClick={() => setSwitchMode((prev) => !prev)}
       title="Mode"
     >

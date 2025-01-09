@@ -29,7 +29,7 @@ export const InputSearch = () => {
   }, [input, search, setResultSearch]);
 
   return (
-    <div className="absolute left-0 md:relative text-sm">
+    <div className="absolute left-0 md:relative text-sm animate-scale will-change-[scale]">
       <div
         className="flex rounded-full bg-main"
       >

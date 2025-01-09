@@ -20,13 +20,12 @@ module.exports = {
       },
       keyframes: {
         scale: {
-          "0%": { transform: "scale(0)" },
-          "100%": { transform: "scale(1)" },
+          "0%": { scale: 0 },
+          "100%": { scale: 1 },
         },
         opacity: {
-          "0%": { opacity: "0", transform: "scale(.8)" },
-          // "50%": { scale: "0.9" },
-          "100%": { opacity: "1", transform: "scale(1)" },
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
         },
       },
     },
