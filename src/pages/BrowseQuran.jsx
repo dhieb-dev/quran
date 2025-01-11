@@ -1,97 +1,47 @@
 import { useEffect, useState } from "react";
 import { Spinner } from "../components";
-import { useFetch } from "../hooks";
-import imageExists from "image-exists";
 import { arrows } from "../svgs/arrows";
 
 export const BrowseQuran = () => {
-  const { data, loading } = useFetch(
-      `https://mp3quran.net/api/v3/suwar?language=ar`
-    ),
-    [namesSuwar, setNamesSuwar] = useState([]),
-    [startPage, setStartPage] = useState(1),
-    [rewayah, setRewayah] = useState("hafs"),
-    [src, setSrc] = useState(""),
-    [exists, setExists] = useState(false);
-
+  const [page, setPage] = useState();
+  const [numPage, setNumPage] = useState(1);
   useEffect(() => {
-    if (data) setNamesSuwar(data.suwar);
-  }, [data, namesSuwar]);
-
-  useEffect(() => {
-    if (exists) setExists("");
-    let getSrc = `https://maknoon.com/quran/${rewayah}/${startPage}.svgz`;
-    imageExists(getSrc, (exists) => {
-      if (exists) {
-        setSrc(getSrc);
-        setExists(true);
-      }
-    });
-  }, [rewayah, startPage, exists]);
-
-  const riwayat = [
-    { name: "حفص عن عاصم", value: "hafs" },
-    { name: "دوري عن أبي عمرو", value: "douri" },
-    { name: "قالون عن نافع", value: "qalon" },
-    { name: "شعبة عن عاصم", value: "shubah" },
-    { name: "ورش عن نافع", value: "warsh" },
-  ];
+    const getPage = async () => {
+      const res = await fetch(
+        `https://www.mp3quran.net/api/quran_pages_svg/dark/${String(
+          numPage
+        ).padStart(3, "0")}.svg`
+      );
+      const data = await res.text();
+      setPage(data);
+    };
+    getPage();
+  }, [numPage, page]);
 
   return (
     <section className="browse-quran">
-      {loading ? (
+      {false ? (
         <Spinner className="spinner-radio" />
       ) : (
         <>
-          <div className="selects flex my-4 animate-opacity">
-            <select
-              className="py-1 px-4 mx-2 cursor-pointer outline-none bg-third rounded-full"
-              onChange={(e) =>
-                setStartPage(e.target.options[e.target.selectedIndex].value)
-              }
-            >
-              {namesSuwar.map((surah) => (
-                <option key={surah.id} value={surah.start_page}>
-                  {surah.name}
-                </option>
-              ))}
-            </select>
-            <select
-              className="py-1 px-4 mx-2 cursor-pointer outline-none bg-third rounded-full"
-              onChange={(e) =>
-                setRewayah(e.target.options[e.target.selectedIndex].value)
-              }
-            >
-              {riwayat.map((rewayah, index) => (
-                <option key={index} value={rewayah.value}>
-                  {rewayah.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="w-full flex justify-center items-center animate-opacity">
+          <div className="flex justify-center">
             <button
               onClick={() => {
-                setStartPage((prev) => (prev === 1 ? 604 : prev - 1));
+                setNumPage((prev) => (prev === 1 ? 604 : prev - 1));
               }}
-              className="p-2 m-1.5 bg-fourth rounded"
+              className="p-2 mx-1.5 bg-fourth rounded"
             >
               {arrows.left}
             </button>
-            <div className="relative min-h-[800px] w-[90%] md:w-[600px]  p-1 bg-slate-100 rounded overflow-hidden">
-              {exists ? (
-                <img loading="lazy" className="w-full" src={src} alt="page" />
-              ) : (
-                <div className="absolute top-0 left-0 w-full h-full bg-primary grid place-content-center">
-                  <span className="w-16 h-16 bg-secondary rounded-full animate-ping"></span>
-                </div>
-              )}
-            </div>
+            <div
+              className="w-1/2 h-[870px] max-lg:h-[620px] max-md:h-[500px] max-sm:w-full max-sm:h-[830px] overflow-hidden rounded-md bg-primary flex [&_svg_#content_g_path]:fill-secondary [&_svg_rect]:fill-transparent"
+              dangerouslySetInnerHTML={{ __html: page }}
+            ></div>
             <button
               onClick={() => {
-                setStartPage((prev) => (prev === 604 ? 1 : prev + 1));
+                setNumPage((prev) => (prev === 604 ? 1 : prev + 1));
               }}
-              className="p-2 m-1.5 bg-fourth rounded"
+              className="p-2 mx-1.5 bg-fourth rounded"
             >
               {arrows.right}
             </button>

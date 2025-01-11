@@ -1,7 +1,7 @@
-.App svg rect {
+.App .bg-main svg rect {
   fill: #ffffff;
 }
-.dark .App svg rect {
+.dark .App .bg-main svg rect {
   fill: #000000;
 }
 #a stop:first-child {
