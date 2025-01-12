@@ -34,7 +34,7 @@ export const BrowseQuran = () => {
               {arrows.left}
             </button>
             <div dangerouslySetInnerHTML={{__html: page}}
-              className="w-1/2 h-[870px]"
+              className="w-full h-[660px]"
             ></div>
             <button
               onClick={() => {
