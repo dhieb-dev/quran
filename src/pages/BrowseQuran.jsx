@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Spinner } from "../components";
 import { arrows } from "../svgs/arrows";
 
 export const BrowseQuran = () => {
   const [page, setPage] = useState();
   const [numPage, setNumPage] = useState(1);
+  const contentRef = useRef(null);
   useEffect(() => {
     const getPage = async () => {
       const res = await fetch(
@@ -13,7 +14,7 @@ export const BrowseQuran = () => {
         ).padStart(3, "0")}.svg`
       );
       const data = await res.text();
-      setPage(data);
+      if (contentRef) contentRef.current.innerHTML = data;
     };
     getPage();
   }, [numPage, page]);
@@ -33,9 +34,8 @@ export const BrowseQuran = () => {
             >
               {arrows.left}
             </button>
-            <div
+            <div ref={contentRef}
               className="w-1/2 h-[870px] max-lg:h-[620px] max-md:h-[500px] max-sm:w-full max-sm:h-[830px] overflow-hidden rounded-md bg-primary flex [&_svg_#content_g_path]:fill-secondary [&_svg_rect]:fill-transparent"
-              dangerouslySetInnerHTML={{ __html: page }}
             ></div>
             <button
               onClick={() => {
