@@ -35,7 +35,7 @@ export const BrowseQuran = () => {
               {arrows.left}
             </button>
             <div ref={contentRef}
-              className="w-1/2 h-[870px] max-lg:h-[620px] max-md:h-[500px] max-sm:w-full max-sm:h-[830px] overflow-hidden rounded-md bg-primary flex [&_svg_#content_g_path]:fill-secondary [&_svg_rect]:fill-transparent"
+              className="w-1/2 h-[870px]"
             ></div>
             <button
               onClick={() => {
