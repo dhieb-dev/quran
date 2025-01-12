@@ -33,8 +33,9 @@ export const BrowseQuran = () => {
             >
               {arrows.left}
             </button>
-            <div dangerouslySetInnerHTML={{__html: page}}
-              className="flex w-full h-screen"
+            <div 
+              dangerouslySetInnerHTML={{__html: page}}
+               className="w-1/2 h-[870px] max-lg:h-[620px] max-md:h-[500px] max-sm:w-full max-sm:h-[830px] overflow-hidden rounded-md bg-primary [&_svg]:h-full [&_svg_#content_g_path]:fill-secondary [&_svg_rect]:fill-transparent"
             ></div>
             <button
               onClick={() => {
