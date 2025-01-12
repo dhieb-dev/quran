@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Spinner } from "../components";
 import { arrows } from "../svgs/arrows";
 
 export const BrowseQuran = () => {
   const [page, setPage] = useState();
   const [numPage, setNumPage] = useState(1);
-  const contentRef = useRef(null);
   useEffect(() => {
     const getPage = async () => {
       const res = await fetch(
@@ -14,10 +13,10 @@ export const BrowseQuran = () => {
         ).padStart(3, "0")}.svg`
       );
       const data = await res.text();
-      if (contentRef) contentRef.current.innerHTML = data;
+      setPage(data);
     };
     getPage();
-  }, [numPage, contentRef]);
+  }, [numPage, page]);
 
   return (
     <section className="browse-quran">
@@ -34,7 +33,7 @@ export const BrowseQuran = () => {
             >
               {arrows.left}
             </button>
-            <div ref={contentRef}
+            <div dangerouslySetInnerHTML={{__html: page}}
               className="w-1/2 h-[870px]"
             ></div>
             <button
