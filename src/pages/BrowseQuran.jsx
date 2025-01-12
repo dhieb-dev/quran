@@ -34,7 +34,7 @@ export const BrowseQuran = () => {
               {arrows.left}
             </button>
             <div dangerouslySetInnerHTML={{__html: page}}
-              className="w-full h-screen"
+              className="flex w-full h-screen"
             ></div>
             <button
               onClick={() => {
