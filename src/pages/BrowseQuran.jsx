@@ -17,7 +17,7 @@ export const BrowseQuran = () => {
       if (contentRef) contentRef.current.innerHTML = data;
     };
     getPage();
-  }, [numPage, page]);
+  }, [numPage, contentRef]);
 
   return (
     <section className="browse-quran">
