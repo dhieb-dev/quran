@@ -21,7 +21,7 @@ export const Tabs = () => {
     setActiveComponent("rewayahs");
   };
   return (
-    <section className="text-xs flex items-center space-x-2 space-x-reverse py-1.5 px-4 bg-main rounded-full animate-scale will-change-[scale]">
+    <section className="text-xs flex items-center space-x-2 space-x-reverse py-1.5 px-4 bg-main border-2 border-third rounded-full animate-scale will-change-[scale]">
       <div className="flex items-center space-x-2 space-x-reverse">
         <button onClick={reciter} className="border-b-2 border-red-300">
           القارئ

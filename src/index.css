@@ -5,14 +5,14 @@
 @layer base {
   :root {
     --color-main: #fff;
-    --color-primary: #eeeeeee3;
+    --color-primary: #f3ffffe0;
     --color-secondary: #222222;
     --color-third: #b4cdff;
     --color-fourth: #e3f0f8e3;
   }
   .dark:root {
     --color-main: #000;
-    --color-primary: #030213e0;
+    --color-primary: #010102b5;
     --color-secondary: #eeeeee;
     --color-third: #1d1a31;
     --color-fourth: #1e1e33e3;

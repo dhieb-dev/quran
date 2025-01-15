@@ -3,23 +3,22 @@ import { useState, useEffect } from "react";
 export function useFetch(url) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   useEffect(() => {
-    if (url) {
-      const getData = async (url) => {
-        const res = await fetch(url);
+    const getData = async (urlData) => {
+      try {
+        const res = await fetch(urlData);
         const fetchData = await res.json();
         if (fetchData) {
           setData(fetchData);
           setLoading(false);
         }
-      };
-      try {
-        getData(url);
       } catch (error) {
         setLoading(false);
-        console.log(error);
+        setError(error);
       }
-    }
-  },[url]);
-  return { data, loading };
+    };
+    getData(url);
+  }, [url]);
+  return { data, loading, error };
 }

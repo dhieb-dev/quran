@@ -36,7 +36,7 @@ export const BrowseQuran = () => {
     };
     getPage();
   }, [numPage]);
-
+  const contentRef = useRef();
   const handlers = useSwipeable({
     onSwipedLeft: () => setNumPage((prev) => (prev === 1 ? 604 : prev - 1)),
     onSwipedRight: () => setNumPage((prev) => (prev === 604 ? 1 : prev + 1)),
@@ -61,6 +61,7 @@ export const BrowseQuran = () => {
           </button>
 
           <div
+            ref={contentRef}
             dangerouslySetInnerHTML={{ __html: page }}
             className="w-full h-[840px] sm:w-11/12 md:w-10/12 md:h-[960px] lg:w-3/5 lg:h-[925px] xl:w-1/2 xl:h-[830px] overflow-hidden rounded-md bg-primary [&_svg]:h-full [&_svg]:w-full [&_svg_#content_g_path]:fill-secondary [&_svg_rect]:fill-transparent"
           ></div>

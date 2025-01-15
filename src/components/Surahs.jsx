@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useTransition } from "react";
 import { useFetch } from "../hooks/index";
-import { ItemList, Spinner } from "./index";
+import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 export function Surahs() {
   const {
@@ -12,7 +12,7 @@ export function Surahs() {
       setFindedItem,
       setNextOrPrev,
     } = useContext(Context),
-    { data, loading } = useFetch(
+    { data, loading, error } = useFetch(
       `https://mp3quran.net/api/v3/suwar?language=ar`
     ),
     [surahs, setSurahs] = useState([]),
@@ -126,28 +126,29 @@ export function Surahs() {
       )}
       {loading || isPending ? (
         <Spinner />
+      ) : error ? (
+        <Error />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {surahs.map((surah, index) => (
-            <div key={index} className="">
-              <ItemList
-                item={surah}
-                index={surah.id - 1}
-                click={() => {
-                  getIndex(index);
-                  setId(surah.id);
-                }}
-                download={() => {
-                  handleDownload(
-                    `${passRewayah.server}${String(surah.id).padStart(
-                      3,
-                      "0"
-                    )}.mp3`,
-                    `${String(surah.id).padStart(3, "0")}.mp3`
-                  );
-                }}
-              />
-            </div>
+            <ItemList
+              key={index}
+              item={surah}
+              index={surah.id - 1}
+              click={() => {
+                setId(surah.id);
+                getIndex(index);
+              }}
+              download={() => {
+                handleDownload(
+                  `${passRewayah.server}${String(surah.id).padStart(
+                    3,
+                    "0"
+                  )}.mp3`,
+                  `${String(surah.id).padStart(3, "0")}.mp3`
+                );
+              }}
+            />
           ))}
         </ul>
       )}

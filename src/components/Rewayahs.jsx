@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useTransition } from "react";
 import { useFetch } from "../hooks/index";
-import { ItemList, Spinner } from "./index";
+import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Rewayahs() {
@@ -12,7 +12,7 @@ export function Rewayahs() {
     findedItem,
     setFindedItem,
   } = useContext(Context);
-  const { data, loading } = useFetch(
+  const { data, loading, error } = useFetch(
     `https://mp3quran.net/api/v3/reciters?language=ar&reciter=${passReciter.id}`
   );
   const [id, setId] = useState();
@@ -44,10 +44,12 @@ export function Rewayahs() {
 
   return (
     <section className="rewayahs">
-      {(loading || isPending) ? (
+      {loading || isPending ? (
         <Spinner />
+      ) : error ? (
+        <Error />
       ) : (
-        <ul className="mt-2 space-y-4 animate-opacity">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {moshafs.map((moshaf, index) => (
             <ItemList
               key={index}

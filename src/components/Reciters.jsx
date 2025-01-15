@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState, useTransition } from "react";
 import { useFetch } from "../hooks/index";
-import { ItemList, Spinner } from "./index";
+import { Error, ItemList, Spinner } from "./index";
 import { Context } from "../context/Context";
 
 export function Reciters() {
@@ -11,7 +11,7 @@ export function Reciters() {
     findedItem,
     setFindedItem,
   } = useContext(Context);
-  const { data, loading } = useFetch(
+  const { data, loading, error } = useFetch(
     `https://mp3quran.net/api/v3/reciters?language=ar`
   );
   const [reciters, setReciters] = useState([]);
@@ -43,8 +43,10 @@ export function Reciters() {
 
   return (
     <section className="reciters">
-      {(loading || isPending) ? (
+      {loading || isPending ? (
         <Spinner />
+      ) : error ? (
+        <Error />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-4 animate-opacity">
           {reciters.map((reciter, index) => (
