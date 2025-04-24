@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: uthmani;
+    src: url("/uthmani.ttf");
+  }
+  #root {
+    font-family: uthmani;
+  }
+  button:active {
+    transform: scale(0.95);
+  }
+}
+@layer components {
+  #root {
+    @apply animate-softVision;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-slate-50 dark:bg-neutral-950 text-black dark:text-white;
+  }
+}
