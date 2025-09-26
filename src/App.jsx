@@ -1,7 +1,6 @@
 import { ContextProvider } from "./context/Context";
-import { PlayerAudio } from "./layouts/index";
+import { PlayerAudio, LayoutRoot } from "./layouts/index";
 import "./App.css";
-import { LayoutRoot } from "./layouts/layoutRoot";
 import { Route, Routes } from "react-router";
 import { Langs, Msahfs, Hadiths, NotFound, QuranAudios, Radios } from "./pages";
 
