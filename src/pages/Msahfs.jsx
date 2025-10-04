@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFetch } from "../hooks";
 import { DropDown } from "../layouts/DropDown";
 import { Loading } from "../components";
@@ -7,13 +7,6 @@ export const Msahfs = () => {
   const [page, setPage] = useState(1);
   const [rewayah, setRewayah] = useState("hafs");
   const { data, loading } = useFetch("https://www.mp3quran.net/api/v3/suwar");
-
-  useEffect(() => {
-    const url = `https://maknoon.com/quran/${rewayah}/${page}.svgz`;
-    fetch(url)
-      .then((res) => res.text())
-      .catch((data) => console.log(data));
-  }, [rewayah, page]);
 
   const rewayat = [
     { name: "رواية حفص عن عاصم", path: "hafs" },
@@ -41,17 +34,17 @@ export const Msahfs = () => {
           width="w-40"
         />
       </div>
-      <div className="flex justify-center items-center space-x-2 space-x-reverse">
+      <div className="flex justify-center items-center md:space-x-2 md:space-x-reverse">
         <button
           onClick={() => setPage((prev) => prev - 1)}
-          className="bg-blue-200 dark:bg-blue-950 hover:bg-red-200 w-14 h-14 rounded-full grid place-content-center"
+          className="max-md:absolute max-md:right-0 bg-slate-200 hover:bg-red-200 w-10 h-10 md:w-14 md:h-14 rounded-full grid place-content-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="currentColor"
+            stroke="black"
             className="size-4 lg:size-5 xl:size-6"
           >
             <path
@@ -63,20 +56,20 @@ export const Msahfs = () => {
         </button>
 
         <img
-          className="w-3/4 max-w-[50%] bg-slate-200 p-2 rounded"
+          className="md:w-3/4 lg:w-1/2 bg-slate-200 p-2 rounded"
           src={`https://maknoon.com/quran/${rewayah}/${page}.svgz`}
         />
 
         <button
           onClick={() => setPage((prev) => prev + 1)}
-          className="bg-blue-200 dark:bg-blue-950 hover:bg-red-200 w-14 h-14 rounded-full grid place-content-center"
+          className="max-md:absolute max-md:left-0 bg-slate-200 hover:bg-red-200 w-10 h-10 md:w-14 md:h-14 rounded-full grid place-content-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
-            stroke="currentColor"
+            stroke="black"
             className="size-4 lg:size-5 xl:size-6"
           >
             <path

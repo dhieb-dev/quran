@@ -7,7 +7,6 @@ const navList = [
   { name: "القرآن الكريم", path: "/" },
   { name: "الإذاعات", path: "/radios" },
   { name: "المصاحف", path: "/mashafs" },
-  { name: "الأحاديث", path: "/hadiths" },
 ];
 export const Nav = () => {
   const [open, setOpen] = useState(false);
