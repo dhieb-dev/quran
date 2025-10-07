@@ -6,6 +6,7 @@ export { TopBack } from "./TopBack";
 export { GoBack } from "./GoBack";
 export { Loading } from "./Loading";
 export { IsOnline } from "./IsOnline";
-export { ProgressAudio } from "./ProgressAudio";
+export { ProgressPlayer } from "./ProgressPlayer";
+export { ControlsPlayer } from "./ControlsPlayer";
 export { ListSurahs } from "./ListSurahs";
 export { Search } from "./Search";

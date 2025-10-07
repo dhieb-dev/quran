@@ -2,7 +2,7 @@ export const GoBack = ({ onclick }) => {
   return (
     <button
       onClick={onclick}
-      className="w-6 h-6 rounded-full p-1 bg-blue-200 dark:bg-gray-700"
+      className="w-6 h-6 rounded-full p-1 bg-blue-50 dark:bg-gray-950"
     >
       <svg
         version="1.1"

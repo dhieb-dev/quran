@@ -5,7 +5,6 @@ export const Search = ({ getSearchArr, setResult }) => {
   const [searchArr, setSearchArr] = useState(getSearchArr);
   useEffect(() => {
     if (input) {
-      // if (searchArr)
       setResult(searchArr.filter((item) => item.name.includes(input)));
     } else {
       setResult();
@@ -15,8 +14,8 @@ export const Search = ({ getSearchArr, setResult }) => {
   return (
     <div className="relative my-3">
       <input
-        className="px-3 w-48 py-1 bg-white dark:bg-slate-950 rounded-lg focus:outline-none border"
-        type="text"
+        className="px-3 w-48 py-1 bg-slate-100 dark:bg-black/90 rounded-md border-2 focus:outline-none focus:border-sky-200 dark:focus:border-sky-900  border-slate-300 dark:border-slate-900"
+        type="search"
         placeholder="بحث"
         value={input}
         onChange={(e) => setInput(e.target.value)}

@@ -13,7 +13,7 @@ export const Theme = () => {
   return (
     <button
       onClick={() => setTheme((prev) => !prev)}
-      className="w-8 h-8 p-1.5 rounded-full bg-slate-200 dark:bg-slate-800"
+      className="w-8 h-8 p-1.5 rounded-full bg-gray-200 dark:bg-neutral-800"
     >
       {theme ? (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">

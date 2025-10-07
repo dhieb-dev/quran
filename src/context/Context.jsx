@@ -3,18 +3,12 @@ const Context = createContext(null);
 export const ContextProvider = ({ children }) => {
   const [reciterData, setReciterData] = useState(null);
   const [moshafData, setMoshafData] = useState();
-  const [audioIndex, setAudioIndex] = useState(" ");
-  const [audioList, setAudioList] = useState(null);
-  const [lang, setLang] = useState({native: "العربية", locale: "ar"});
+  const [lang, setLang] = useState({ native: "العربية", locale: "ar" });
   const values = {
     reciterData,
     setReciterData,
     moshafData,
     setMoshafData,
-    audioIndex,
-    setAudioIndex,
-    audioList,
-    setAudioList,
     lang,
     setLang,
   };

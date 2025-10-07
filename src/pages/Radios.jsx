@@ -1,21 +1,20 @@
 import { useFetch } from "../hooks/index";
 import { ListItem, Loading, Search } from "../components/index";
 import { useContext, useEffect, useState } from "react";
-import Context from "../context/Context";
+import { AudiosContext } from "../context/index";
 
 export const Radios = () => {
   const { data, loading } = useFetch("https://www.mp3quran.net/api/v3/radios");
-  const { setAudioIndex, setAudioList } = useContext(Context);
-  const [radiosArr, setRadiosArr] = useState([]);
+  const { setAudioIndex, setAudioList } = useContext(AudiosContext);
+  const [radiosArr, setRadiosArr] = useState();
   const [result, setResult] = useState();
 
   useEffect(() => {
+    if (result) return setRadiosArr(result);
     if (data) {
-      const radios = data.radios.map((radio) => [radio.name, radio.url]);
       setRadiosArr(data.radios);
-      setAudioList(radios);
+      setAudioList(data.radios.map((radio) => [radio.name, radio.url]));
     }
-    if (result) setRadiosArr(result);
   }, [data, setAudioList, result]);
 
   if (loading) return <Loading />;
@@ -27,11 +26,15 @@ export const Radios = () => {
         <p>{radiosArr.length <= 0 ? "لا يوجد" : radiosArr.length} إذاعة</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 animate-softVision">
-        {radiosArr.map((radio, index) => (
+        {radiosArr?.map((radio, index) => (
           <ListItem
             handleClick={() => setAudioIndex(index)}
             key={radio.id}
-            name={radio.name.replaceAll("---", "").replaceAll("***", "")}
+            name={radio.name
+              .replace("---", "")
+              .replace("---", "")
+              .replace("***", "")
+              .replace("***", "")}
             index={index + 1}
           />
         ))}

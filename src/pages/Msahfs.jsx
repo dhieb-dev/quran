@@ -56,7 +56,7 @@ export const Msahfs = () => {
         </button>
 
         <img
-          className="md:w-3/4 lg:w-1/2 bg-slate-200 p-2 rounded"
+          className="w-full md:w-3/4 lg:w-1/2 bg-slate-200 p-2 rounded"
           src={`https://maknoon.com/quran/${rewayah}/${page}.svgz`}
         />
 

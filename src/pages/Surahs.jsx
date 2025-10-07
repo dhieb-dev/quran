@@ -1,12 +1,12 @@
 import { useFetch } from "../hooks/index";
 import { ListItem, Loading, Search } from "../components/index";
 import { useContext, useEffect, useState } from "react";
-import Context from "../context/Context";
+import { Context, AudiosContext } from "../context/index";
 
 export const Surahs = () => {
   const { data, loading } = useFetch("https://www.mp3quran.net/api/v3/suwar");
-  const { reciterData, moshafData, setAudioIndex, setAudioList } =
-    useContext(Context);
+  const { reciterData, moshafData } = useContext(Context);
+  const { setAudioIndex, setAudioList } = useContext(AudiosContext);
   const [suwar, setSuwar] = useState([]);
   const [moshaf, setMoshaf] = useState(reciterData?.moshaf[0]);
   const [result, setResult] = useState();

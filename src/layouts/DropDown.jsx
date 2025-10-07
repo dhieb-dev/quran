@@ -12,7 +12,7 @@ export const DropDown = ({ optionsArray, initialValue, optionTask, width }) => {
       <button
         ref={btn}
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-200 dark:bg-blue-950 w-full py-1 rounded-lg"
+        className="bg-blue-100 dark:bg-gray-900 w-full py-1 rounded-lg"
       >
         {initial ?? initialValue}
       </button>
@@ -21,7 +21,7 @@ export const DropDown = ({ optionsArray, initialValue, optionTask, width }) => {
           {optionsArray.map((option, index) => (
             <button
               key={index}
-              className="block bg-blue-200 dark:bg-blue-950 w-full mb-1 py-1 rounded-lg"
+              className="block bg-blue-100 dark:bg-gray-800 w-full mb-1 py-1 rounded-lg"
               onClick={() => {
                 setInitial(option.name);
                 optionTask(option);
