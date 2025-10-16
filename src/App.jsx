@@ -1,5 +1,5 @@
 import { ContextProvider } from "./context/Context";
-import { PlayerAudio, LayoutRoot } from "./layouts/index";
+import { LayoutRoot } from "./layouts/index";
 import "./App.css";
 import { Route, Routes } from "react-router";
 import { Langs, Msahfs, NotFound, QuranAudios, Radios } from "./pages";
@@ -18,7 +18,6 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
-        <PlayerAudio />
       </AudiosContextProvider>
     </ContextProvider>
   );

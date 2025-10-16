@@ -27,4 +27,10 @@
   a {
     @apply block;
   }
+  ::-webkit-scrollbar {
+    @apply w-1 bg-slate-400 dark:bg-zinc-700;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 dark:bg-zinc-300;
+  }
 }

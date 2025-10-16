@@ -28,8 +28,10 @@ export const Surahs = () => {
     if (moshafData) setMoshaf(moshafData);
   }, [moshafData]);
 
-  // Add Surahs & Names to the State (AudioList in Context)
-  useEffect(() => {
+  if (loading) return <Loading />;
+
+  const handleClick = (index) => {
+    setAudioIndex(index);
     if (suwar) {
       setAudioList(
         suwar.map((surah) => [
@@ -38,9 +40,7 @@ export const Surahs = () => {
         ])
       );
     }
-  }, [suwar, setAudioList, moshaf]);
-
-  if (loading) return <Loading />;
+  };
 
   return (
     <section>
@@ -51,7 +51,7 @@ export const Surahs = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 animate-softVision">
         {suwar.map((surah, index) => (
           <ListItem
-            handleClick={() => setAudioIndex(index)}
+            handleClick={() => handleClick(index)}
             key={surah.id}
             name={surah.name}
             index={surah.id}

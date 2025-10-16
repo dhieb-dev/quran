@@ -1,6 +1,5 @@
 import { useFetch } from "../hooks/index";
-import { ListItem } from "./ListItem";
-import { Loading } from "./Loading";
+import { ListItem, Loading } from "./index";
 
 export const ListSurahs = ({ setIdSurah }) => {
   const { data, loading } = useFetch("https://www.mp3quran.net/api/v3/suwar");

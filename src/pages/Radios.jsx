@@ -13,12 +13,16 @@ export const Radios = () => {
     if (result) return setRadiosArr(result);
     if (data) {
       setRadiosArr(data.radios);
-      setAudioList(data.radios.map((radio) => [radio.name, radio.url]));
     }
   }, [data, setAudioList, result]);
 
   if (loading) return <Loading />;
 
+  const handleClick = (index) => {
+    setAudioIndex(index);
+    if (radiosArr)
+      setAudioList(radiosArr.map((radio) => [radio.name, radio.url]));
+  };
   return (
     <section>
       <div className="flex justify-between items-center">
@@ -28,7 +32,7 @@ export const Radios = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 animate-softVision">
         {radiosArr?.map((radio, index) => (
           <ListItem
-            handleClick={() => setAudioIndex(index)}
+            handleClick={() => handleClick(index)}
             key={radio.id}
             name={radio.name
               .replace("---", "")

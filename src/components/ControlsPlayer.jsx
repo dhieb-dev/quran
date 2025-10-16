@@ -1,27 +1,31 @@
-import { useContext } from "react";
-import AudiosContext from "../context/AudiosContext";
+import { useContext, useRef } from "react";
+import { AudiosContext } from "../context/index";
+import { useClickAnywhere } from "../hooks";
 import {
+  ListIcon,
   NextIcon,
   PlayIcon,
   PrevIcon,
   RegularIcon,
+  RepeatOneIcon,
   ShuffleIcon,
-  StopIcon,
+  PauseIcon,
 } from "../icons/index";
 
 export const ControlsPlayer = ({
-  audioRef,
+  audio,
   audioSrc,
   isPlay,
   setIsPlay,
   audioControls,
   setAudioControls,
+  setIsOpen,
+  checkUrl,
 }) => {
   const { setAudioIndex } = useContext(AudiosContext);
+  const listBtn = useRef(null);
 
-  // Click Btns Play Or Pause
   const playOrPause = () => {
-    const audio = audioRef;
     if (audio.paused) {
       setIsPlay(true);
       audio.play();
@@ -30,9 +34,12 @@ export const ControlsPlayer = ({
       audio.pause();
     }
   };
+
+  useClickAnywhere(listBtn, () => setIsOpen(false));
   return (
     <div className="controls flex justify-around items-center mb-2">
       {audioSrc && <p>{audioSrc[0]}</p>}
+
       <button
         onClick={() => setAudioIndex((prev) => prev - 1)}
         className="prev w-5 h-5"
@@ -40,7 +47,7 @@ export const ControlsPlayer = ({
         <PrevIcon />
       </button>
       <button onClick={playOrPause} className="play-pause w-6 h-6">
-        {isPlay ? <PlayIcon /> : <StopIcon />}
+        {isPlay ? <PauseIcon /> : <PlayIcon />}
       </button>
       <button
         className="next w-5 h-5"
@@ -48,30 +55,34 @@ export const ControlsPlayer = ({
       >
         <NextIcon />
       </button>
+      {!checkUrl.includes("radio") && (
+        <button
+          onClick={() => {
+            if (audioControls === null) {
+              setAudioControls("shuffle");
+            } else if (audioControls === "shuffle") {
+              setAudioControls("repeat-one");
+            } else {
+              setAudioControls(null);
+            }
+          }}
+          className="w-6 h-6"
+        >
+          {audioControls === "shuffle" ? (
+            <ShuffleIcon />
+          ) : audioControls === "repeat-one" ? (
+            <RepeatOneIcon />
+          ) : audioControls === null ? (
+            <RegularIcon />
+          ) : null}
+        </button>
+      )}
       <button
-        onClick={() => {
-          if (audioControls === null) {
-            setAudioControls("regular");
-          } else if (audioControls === "regular") {
-            setAudioControls("shuffle");
-          } else if (audioControls === "random") {
-            setAudioControls("repeat-one");
-          } else {
-            setAudioControls(null);
-          }
-        }}
-        className={`w-6 h-6 ${audioControls === null && "opacity-20"}`}
+        ref={listBtn}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="prev w-5 h-5"
       >
-        {audioControls === "shuffle" ? (
-          <ShuffleIcon />
-        ) : audioControls === "repeat-one" ? (
-          <p>one</p>
-        ) : audioControls === "regular" ? (
-          <RegularIcon />
-        ) : (
-          <p>off</p>
-          // <RepeatOffIcon className="w-6 h-6" /> // أو تخليه فاضي/شفاف
-        )}
+        <ListIcon />
       </button>
     </div>
   );

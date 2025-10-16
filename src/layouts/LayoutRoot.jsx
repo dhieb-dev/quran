@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import { Footer, Header } from "./index";
+import { Footer, Header, PlayerAudio } from "./index";
 import { IsOnline, TopBack } from "../components/index";
 
 export const LayoutRoot = () => {
@@ -11,6 +11,7 @@ export const LayoutRoot = () => {
       </main>
       <TopBack />
       <IsOnline />
+      <PlayerAudio />
       <Footer />
     </>
   );

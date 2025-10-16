@@ -1,79 +1,64 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ControlsPlayer, ProgressPlayer } from "../components/index";
 import AudiosContext from "../context/AudiosContext";
 
 export const PlayerAudio = () => {
-  const { audioIndex, audioList } = useContext(AudiosContext);
-  const [audioContents, setAudioContents] = useState({
-    duration: "00:00",
-    currentTime: "00:00",
-    progress: "0%",
-  });
+  const { audioIndex, setAudioIndex, audioList } = useContext(AudiosContext);
+
   const [isPlay, setIsPlay] = useState(false);
   const [audioSrc, setAudioSrc] = useState(null);
   const [audioControls, setAudioControls] = useState(null);
-  const audioRef = useRef(null);
-
-  // Format Duration and Current Time
-  const formatTime = (time) => {
-    if (isNaN(time)) return "00:00";
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
-      2,
-      "0"
-    )}`;
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [audio, setAudio] = useState(null);
 
   useEffect(() => {
     if (audioList) setAudioSrc(audioList[audioIndex]);
   }, [audioIndex, audioList]);
 
-  // Update duration, Current Time and Progress
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-    const updateTime = () => {
-      let duration = audio.duration || 0;
-      const currentTime = audio.currentTime || 0;
-      const progress = ((currentTime / duration) * 100).toFixed(2) + "%";
-      if (duration === Infinity) duration = 0;
-      setAudioContents((prev) => ({
-        ...prev,
-        duration: formatTime(duration),
-        currentTime: formatTime(currentTime),
-        progress,
-      }));
-    };
-    audio.addEventListener("timeupdate", updateTime);
-    return () => audio.removeEventListener("timeupdate", updateTime);
-  }, [audioSrc]);
-
   return (
     <>
       {audioSrc && (
-        <div
-          dir="rtl"
-          className="fixed bottom-0 right-0 left-0 bg-zinc-200 dark:bg-zinc-900 p-2"
-        >
-          <ControlsPlayer
-            audioSrc={audioSrc}
-            audioRef={audioRef.current}
-            setIsPlay={setIsPlay}
-            isPlay={isPlay}
-            audioControls={audioControls}
-            setAudioControls={setAudioControls}
-          />
-          <ProgressPlayer
-            ref={audioRef}
-            url={audioSrc[1]}
-            duration={audioContents?.duration}
-            currentTime={audioContents?.currentTime}
-            progress={audioContents?.progress}
-            isPlay={setIsPlay}
-            audioControls={audioControls}
-            audioList={audioList}
-          />
+        <div>
+          {isOpen && (
+            <div className="fixed top-0 left-0 right-0 bottom-0 bg-zinc-200/80 dark:bg-zinc-900/90">
+              <div className="flex flex-col absolute top-2 right-2 bottom-20 min-w-32 overflow-y-scroll bg-zinc-200 dark:bg-zinc-900">
+                {audioList.map((itemList, index) => (
+                  <button
+                    className="cursor-pointer px-2 py-1 hover:bg-zinc-100 hover:dark:bg-zinc-800"
+                    key={index}
+                    onClick={() => {
+                      setAudioIndex(index);
+                      setAudioSrc(audioList[index]);
+                    }}
+                  >
+                    {itemList[0]}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          <div
+            dir="rtl"
+            className="progress border-t-2 border-slate-400 dark:border-zinc-700 fixed bottom-0 right-0 left-0 bg-zinc-200 dark:bg-zinc-900 p-2"
+          >
+            <ControlsPlayer
+              audioSrc={audioSrc}
+              audio={audio}
+              setIsPlay={setIsPlay}
+              isPlay={isPlay}
+              audioControls={audioControls}
+              setAudioControls={setAudioControls}
+              setIsOpen={setIsOpen}
+              checkUrl={audioList[0][1]}
+            />
+            <ProgressPlayer
+              setAudio={setAudio}
+              url={audioSrc[1]}
+              isPlay={setIsPlay}
+              audioControls={audioControls}
+              audioList={audioList}
+            />
+          </div>{" "}
         </div>
       )}
     </>
